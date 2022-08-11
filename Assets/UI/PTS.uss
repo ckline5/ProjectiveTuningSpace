@@ -1,0 +1,26 @@
+.PTS {
+    height: auto;
+    flex-direction: column;
+    opacity: 1;
+    -unity-text-align: middle-center;
+    border-left-color: rgba(0, 0, 190, 0.5);
+    border-right-color: rgba(0, 0, 190, 0.5);
+    border-top-color: rgba(0, 0, 190, 0.5);
+    border-bottom-color: rgba(0, 0, 190, 0.5);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: auto;
+    max-width: none;
+    background-color: rgba(63, 63, 63, 0.5);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: space-around;
+    -unity-text-outline-width: 0;
+    text-shadow: 0 0 1px rgb(0, 0, 0);
+}
