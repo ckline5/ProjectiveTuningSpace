@@ -12,8 +12,8 @@ public class Mapping : MonoBehaviour, PTSObject
     public Tuple<float,float,float> w_vals;
     Vector2 projection;
 
-    TuningSpace ts;
-    UIHandler ui;
+    //TuningSpace TuningSpace.Instance;
+    //UIHandler UIHandler.Instance;
 
     public string warts;
 
@@ -23,29 +23,32 @@ public class Mapping : MonoBehaviour, PTSObject
     
     public Val parentVal;
 
+    public float colliderThickness = .001f;
+
     private Color? defaultColor = null;
     public TextMesh text;
 
     BoxCollider col;
+    Renderer renderr;
 
     public string XenWikiURL
     {
         get
         {
             string url = XenConstants.XEN_WIKI_URL_BASE;
-            if (ts.primes.X == 2)
+            if (TuningSpace.Instance.primes.X == 2)
             {
                 //edo
                 url += vals.X + "edo";
             }
-            else if (ts.primes.X == 3)
+            else if (TuningSpace.Instance.primes.X == 3)
             {
                 //edt
                 url += vals.X + "edt";
             }
             else
             {
-                url += vals.X + "ed" + ts.primes.X;
+                url += vals.X + "ed" + TuningSpace.Instance.primes.X;
             }
             return url;
         }
@@ -56,7 +59,7 @@ public class Mapping : MonoBehaviour, PTSObject
         get
         {
             string url = XenConstants.X31EQ_URL_BASE;
-            float limit = Mathf.Max(ts.primes.AsArray);
+            float limit = Mathf.Max(TuningSpace.Instance.primes.AsArray);
             url += $"rt.cgi?ets={vals.X}{warts}&limit={limit}";
             return url;
         }
@@ -67,10 +70,10 @@ public class Mapping : MonoBehaviour, PTSObject
         get
         {
             string url = XenConstants.SCALE_WORKSHOP_URL_BASE;
-            string name = $"{vals.X} Equal Divisions of {ts.primes.X}";
-            if (ts.primes.X % 1 == 0)
+            string name = $"{vals.X} Equal Divisions of {TuningSpace.Instance.primes.X}";
+            if (TuningSpace.Instance.primes.X % 1 == 0)
                 name += "/1";
-            List<float> pitches = XenMath.getScalePitches(this, ts.primes);
+            List<float> pitches = XenMath.getScalePitches(this, TuningSpace.Instance.primes);
             List<string> pitchStrings = new List<string>();
             pitches.ForEach(p => pitchStrings.Add(p % 1 == 0 ? p.ToString() + "." : p.ToString()));
             string data = string.Join("%0A", pitchStrings.ToArray());
@@ -84,14 +87,14 @@ public class Mapping : MonoBehaviour, PTSObject
         get
         {
             string url = XenConstants.XEN_CALC_URL_BASE;
-            if (ts.primes.X == 2)
+            if (TuningSpace.Instance.primes.X == 2)
             {
                 //edo
                 url += vals.X + "EDO";
             }
             else
             {
-                url += vals.X + "ED" + ts.primes.X;
+                url += vals.X + "ED" + TuningSpace.Instance.primes.X;
             }
             return url;
         }
@@ -112,7 +115,7 @@ public class Mapping : MonoBehaviour, PTSObject
         mappingType = MappingType.ET;
         SetEnciphering();
         SetStepSize();
-        w_vals = GetWeightedVals(vals, ts.primes);
+        w_vals = GetWeightedVals(vals, TuningSpace.Instance.primes);
         GetProjection();
         GetTop();
         SetTopRotation();
@@ -125,7 +128,7 @@ public class Mapping : MonoBehaviour, PTSObject
     {
         vals = new Val(x, y, z);
         mappingType = MappingType.TOP;
-        w_vals = GetWeightedVals(vals, ts.primes);
+        w_vals = GetWeightedVals(vals, TuningSpace.Instance.primes);
         GetProjection();
         this.gameObject.name = name;
         SetText();
@@ -180,14 +183,14 @@ public class Mapping : MonoBehaviour, PTSObject
 
     public void GetTop()
     {
-        Val top = getTenneyOptimalTuning(vals, ts.primes);
+        Val top = getTenneyOptimalTuning(vals, TuningSpace.Instance.primes);
         topOffset = getEtCents(top.X - vals.X, vals.X);
     }
 
     public void SetTopRotation()
     {
         transform.localRotation = Quaternion.identity;
-        transform.Rotate(Vector3.back, (topOffset * ts.TopRotationValue));
+        transform.Rotate(Vector3.back, (topOffset * TuningSpace.Instance.TopRotationValue));
     }
 
     public void SetStepSize()
@@ -203,15 +206,16 @@ public class Mapping : MonoBehaviour, PTSObject
     
     void Awake()
     {
-        ts = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
-        ui = GameObject.Find("UI").GetComponent<UIHandler>();
+        //TuningSpace.Instance = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
+        //UIHandler.Instance = GameObject.Find("UI").GetComponent<UIHandler>();
         text = GetComponent<TextMesh>();
+        renderr = GetComponent<Renderer>();
     }
 
     private void Start()
     {
-        ts.OnTopRotationValueChange += TopRotationValueChangeHandler;
-        ts.OnZoomChange += ZoomChangeHandler;
+        TuningSpace.Instance.OnTopRotationValueChange += TopRotationValueChangeHandler;
+        TuningSpace.Instance.OnZoomChange += ZoomChangeHandler;
     }
 
     // Update is called once per frame
@@ -222,7 +226,7 @@ public class Mapping : MonoBehaviour, PTSObject
     public string SetTextFromStyle()
     {
         string txt;
-        if (!ts.displayEncipheredVals && this.mappingType == MappingType.ET_ENCIPHERED)
+        if (!TuningSpace.Instance.displayEncipheredVals && this.mappingType == MappingType.ET_ENCIPHERED)
         {
             txt = "";
         }
@@ -230,13 +234,13 @@ public class Mapping : MonoBehaviour, PTSObject
         {
             if (mappingType == MappingType.ET || mappingType == MappingType.ET_ENCIPHERED)
             {
-                switch (ts.mappingTextStyle)
+                switch (TuningSpace.Instance.mappingTextStyle)
                 {
                     case TuningSpace.MappingTextStyle.EDO:
-                        txt = (vals.X / Mathf.Log(ts.primes.X, 2)).ToString();
+                        txt = (vals.X / Mathf.Log(TuningSpace.Instance.primes.X, 2)).ToString();
                         break;
                     case TuningSpace.MappingTextStyle.EDO_WITH_WARTS:
-                        txt = (vals.X / Mathf.Log(ts.primes.X, 2)).ToString();
+                        txt = (vals.X / Mathf.Log(TuningSpace.Instance.primes.X, 2)).ToString();
                         txt += warts;
                         break;
                     case TuningSpace.MappingTextStyle.X_VAL:
@@ -255,22 +259,22 @@ public class Mapping : MonoBehaviour, PTSObject
                         txt = "•";
                         break;
                     default:
-                        txt = (vals.X / Mathf.Log(ts.primes.X, 2)).ToString();
+                        txt = (vals.X / Mathf.Log(TuningSpace.Instance.primes.X, 2)).ToString();
                         break;
                 }
                 text.characterSize = GetSize();
-                switch (ts.mappingColorStyle)
+                switch (TuningSpace.Instance.mappingColorStyle)
                 {
                     case TuningSpace.MappingColorStyle.BLACK:
                         text.color = Color.black;
                         break;
                     case TuningSpace.MappingColorStyle.RAINBOW_TOP:
-                        text.color = Color.HSVToRGB(((256 * 256 + 100 + topOffset * ts.TopRotationValue) % 256) / 256, 1, 1);
+                        text.color = Color.HSVToRGB(((256 * 256 + 100 + topOffset * TuningSpace.Instance.TopRotationValue) % 256) / 256, 1, 1);
                         break;
                     case TuningSpace.MappingColorStyle.RAINBOW_INTERVAL:
-                        if (ts.rainbowIntervalSelection.Monzos != null)
+                        if (TuningSpace.Instance.rainbowIntervalSelection.Monzos != null)
                         {
-                            float cents = getEtCents(getSteps(this.vals, new Interval(ts.rainbowIntervalSelection, ts.primes)), this.vals.X);
+                            float cents = getEtCents(getSteps(this.vals, new Interval(TuningSpace.Instance.rainbowIntervalSelection, TuningSpace.Instance.primes)), this.vals.X);
                             if (cents == 0)
                                 text.color = Color.black;
                             else
@@ -318,48 +322,50 @@ public class Mapping : MonoBehaviour, PTSObject
             case MappingType.ET:
             case MappingType.ET_ENCIPHERED:
                 size = vals.X != 0 ? 1 / vals.X : 1;
-                size /= Mathf.Sqrt(ts.scaling / ts.MetaZoom);
-                size *= (ts.Zoom + 1) / 2f;
+                //size /= Mathf.Log(TuningSpace.Instance.scaling / TuningSpace.Instance.MetaZoom * .5f);
+                size /= 3.69897f;
+                //size *= (TuningSpace.Instance.Zoom + 1) / 2f;
+                size *= Mathf.Log(((TuningSpace.Instance.Zoom + .1f) *.5f + 1));
                 break;
             case MappingType.JIP:
-                size = (1 / ts.scaling) * ts.Zoom/1.5f;
+                size = (1 / TuningSpace.Instance.scaling) * TuningSpace.Instance.Zoom/1.5f;
                 break;
             case MappingType.TOP:
-                size = (.8f / ts.scaling) * ts.Zoom/1.5f;
+                size = (.8f / TuningSpace.Instance.scaling) * TuningSpace.Instance.Zoom/1.5f;
                 break;
             default:
                 break;
         }
-        return size/5;
+        return size/6;
     }
 
     string GetWart()
     {
         string txt = "";
-        if (IsPatentVal(vals, ts.primes))
+        if (IsPatentVal(vals, TuningSpace.Instance.primes))
         {
             txt += "p";
         }
         else
         {
-            Val pat = GetPatentVal(vals.X, ts.primes);
-            Tuple<int,int,int> offset = GetOffsetFromPatentVal(vals, ts.primes);
+            Val pat = GetPatentVal(vals.X, TuningSpace.Instance.primes);
+            Tuple<int,int,int> offset = GetOffsetFromPatentVal(vals, TuningSpace.Instance.primes);
 
             if (offset.Item1 > 0)
             {
-                char ch = (char)('a' + GetNumberOfPrime((int)ts.primes.X));
+                char ch = (char)('a' + GetNumberOfPrime((int)TuningSpace.Instance.primes.X));
                 for (int i = 0; i < offset.Item1; i++)
                     txt += ch;
             }
             if (offset.Item2 > 0)
             {
-                char ch = (char)('a' + GetNumberOfPrime((int)ts.primes.Y));
+                char ch = (char)('a' + GetNumberOfPrime((int)TuningSpace.Instance.primes.Y));
                 for (int i = 0; i < offset.Item2; i++)
                     txt += ch;
             }
             if (offset.Item3 > 0)
             {
-                char ch = (char)('a' + GetNumberOfPrime((int)ts.primes.Z));
+                char ch = (char)('a' + GetNumberOfPrime((int)TuningSpace.Instance.primes.Z));
                 for (int i = 0; i < offset.Item3; i++)
                     txt += ch;
             }
@@ -379,9 +385,8 @@ public class Mapping : MonoBehaviour, PTSObject
             col = this.gameObject.AddComponent<BoxCollider>();
         if (!string.IsNullOrWhiteSpace(text.text))
         {
-            Renderer renderer = GetComponent<Renderer>();
             col.center = Vector3.zero;
-            col.size = new Vector3(renderer.bounds.size.x, renderer.bounds.size.y, .01f);
+            col.size = new Vector3(renderr.bounds.size.x, renderr.bounds.size.y, colliderThickness);
         }
         else
         {
@@ -392,7 +397,7 @@ public class Mapping : MonoBehaviour, PTSObject
     private void TopRotationValueChangeHandler(float newVal)
     {
         SetTopRotation();
-        if (ts.mappingColorStyle == TuningSpace.MappingColorStyle.RAINBOW_TOP)
+        if (TuningSpace.Instance.mappingColorStyle == TuningSpace.MappingColorStyle.RAINBOW_TOP)
         {
             SetTextFromStyle();
         }
@@ -408,13 +413,13 @@ public class Mapping : MonoBehaviour, PTSObject
     private void OnDestroy()
     {
         // Unsubscribe from event(s)
-        ts.OnTopRotationValueChange -= TopRotationValueChangeHandler;
-        ts.OnZoomChange -= ZoomChangeHandler;
+        TuningSpace.Instance.OnTopRotationValueChange -= TopRotationValueChangeHandler;
+        TuningSpace.Instance.OnZoomChange -= ZoomChangeHandler;
 
         // And stop all coroutines
         StopAllCoroutines();
 
-        ts.Remove(this);
+        TuningSpace.Instance.Remove(this);
     }
 
     public bool Equals(Mapping m)
@@ -425,13 +430,18 @@ public class Mapping : MonoBehaviour, PTSObject
 
     public void OnSelect()
     {
-        ui.UpdatePTSObjectInfo(this);
+        UIHandler.Instance.UpdatePTSObjectInfo(this);
         text.color = Color.yellow;
     }
 
     public void OnJoinInit()
     {
         text.color = Color.blue;
+    }
+
+    public void OnJoinCancel()
+    {
+        text.color = Color.yellow;
     }
 
     public void OnDeselect()
@@ -442,21 +452,21 @@ public class Mapping : MonoBehaviour, PTSObject
 
     public void OnMouseEnter()
     {
-        if (!ui.mouseInUI)
-            if (this != (object)ts.SelectedObject && this.mappingType != MappingType.JIP)
+        if (!UIHandler.Instance.mouseInUI)
+            if (this != (object)TuningSpace.Instance.SelectedObject && this.mappingType != MappingType.JIP)
                 text.color = Color.cyan;
     }
 
     public void OnMouseOver()
     {
-        if (ui.mouseInUI)
-            if (this != (object)ts.SelectedObject && this.mappingType != MappingType.JIP)
+        if (UIHandler.Instance.mouseInUI)
+            if (this != (object)TuningSpace.Instance.SelectedObject && this.mappingType != MappingType.JIP)
                 text.color = defaultColor ?? Color.black;
     }
 
     private void OnMouseExit()
     {
-        if (this != (object)ts.SelectedObject && this.mappingType != MappingType.JIP)
+        if (this != (object)TuningSpace.Instance.SelectedObject && this.mappingType != MappingType.JIP)
             text.color = defaultColor ?? Color.black;
     }
 

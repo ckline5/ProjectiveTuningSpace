@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DamageHexagon : MonoBehaviour
 {
-    TuningSpace ts;
+    //TuningSpace TuningSpace.Instance;
     LineRenderer line;
 
     private const float DAMAGE_TO_LENGTH_RATIO = 0.0808536957313274717100240214488f;
@@ -32,14 +32,14 @@ public class DamageHexagon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ts.OnZoomChange += ZoomChangeHandler;
+        TuningSpace.Instance.OnZoomChange += ZoomChangeHandler;
     }
 
     void Awake()
     {
-        ts = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
+        //TuningSpace.Instance = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
         line = GetComponent<LineRenderer>();
-        line.startWidth = .003f * ts.Zoom/1.5f;
+        line.startWidth = .003f * TuningSpace.Instance.Zoom/1.5f;
         line.endWidth = line.startWidth;
         line.startColor = Color.black;
         line.endColor = Color.black;
@@ -61,11 +61,11 @@ public class DamageHexagon : MonoBehaviour
     private void OnDestroy()
     {
         // Unsubscribe from event(s)
-        ts.OnZoomChange -= ZoomChangeHandler;
+        TuningSpace.Instance.OnZoomChange -= ZoomChangeHandler;
 
         // And stop all coroutines
         StopAllCoroutines();
 
-        ts.Remove(this);
+        TuningSpace.Instance.Remove(this);
     }
 }

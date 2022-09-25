@@ -8,10 +8,17 @@ using static XenMath;
 
 public class TuningSpace : MonoBehaviour
 {
-    private UIHandler ui;
-    FPSFlyer player;
+    private static TuningSpace _instance;
+    public static TuningSpace Instance { get { return _instance; } }
+
+    [TextArea(3,10)]
+    public string introductionMessage;
+
+    //private UIHandler UIHandler.Instance;
+    //FPSFlyer FPSFlyer.Instance;
 
     public PrimeBasis primes;
+    public float min_val = 0;
     public float max_val = 100;
     public int max_offset = 2;
     public float scaling = 100;
@@ -35,9 +42,13 @@ public class TuningSpace : MonoBehaviour
     public float topRotationSpeed = 0;
 
     public Mapping mapping_prefab;
-    public Comma comma_prefab;
+    public Comma Comma_prefab;
     public DamageHexagon hexagon_prefab;
     public MOS mos_prefab;
+    
+    public MOS mos;
+    public MOS miniMos;
+    public MeshRenderer miniMosMesh;
 
     //public static readonly int[] prime_numbers = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
 
@@ -68,16 +79,24 @@ public class TuningSpace : MonoBehaviour
         }
     }
 
+    public bool CenterNewTemperament { get; set; }
+
     Mapping jip;
     List<Mapping> mappings = new List<Mapping>();
-    List<Comma> commas = new List<Comma>();
+    List<Comma> Commas = new List<Comma>();
     List<DamageHexagon> hexagons = new List<DamageHexagon>();
+
+    public int MappingsCount { get { return mappings.Count; } }
 
     public enum JoinMode
     {
         NONE,
         MAPPING,
-        COMMA
+        COMMA,
+        MAPPING_MERGE_PLUS,
+        MAPPING_MERGE_MINUS,
+        COMMA_MERGE_PLUS,
+        COMMA_MERGE_MINUS
     };
     public JoinMode joinMode;
 
@@ -91,31 +110,67 @@ public class TuningSpace : MonoBehaviour
             if (selectedObject == value)
                 return;
 
-            var oldVal = selectedObject;
+            var oldValue = selectedObject;
             selectedObject = value;
-            if (oldVal != null)
-                oldVal.OnDeselect();
+            if (oldValue != null)
+                oldValue.OnDeselect();
             if (selectedObject != null)
                 selectedObject.OnSelect();
             else
-                ui.HidePTSObjectInfo();
-            //OnSelectedObjectChange?.Invoke(oldVal, false);
+                UIHandler.Instance.HidePTSObjectInfo();
+            //OnSelectedObjectChange?.Invoke(oldValue, false);
             //OnSelectedObjectChange?.Invoke(selectedObject, true);
-            if (oldVal != null && selectedObject != null && oldVal.GetType() == SelectedObject.GetType())
+            if (oldValue != null && selectedObject != null && oldValue.GetType() == SelectedObject.GetType())
             {
                 switch (joinMode)
                 {
                     case JoinMode.MAPPING:
-                        Comma c = MakeComma((Mapping)oldVal, (Mapping)SelectedObject);
+                        Comma c = MakeComma((Mapping)oldValue, (Mapping)SelectedObject);
                         joinMode = JoinMode.NONE;
-                        player.SetPosition(c.transform.position);
+                        if (CenterNewTemperament)
+                            FPSFlyer.Instance.SetPosition(c.transform.position);
                         SelectedObject = c;
                         break;
                     case JoinMode.COMMA:
-                        Mapping m = MakeMapping((Comma)oldVal, (Comma)SelectedObject);
+                        Mapping m = MakeMapping((Comma)oldValue, (Comma)SelectedObject);
                         joinMode = JoinMode.NONE;
-                        player.SetPosition(m.transform.position + new Vector3(0, 0, -1));
+                        if (CenterNewTemperament)
+                            FPSFlyer.Instance.SetPosition(m.transform.position + new Vector3(0, 0, -1));
                         SelectedObject = m;
+                        break;
+                    case JoinMode.MAPPING_MERGE_PLUS:
+                        Val merged_mp = ((Mapping)oldValue).vals + ((Mapping)SelectedObject).vals;
+                        Mapping mp = MakeMapping(merged_mp.X, merged_mp.Y, merged_mp.Z);
+                        joinMode = JoinMode.NONE;
+                        if (CenterNewTemperament)
+                            FPSFlyer.Instance.SetPosition(mp.transform.position + new Vector3(0, 0, -1));
+                        SelectedObject = mp;
+                        break;
+                    case JoinMode.MAPPING_MERGE_MINUS:
+                        Val merged_mm = ((Mapping)oldValue).vals - ((Mapping)SelectedObject).vals;
+                        if (merged_mm.X < 0)
+                            merged_mm *= -1;
+                        Mapping mm = MakeMapping(merged_mm.X, merged_mm.Y, merged_mm.Z);
+                        joinMode = JoinMode.NONE;
+                        if (CenterNewTemperament)
+                            FPSFlyer.Instance.SetPosition(mm.transform.position + new Vector3(0, 0, -1));
+                        SelectedObject = mm;
+                        break;
+                    case JoinMode.COMMA_MERGE_PLUS:
+                        Monzo merged_cp = ((Comma)oldValue).TemperedInterval.Monzos + ((Comma)SelectedObject).TemperedInterval.Monzos;
+                        Comma cp = MakeComma(merged_cp.X, merged_cp.Y, merged_cp.Z);
+                        joinMode = JoinMode.NONE;
+                        if (CenterNewTemperament)
+                            FPSFlyer.Instance.SetPosition(cp.transform.position);
+                        SelectedObject = cp;
+                        break;
+                    case JoinMode.COMMA_MERGE_MINUS:
+                        Monzo merged_cm = ((Comma)oldValue).TemperedInterval.Monzos - ((Comma)SelectedObject).TemperedInterval.Monzos;
+                        Comma cm = MakeComma(merged_cm.X, merged_cm.Y, merged_cm.Z);
+                        joinMode = JoinMode.NONE;
+                        if (CenterNewTemperament)
+                            FPSFlyer.Instance.SetPosition(cm.transform.position);
+                        SelectedObject = cm;
                         break;
                     case JoinMode.NONE:
                     default:
@@ -144,7 +199,8 @@ public class TuningSpace : MonoBehaviour
     {
         NAME,
         RATIO,
-        FULL_MONZOS
+        FULL_MONZOS,
+        BLANK
     }
     public CommaTextStyle commaTextStyle;
     private CommaTextStyle prevCommaTextStyle;
@@ -161,16 +217,33 @@ public class TuningSpace : MonoBehaviour
     private Monzo prevRainbowIntervalSelection = new Monzo(0,0,0);
 
     Coroutine populateMappings;
+    Coroutine populateMappings2;
+    Coroutine populateMappings3;
+    Coroutine populateMappings4;
 
     private void Awake()
     {
-        ui = GameObject.Find("UI").GetComponent<UIHandler>();
-        player = GameObject.Find("Player").GetComponent<FPSFlyer>();
+        //UIHandler.Instance = GameObject.Find("UI").GetComponent<UIHandler>();
+        //FPSFlyer.Instance = GameObject.Find("FPSFlyer.Instance").GetComponent<FPSFlyer>();
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+
+        CenterNewTemperament = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        UIHandler.Instance.ShowInfo(introductionMessage);
+        miniMosMesh.gameObject.SetActive(false);
+
         //OnSelectedObjectChange += OnSelectedObjectChangeHandler;
         //StartCoroutine(ProceduralPTS(5, 7, .01f));
     }
@@ -179,13 +252,13 @@ public class TuningSpace : MonoBehaviour
     {
         MakeJIP();
         MakeDamageHexagons(10);
-        ui.ShowHideMenu();
+        UIHandler.Instance.ShowHideMenu();
         yield return new WaitForSeconds(3f);
         int count = 0;
         for (float z = from; z <= to + by / 2; z += by)
         {
             primes = new PrimeBasis(2, 3, z);
-            for (int i = 0; i < max_val; i++)
+            for (int i = (int)min_val; i <= max_val; i++)
             {
                 //first get the patent val
                 Val patentVal = GetPatentVal(i, primes);
@@ -248,7 +321,7 @@ public class TuningSpace : MonoBehaviour
         }
         if (prevCommaTextStyle != commaTextStyle)
         {
-            foreach (Comma c in commas)
+            foreach (Comma c in Commas)
             {
                 c.SetText();
             }
@@ -271,11 +344,12 @@ public class TuningSpace : MonoBehaviour
     {
         DeleteAllMappings();
         DeleteAllCommas();
+        MakeBoundaryMappingsAndCommas();
         populateMappings = StartCoroutine(PopulateMappings());
     }
 
     /// <summary>
-    /// draw default 5-limit commas from Paul's paper
+    /// draw default 5-limit Commas from Paul's paper
     /// </summary>
     public void MakeDefaultCommas()
     {
@@ -312,12 +386,12 @@ public class TuningSpace : MonoBehaviour
         DeleteAllCommas();
         foreach (DamageHexagon h in hexagons)
         {
-            Delete(h);
+            StartCoroutine(Delete(h));
         }
         hexagons.RemoveAll(h => h);
         if (jip != null)
         {
-            Delete(jip);
+            StartCoroutine(Delete(jip));
         }
     }
 
@@ -326,37 +400,43 @@ public class TuningSpace : MonoBehaviour
         if (populateMappings != null)
         {
             StopCoroutine(populateMappings);
+            StopCoroutine(populateMappings2);
+            StopCoroutine(populateMappings3);
+            StopCoroutine(populateMappings4);
         }
         foreach (Mapping m in mappings)
         {
-            Delete(m);
+            StartCoroutine(Delete(m));
         }
         mappings.RemoveAll(m => m);
     }
 
     public void DeleteAllCommas()
     {
-        foreach (Comma c in commas)
+        foreach (Comma c in Commas)
         {
-            Delete(c);
+            StartCoroutine(Delete(c));
         }
-        commas.RemoveAll(c => c);
+        Commas.RemoveAll(c => c);
     }
 
-    public void Delete(Mapping m)
+    public IEnumerator Delete(Mapping m)
     {
         //mappings.Remove(m);
         Destroy(m.gameObject);
+        yield return null;
     }
 
-    public void Delete(Comma c)
+    public IEnumerator Delete(Comma c)
     {
-        //commas.Remove(c);
+        //Commas.Remove(c);
         Destroy(c.gameObject);
+        yield return null;
     }
-    public void Delete(DamageHexagon h)
+    public IEnumerator Delete(DamageHexagon h)
     {
         Destroy(h.gameObject);
+        yield return null;
     }
     public void Remove(Mapping m)
     {
@@ -364,7 +444,7 @@ public class TuningSpace : MonoBehaviour
     }
     public void Remove(Comma c)
     {
-        commas.Remove(c);
+        Commas.Remove(c);
     }
     public void Remove(DamageHexagon h)
     {
@@ -385,37 +465,78 @@ public class TuningSpace : MonoBehaviour
 
     public List<Comma> GetAllCommas()
     {
-        return commas;
+        return Commas;
     }
 
     public List<string> GetAllCommaNames()
     {
         List<string> result = new List<string>();
-        commas.ForEach(c => result.Add(c.ToString()));
+        Commas.ForEach(c => result.Add(c.ToString()));
         return result;
     }
 
+    ///// <summary>
+    ///// Create mappings up to max_val-et
+    ///// </summary>
+    //IEnumerator PopulateMappings()
+    //{
+    //    for (int i = (int)min_val; i <= max_val; i++)
+    //    {
+    //        //first get the patent val
+    //        Val patentVal = GetPatentVal(i, primes);
+    //        for (int j = (int)(patentVal.Y - max_offset >= 0 ? patentVal.Y - max_offset : 0); j <= patentVal.Y + max_offset; j++)
+    //        {
+    //            for (int k = (int)(patentVal.Z - max_offset >= 0 ? patentVal.Z - max_offset : 0); k <= patentVal.Z + max_offset; k++)
+    //            {
+    //                if (!(i == 0 && j == 0 && k == 0)) // avoid < 0 0 0 ]
+    //                {
+    //                    Mapping m = MakeMapping(i, j, k);
+    //                }
+    //                yield return null;
+    //            }
+    //        }
+    //    }
+    //}
+    
     /// <summary>
     /// Create mappings up to max_val-et
     /// </summary>
     IEnumerator PopulateMappings()
     {
-        for (int i = 0; i < max_val; i++)
+        for (int i = (int)min_val; i <= max_val; i++)
         {
             //first get the patent val
             Val patentVal = GetPatentVal(i, primes);
-            for (int j = (int)(patentVal.Y - max_offset >= 0 ? patentVal.Y - max_offset : 0); j <= patentVal.Y + max_offset; j++)
-            {
-                for (int k = (int)(patentVal.Z - max_offset >= 0 ? patentVal.Z - max_offset : 0); k <= patentVal.Z + max_offset; k++)
-                {
-                    if (!(i == 0 && j == 0 && k == 0)) // avoid < 0 0 0 ]
-                    {
-                        Mapping m = MakeMapping(i, j, k);
-                    }
-                    yield return null;
-                }
-            }
+            populateMappings2 = StartCoroutine(PopulateMappings2(patentVal, i));
+            yield return null;
         }
+    }
+
+    IEnumerator PopulateMappings2(Val patentVal, float i)
+    {
+        for (int j = (int)(patentVal.Y - max_offset >= 0 ? patentVal.Y - max_offset : 0); j <= patentVal.Y + max_offset; j++)
+        {
+            populateMappings3 = StartCoroutine(PopulateMappings3(patentVal, i, j));
+            yield return null;
+        }
+    }
+
+    IEnumerator PopulateMappings3(Val patentVal, float i, float j)
+    {
+        for (int k = (int)(patentVal.Z - max_offset >= 0 ? patentVal.Z - max_offset : 0); k <= patentVal.Z + max_offset; k++)
+        {
+            populateMappings4 = StartCoroutine(PopulateMappings4(patentVal, i, j, k));
+            yield return null;
+        }
+    }
+
+    IEnumerator PopulateMappings4(Val patentVal, float i, float j, float k)
+    {
+        if (!(i == 0 && j == 0 && k == 0)) // avoid < 0 0 0 ]
+        {
+            Mapping m = MakeMapping(i, j, k);
+        }
+        yield return null;
     }
 
     public Mapping MakeMapping(float x, float y, float z)
@@ -424,15 +545,15 @@ public class TuningSpace : MonoBehaviour
         Mapping m = Instantiate(mapping_prefab);
         m.Initialize(x, y, z);
         m.transform.parent = this.transform;
-        if (mappings.Where(a => m.Equals(a)).Count() == 0)
+        if (mappings.Where(a => m.vals == a.vals).Count() == 0)
         {
             mappings.Add(m);
             return m;
         }
         else
         {
-            Mapping result = mappings.Where(a => m.Equals(a)).FirstOrDefault();
-            Delete(m);
+            Mapping result = mappings.Where(a => m.vals == a.vals).FirstOrDefault();
+            StartCoroutine(Delete(m));
             return result;
         }
     }
@@ -442,15 +563,15 @@ public class TuningSpace : MonoBehaviour
         Mapping m = Instantiate(mapping_prefab);
         m.MakeTOPTuning(x, y, z, name);
         m.transform.parent = this.transform;
-        if (mappings.Where(a => m.Equals(a)).Count() == 0)
+        if (mappings.Where(a => m.vals == a.vals).Count() == 0)
         {
             mappings.Add(m);
             return m;
         }
         else
         {
-            Mapping result = mappings.Where(a => m.Equals(a)).FirstOrDefault();
-            Delete(m);
+            Mapping result = mappings.Where(a => m.vals == a.vals).FirstOrDefault();
+            StartCoroutine(Delete(m));
             return result;
         }
     }
@@ -460,15 +581,15 @@ public class TuningSpace : MonoBehaviour
         Mapping m = Instantiate(mapping_prefab);
         m.Initialize(c1, c2);
         m.transform.parent = this.transform;
-        if (mappings.Where(a => m.Equals(a)).Count() == 0)
+        if (mappings.Where(a => m.vals == a.vals).Count() == 0)
         {
             mappings.Add(m);
             return m;
         }
         else
         {
-            Mapping result = mappings.Where(a => m.Equals(a)).FirstOrDefault();
-            Delete(m);
+            Mapping result = mappings.Where(a => m.vals == a.vals).FirstOrDefault();
+            StartCoroutine(Delete(m));
             return result;
         }
     }
@@ -495,21 +616,21 @@ public class TuningSpace : MonoBehaviour
 
     public Comma MakeComma(float x, float y, float z, string name)
     {
-        Comma c = Instantiate(comma_prefab);
+        Comma c = Instantiate(Comma_prefab);
         if (string.IsNullOrEmpty(name))
             c.Initialize(x, y, z, "", primes);
         else
             c.Initialize(x, y, z, name, primes);
         c.transform.parent = this.transform;
-        if (commas.Where(a => a.Equals(c)).Count() == 0)
+        if (Commas.Where(a => c.TemperedInterval.Monzos == a.TemperedInterval.Monzos).Count() == 0)
         {
-            commas.Add(c);
+            Commas.Add(c);
             return c;
         }
         else
         {
-            Comma result = commas.Where(a => a.Equals(c)).FirstOrDefault();
-            Delete(c);
+            Comma result = Commas.Where(a => c.TemperedInterval.Monzos == a.TemperedInterval.Monzos).FirstOrDefault();
+            StartCoroutine(Delete(c));
             return result;
         }
 
@@ -517,18 +638,18 @@ public class TuningSpace : MonoBehaviour
 
     public Comma MakeComma(Mapping m1, Mapping m2)
     {
-        Comma c = Instantiate(comma_prefab);
+        Comma c = Instantiate(Comma_prefab);
         c.Initialize(m1, m2, primes);
         c.transform.parent = this.transform;
-        if (commas.Where(a => a.Equals(c)).Count() == 0)
+        if (Commas.Where(a => c.TemperedInterval.Monzos == a.TemperedInterval.Monzos).Count() == 0)
         {
-            commas.Add(c);
+            Commas.Add(c);
             return c;
         }
         else
         {
-            Comma result = commas.Where(a => a.Equals(c)).FirstOrDefault();
-            Delete(c);
+            Comma result = Commas.Where(a => c.TemperedInterval.Monzos == a.TemperedInterval.Monzos).FirstOrDefault();
+            StartCoroutine(Delete(c));
             return result;
         }
     }
@@ -537,6 +658,7 @@ public class TuningSpace : MonoBehaviour
     {
         DamageHexagon h = Instantiate(hexagon_prefab);
         h.Initialize(d);
+        h.transform.parent = this.transform;
         return h;
     }
 
@@ -551,349 +673,66 @@ public class TuningSpace : MonoBehaviour
         return hexagons;
     }
 
+    public void MakeBoundaryMappingsAndCommas()
+    {
+        MakeMapping(1, 0, 0);
+        MakeMapping(0, 1, 0);
+        MakeMapping(0, 0, 1);
+        MakeComma(1, 0, 0);
+        MakeComma(0, 1, 0);
+        MakeComma(0, 0, 1);
+    }
+
     public void SelectObject(PTSObject selected)
     {
         SelectedObject = selected;
     }
-}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////                XEN MATH STUFF STARTS HERE              ////////////////////////
-/////////////                [  moved to XenMath.cs  ]               ////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-/*
-/// <summary>
-/// Gets the patent val for num-et
-/// </summary>
-/// <param name="num">The number of steps to primes.x</param>
-/// <returns>Patent val for all primes</returns>
-public Vector3 GetPatentVal(float num, float? b = null)
-{
-    if (b == null)
-        b = primes.x;
-    int x = Mathf.RoundToInt(num * Mathf.Log(primes.x, (float)b));
-    int y = Mathf.RoundToInt(num * Mathf.Log(primes.y, (float)b));
-    int z = Mathf.RoundToInt(num * Mathf.Log(primes.z, (float)b));
-    return new Vector3(x, y, z);
-}
-
-public bool IsPatentVal(Vector3 inVal)
-{
-    Vector3 pat = GetPatentVal(inVal.x);
-    if (inVal.x == pat.x && inVal.y == pat.y && inVal.z == pat.z)
-        return true;
-    else
-        return false;
-}
-
-public Vector3 GetOffsetFromPatentVal(Vector3 inVal)
-{
-    Vector3 offset = new Vector3();
-    if (IsPatentVal(inVal))
+    public void ViewMainMos(decimal generator, decimal period, decimal equivalenceInterval)
     {
-        offset.Set(0, 0, 0);
+        mos.Initialize(mos.transform.position, generator, period, equivalenceInterval);
+        UIHandler.Instance.UpdateMOSInfo(period.ToString(), generator.ToString(), equivalenceInterval.ToString());
     }
-    else
+
+    public void ViewMiniMos(decimal generator, decimal period, decimal equivalenceInterval)
     {
-        Vector3 pat = GetPatentVal(inVal.x);
-        for (int i = 0; i < 3; i++)
+        miniMos.Initialize(miniMos.transform.position, generator, period, equivalenceInterval);
+        UIHandler.Instance.UpdateMOSInfo(period.ToString(), generator.ToString(), equivalenceInterval.ToString());
+    }
+
+    public void ViewMainMos(PTSObject x)
+    {
+        if (x is Mapping)
         {
-            if (pat[i] == inVal[i])
-            {
-                //val is patent
-                offset[i] = 0;
-            }
-            else if (getEtCents(pat[i], pat.x) < getCents(primes[i], 1))
-            {
-                //patent val is flat
-                //therefore 1st offset is above patent val, 2nd is below, 3rd above, 4th below etc
-                int off = ((int)(inVal[i] - pat[i]));
-                if (off < 0)
-                    off = off * -2;
-                else
-                    off = off * 2 - 1;
-                offset[i] = off;
-            }
-            else
-            {
-                //patent val is sharp
-                //therefore 1st offset is below patent val, 2nd is above, 3rd below, 4th above etc
-                int off = ((int)(inVal[i] - pat[i]));
-                if (off < 0)
-                    off = off * -2 - 1;
-                else
-                    off = off * 2;
-                offset[i] = off;
-            }
+            mos.Initialize(mos.transform.position, 0, ((Mapping)x).stepSize, XenMath.getCents(primes.X));
+            UIHandler.Instance.UpdateMOSInfo((x as Mapping).stepSize.ToString(), "0", XenMath.getCents(primes.X).ToString());
         }
-    }
-    return offset;
-}
-
-/// <summary>
-/// Gets weighted vals for a give set of vals
-/// </summary>
-/// <param name="vals">A set of vals</param>
-/// <returns>Weighted vals according to the primes</returns>
-public Vector3 GetWeightedVals(Vector3 vals)
-{
-    return new Vector3(vals.x / Mathf.Log(primes.x, primes.x), vals.y / Mathf.Log(primes.y, primes.x), vals.z / Mathf.Log(primes.z, primes.x));
-}
-
-public Vector3 GetMonzosFromRatio(float n, float d)
-{
-    if ((n % primes.x == 0 || n % primes.y == 0 || n % primes.z == 0)
-     && (d % primes.x == 0 || d % primes.y == 0 || d % primes.z == 0))
-    {
-        //valid numbers
-        Vector3 monzos = new Vector3(GetPrimeCount(n, primes.x), GetPrimeCount(n, primes.y), GetPrimeCount(n, primes.z))
-                       - new Vector3(GetPrimeCount(d, primes.x), GetPrimeCount(d, primes.y), GetPrimeCount(d, primes.z));
-        return monzos;
-    }
-    else
-        throw new System.FormatException($"Invalid ratio! {n}/{d} is not within the prime basis {primes.x}.{primes.y}.{primes.z}.");
-}
-
-public int GetPrimeCount(float num, float prime)
-{
-    int count = 0;
-    while (num % prime == 0)
-    {
-        num /= prime;
-        count++;
-    }
-    return count;
-}
-
-/// <summary>
-/// Get cents for a given ratio n/d
-/// </summary>
-/// <param name="n">Numerator</param>
-/// <param name="d">Denominator</param>
-/// <returns>Cent value for n/d</returns>
-public float getCents(float n, float d = 1)
-{
-    if (d > 0 && n > d)
-    {
-        return 1200 * (Mathf.Log(n / d) / Mathf.Log(2));
-    }
-    else if (n > 0 && n < d)
-    {
-        return getCents(d, n);
-    }
-    else
-    {
-        return Mathf.NegativeInfinity; //error
-    }
-}
-
-public double getCents(System.Numerics.BigInteger n, System.Numerics.BigInteger d)
-{
-    if (d > 0 && n > d)
-    {
-        return 1200 * (System.Numerics.BigInteger.Log(n / d) / System.Numerics.BigInteger.Log(2));
-    }
-    else if (n > 0 && n < d)
-    {
-        return getCents(d, n);
-    }
-    else
-    {
-        return Mathf.NegativeInfinity; //error
-    }
-}
-
-/// <summary>
-/// Gets cents for a number of steps in a given et
-/// </summary>
-/// <param name="s">Number of steps per primes.x</param>
-/// <param name="e">Equal temperament</param>
-/// <returns></returns>
-public float getEtCents(float s, float e)
-{
-    if (e > 0)
-    {
-        return 1200 * s / e;
-    }
-    else
-    {
-        return Mathf.NegativeInfinity; //error
-    }
-}
-
-/// <summary>
-/// Gets Tenney-Optimal value in cents for prime p when comma n/d is tempered out
-/// </summary>
-/// <param name="n"></param>
-/// <param name="d"></param>
-/// <param name="p"></param>
-/// <returns></returns>
-public float getTenneyOptimalTuning(System.Numerics.BigInteger n, System.Numerics.BigInteger d, float pr)
-{
-    System.Numerics.BigInteger p = (System.Numerics.BigInteger)pr;
-    if (n % p != 0 && d % p != 0) //prime does not occur in comma
-    {
-        return 0;
-    }
-    float top = getCents((float)n, (float)d) * (float)(System.Numerics.BigInteger.Log10(p) / System.Numerics.BigInteger.Log10(n * d));
-    if (n % p == 0) top *= -1;
-    return top;
-}
-
-//for Rank-2
-public Vector3 getTenneyOptimalTuning(System.Numerics.BigInteger n, System.Numerics.BigInteger d)
-{
-    float top_x = getTenneyOptimalTuning(n, d, primes.x) + getCents(primes.x, 1);
-    float top_y = getTenneyOptimalTuning(n, d, primes.y) + getCents(primes.y, 1);
-    float top_z = getTenneyOptimalTuning(n, d, primes.z) + getCents(primes.z, 1);
-    return new Vector3(top_x, top_y, top_z);
-}
-
-//for Rank-1
-public Vector3 getTenneyOptimalTuning(Vector3 mapping)
-{
-    Vector3 weighted = GetWeightedVals(mapping);
-    float avg = (weighted.x + weighted.y + weighted.z) / 3;
-    float offset = mapping.x / avg;
-    Vector3 result = mapping * offset;
-    return result;
-}
-
-/// <summary>
-/// Gets tenney optimal damage in cents when comma n/d is tempered out
-/// </summary>
-/// <param name="n">Numerator of tempered comma</param>
-/// <param name="d">Denominator of tempered comma</param>
-/// <returns>Tenney-Optimal damage in cents when comma n/d is tempered out</returns>
-public double getTenneyOptimalDamage(System.Numerics.BigInteger n, System.Numerics.BigInteger d)
-{
-    return 1200 * (System.Numerics.BigInteger.Log10(n / d) / System.Numerics.BigInteger.Log10(n * d));
-}
-
-/// <summary>
-/// Get number of et-steps to traverse Comma c in Mapping m
-/// </summary>
-/// <param name="m">The mapping</param>
-/// <param name="c">The comma being measured</param>
-/// <returns>Number of steps to traverse Comma c in Mapping m</returns>
-public float getSteps(Mapping m, Comma c)
-{
-    return m.vals.x * c.monzos.x + m.vals.y * c.monzos.y + m.vals.z * c.monzos.z;
-}
-
-public float getSteps(Vector3 m, Vector3 c)
-{
-    return m[0] * c[0] + m[1] * c[1] + m[2] * c[2];
-}
-
-public int gcd(int a, int b)
-{
-    while (b != 0)
-    {
-        int r = a % b;
-        a = b;
-        b = r;
-        //Debug.Log(a);
-    }
-    //Debug.Log(a + " " + b);
-    return a;
-}
-
-// Recursive function to demonstrate the extended Euclidean algorithm.
-// It returns multiple values using Tuple in C++.
-public Tuple<int, int, int> extendedGcd(int a, int b)
-{
-    if (a == 0)
-    {
-        return new Tuple<int,int,int>(b, 0, 1);
-    }
-
-    int g, x, y;
-
-    // unpack Tuple returned by function into variables
-    Tuple<int,int,int> t = extendedGcd(b % a, a);
-    g = t.Item1;
-    x = t.Item2;
-    y = t.Item3;
-
-    return new Tuple<int,int,int>(g, (y - (b / a) * x), x);
-}
-
-public Vector3 AntiNullSpaceBasis(Vector3 v1, Vector3 v2)
-{
-    Vector3 result = Vector3.zero;
-    int tries = 0;
-    float a = v1.x;
-    float b = v1.y;
-    float c = v1.z;
-    float d = v2.x;
-    float e = v2.y;
-    float f = v2.z;
-    do
-    {
-        tries++;
-        float bd_ae = b * d - a * e;
-        float cd_af = c * d - a * f;
-        result = new Vector3(-f * bd_ae + e * cd_af, -d * cd_af, d * bd_ae);
-        if (result == Vector3.zero)
+        else if (x is Comma)
         {
-            switch (tries)
-            {
-                case 1:
-                    a = v1.y;
-                    b = v1.z;
-                    c = v1.x;
-                    d = v2.y;
-                    e = v2.z;
-                    f = v2.x;
-                    break;
-                case 2:
-                    a = v1.z;
-                    b = v1.x;
-                    c = v1.y;
-                    d = v2.z;
-                    e = v2.x;
-                    f = v2.y;
-                    break;
-                default:
-                    break;
-            }
+            mos.Initialize(mos.transform.position, ((Comma)x).generator.Cents, ((Comma)x).period.Cents, XenMath.getCents(primes.X));
+            UIHandler.Instance.UpdateMOSInfo((x as Comma).period.Cents.ToString(), (x as Comma).generator.Cents.ToString(), XenMath.getCents(primes.X).ToString());
         }
-    } while (result == Vector3.zero && tries < 3);
-    float g = gcd(gcd((int)result.x, (int)result.y), (int)result.z);
-    result /= g;
-    return result;
-}
+        UIHandler.Instance.ShowMOSMenu();
+        UIHandler.Instance.ShowMOSOptions();
+    }
 
-public int GetNumberOfPrime(int p)
-{
-    return System.Array.IndexOf(prime_numbers, p);
+    public void ViewMiniMos(PTSObject x)
+    {
+        miniMosMesh.gameObject.SetActive(true);
+        if (x is Mapping)
+        {
+            miniMos.Initialize(miniMos.transform.parent.position, 0, ((Mapping)x).stepSize, XenMath.getCents(primes.X));
+            miniMos.transform.localPosition -= new Vector3(0, 2, 0);
+            UIHandler.Instance.UpdateMOSInfo((x as Mapping).stepSize.ToString(), "N/A", XenMath.getCents(primes.X).ToString());
+        }
+        else if (x is Comma)
+        {
+            miniMos.Initialize(miniMos.transform.parent.position, ((Comma)x).generator.Cents, ((Comma)x).period.Cents, XenMath.getCents(primes.X));
+            Debug.Log(((Comma)x).generator.Numerator + "/" + ((Comma)x).generator.Denominator + " \\ " + ((Comma)x).generator.Divisions + ": " + ((Comma)x).generator.Cents + "; " + ((Comma)x).period.Numerator + "/" + ((Comma)x).period.Denominator + " \\ " + ((Comma)x).period.Divisions + ": " + ((Comma)x).period.Cents);
+            miniMos.transform.localPosition -= new Vector3(0, 2, 0);
+            UIHandler.Instance.UpdateMOSInfo((x as Comma).period.Cents.ToString(), (x as Comma).generator.Cents.ToString(), XenMath.getCents(primes.X).ToString());
+        }
+        UIHandler.Instance.ShowMOSMenu();
+        UIHandler.Instance.ShowMiniMOSOptions();
+    }
 }
-
-public float GetComplexity(Vector3 monzos)
-{
-    //is this the correct method?
-    return Mathf.Log10(Mathf.Pow(primes.x, Mathf.Abs(monzos.x)) * Mathf.Pow(primes.y, Mathf.Abs(monzos.y)) * Mathf.Pow(primes.z, Mathf.Abs(monzos.z)));
-}
-
-public double GetComplexity(System.Numerics.BigInteger numerator, System.Numerics.BigInteger denominator)
-{
-    //is this the correct method?
-    return System.Numerics.BigInteger.Log10(numerator * denominator);
-}
-
-//private void OnSelectedObjectChangeHandler(PTSObject obj, bool select)
-//{
-//    //if (obj.GetType() == typeof(Mapping))
-//    //    ui.UpdatePTSObjectInfo((Mapping)obj);
-//    //else if (obj.GetType() == typeof(Comma))
-//    //    ui.UpdatePTSObjectInfo((Comma)obj);
-//    if (select)
-//        obj.OnSelect();
-//    else
-//        obj.OnDeselect();
-//}
-}
-*/

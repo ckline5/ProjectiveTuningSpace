@@ -62,10 +62,16 @@ public static class ProjectionTools
         Vector3 theta = new Vector3(0,45,45) * Mathf.Deg2Rad;
         Vector3 e = new Vector3(1,1,1);
 
-        float dx = Mathf.Cos(theta.y) * (Mathf.Sin(theta.z) * p.y + Mathf.Cos(theta.z) * p.x) - Mathf.Sin(theta.y) * p.z;
-        float dy = Mathf.Sin(theta.x) * (Mathf.Cos(theta.y) * p.z + Mathf.Sin(theta.y) * (Mathf.Sin(theta.z) * p.y + Mathf.Cos(theta.z) * p.x)) + Mathf.Cos(theta.x) * (Mathf.Cos(theta.z) * p.y - Mathf.Sin(theta.z) * p.x);
-        float dz = Mathf.Cos(theta.x) * (Mathf.Cos(theta.y) * p.z + Mathf.Sin(theta.y) * (Mathf.Sin(theta.z) * p.y + Mathf.Cos(theta.z) * p.x)) - Mathf.Sin(theta.x) * (Mathf.Cos(theta.z) * p.y - Mathf.Sin(theta.z) * p.x);
-        
+        float sqrt2over2 = 0.70710678118654752440084436210485f;
+
+        //float dx = Mathf.Cos(theta.y) * (Mathf.Sin(theta.z) * p.y + Mathf.Cos(theta.z) * p.x) - Mathf.Sin(theta.y) * p.z;
+        //float dy = Mathf.Sin(theta.x) * (Mathf.Cos(theta.y) * p.z + Mathf.Sin(theta.y) * (Mathf.Sin(theta.z) * p.y + Mathf.Cos(theta.z) * p.x)) + Mathf.Cos(theta.x) * (Mathf.Cos(theta.z) * p.y - Mathf.Sin(theta.z) * p.x);
+        //float dz = Mathf.Cos(theta.x) * (Mathf.Cos(theta.y) * p.z + Mathf.Sin(theta.y) * (Mathf.Sin(theta.z) * p.y + Mathf.Cos(theta.z) * p.x)) - Mathf.Sin(theta.x) * (Mathf.Cos(theta.z) * p.y - Mathf.Sin(theta.z) * p.x);
+
+        float dx = sqrt2over2 * (sqrt2over2 * p.y + sqrt2over2 * p.x) - sqrt2over2 * p.z;
+        float dy = sqrt2over2 * p.y - sqrt2over2 * p.x;
+        float dz = sqrt2over2 * (sqrt2over2 * p.y + sqrt2over2 * p.x) + sqrt2over2 * p.z;
+
         return new Vector2((e.z / dz) * dx + e.x, (e.z / dz) * dy + e.y) * 100;
     }
 

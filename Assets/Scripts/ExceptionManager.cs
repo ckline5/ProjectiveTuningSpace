@@ -1,11 +1,11 @@
 using UnityEngine;
 public class ExceptionManager : MonoBehaviour
 {
-    UIHandler ui;
+    //UIHandler UIHandler.Instance;
 
     void Awake()
     {
-        ui = GameObject.Find("UI").GetComponent<UIHandler>();
+        //UIHandler.Instance = GameObject.Find("UI").GetComponent<UIHandler>();
         Application.logMessageReceived += HandleException;
         DontDestroyOnLoad(gameObject);
     }
@@ -15,7 +15,7 @@ public class ExceptionManager : MonoBehaviour
         if (type == LogType.Exception)
         {
             //handle here
-            ui.ShowError(logString, stackTrace, type);
+            UIHandler.Instance.ShowError(logString, stackTrace, type);
         }
     }
 }

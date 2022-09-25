@@ -11,31 +11,31 @@ public class TuningSpaceEditor : Editor
     {
         base.OnInspectorGUI();
 
-        TuningSpace ts = (TuningSpace)target;
+        //TuningSpace TuningSpace.Instance = (TuningSpace)target;
         if (GUILayout.Button("Make JIP"))
         {
-            ts.MakeJIP();
+            TuningSpace.Instance.MakeJIP();
         }
         if (GUILayout.Button("Make Damage Hexagons (10)"))
         {
-            ts.MakeDamageHexagons(10);
+            TuningSpace.Instance.MakeDamageHexagons(10);
         }
         if (GUILayout.Button("Make Mappings"))
         {
-            ts.MakeMappings();
+            TuningSpace.Instance.MakeMappings();
         }
         if (GUILayout.Button("Make Default (5-limit) Commas"))
         {
-            ts.MakeDefaultCommas();
+            TuningSpace.Instance.MakeDefaultCommas();
         }
         if (GUILayout.Button("Delete All Mappings and Commas"))
         {
-            ts.DeleteAllMappings();
-            ts.DeleteAllCommas();
+            TuningSpace.Instance.DeleteAllMappings();
+            TuningSpace.Instance.DeleteAllCommas();
         }
         if (GUILayout.Button("Delete All"))
         {
-            ts.DeleteAll();
+            TuningSpace.Instance.DeleteAll();
         }
     }
 }

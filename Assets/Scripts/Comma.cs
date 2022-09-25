@@ -10,15 +10,18 @@ public class Comma : MonoBehaviour, PTSObject
     public Interval TemperedInterval { get; set; }
     public Tuple<float,float,float> wedgie;
 
-    TuningSpace ts;
+    //TuningSpace TuningSpace.Instance;
     LineRenderer line;
-    UIHandler ui;
+    //UIHandler UIHandler.Instance;
 
     List<Val> mappings = new List<Val>(3);
 
     Mapping topMapping;
+
+    public float colliderThicknessLine = .002f;
+    public float colliderThicknessWords = .0005f;
     
-    public double top_damage;
+    public double? top_damage;
     public double Complexity
     {
         get
@@ -54,7 +57,7 @@ public class Comma : MonoBehaviour, PTSObject
         get
         {
             string url = XenConstants.X31EQ_URL_BASE;
-            float limit = Mathf.Max(ts.primes.AsArray);
+            float limit = Mathf.Max(TuningSpace.Instance.primes.AsArray);
             if (TemperedInterval.Numerator.ToString().Contains("E") || TemperedInterval.Denominator.ToString().Contains("E"))
                 url += $"uv.cgi?uvs={TemperedInterval.NumeratorBI}%3A{TemperedInterval.DenominatorBI}&limit={limit}";
             else
@@ -69,7 +72,7 @@ public class Comma : MonoBehaviour, PTSObject
         {
             string url = XenConstants.SCALE_WORKSHOP_URL_BASE;
             string name = $"Rank 2 scale ({period}, {generator})";
-            List<float> pitches = XenMath.getScalePitches(this, ts.primes, 15);
+            List<float> pitches = XenMath.getScalePitches(this, TuningSpace.Instance.primes, 15);
             string data = string.Join("%0A", pitches.ToArray());
             url += $"name={name}&data={data}";
             return url;
@@ -91,6 +94,7 @@ public class Comma : MonoBehaviour, PTSObject
 
     public Interval period;
     public Interval generator;
+    public float generatorCentsPerDistance;
 
     public string title;
 
@@ -115,6 +119,7 @@ public class Comma : MonoBehaviour, PTSObject
         Tuple<Interval, Interval> pergen = GetPerGen(wedgie, TemperedInterval.PrimeBasis);
         period = pergen.Item1;
         generator = pergen.Item2;
+        generatorCentsPerDistance = (float)GetGeneratorCentsPerDistance(this, TuningSpace.Instance.primes);
         if (TemperedInterval.Numerator < TemperedInterval.Denominator)
         {
             TemperedInterval.Monzos *= -1;
@@ -122,12 +127,27 @@ public class Comma : MonoBehaviour, PTSObject
         SetText();
         Val top = getTenneyOptimalTuning(TemperedInterval.NumeratorBI, TemperedInterval.DenominatorBI, TemperedInterval.PrimeBasis);
         Tuple<float,float,float> w_top = GetWeightedVals(top, TemperedInterval.PrimeBasis);
-        Vector3 pos = (Vector3)ProjectionTools.Project(w_top);
-        if (!float.IsNaN(pos.x) && !float.IsNaN(pos.y) && !float.IsNaN(pos.z))
-            this.transform.position = pos;
+        if (!(w_top.Item1 == w_top.Item2 && w_top.Item2 == w_top.Item3))
+        {
+            Vector3 pos = (Vector3)ProjectionTools.Project(w_top);
+            if (!float.IsNaN(pos.x) && !float.IsNaN(pos.y) && !float.IsNaN(pos.z))
+            {
+                this.transform.position = pos;
+                topMapping = TuningSpace.Instance.MakeTOPMapping(top.X, top.Y, top.Z, "TOP " + name);
+                top_damage = getTenneyOptimalDamage(TemperedInterval.NumeratorBI, TemperedInterval.DenominatorBI);
+            }
+        }
+        else
+        {
+            var m1_proj = ProjectionTools.Project(XenMath.GetWeightedVals(mappings[0], TuningSpace.Instance.primes));
+            var m2_proj = ProjectionTools.Project(XenMath.GetWeightedVals(mappings[1], TuningSpace.Instance.primes));
+            var dir = (m1_proj - m2_proj).normalized;
+            this.transform.position = XenMath.NearestPointOnLine(m1_proj, dir, ProjectionTools.Project(TuningSpace.Instance.JIP().w_vals));
+
+            topMapping = null;
+            top_damage = null;
+        }
         SetRotation();
-        topMapping = ts.MakeTOPMapping(top.X, top.Y, top.Z, "TOP " + name);
-        top_damage = getTenneyOptimalDamage(TemperedInterval.NumeratorBI, TemperedInterval.DenominatorBI);
     }
 
     public void Initialize(float x, float y, float z, PrimeBasis primes)
@@ -166,23 +186,24 @@ public class Comma : MonoBehaviour, PTSObject
 
     public void SetCharacterSize()
     {
-        //System.Numerics.BigInteger sz = (numerator / denominator) / ((System.Numerics.BigInteger) complexity * (System.Numerics.BigInteger)ts.scaling / 2) * (System.Numerics.BigInteger)ts.Zoom;
+        //System.Numerics.BigInteger sz = (numerator / denominator) / ((System.Numerics.BigInteger) complexity * (System.Numerics.BigInteger)TuningSpace.Instance.scaling / 2) * (System.Numerics.BigInteger)TuningSpace.Instance.Zoom;
         //text.characterSize = (float)sz;
         System.Numerics.BigInteger lerp = 1 - (TemperedInterval.NumeratorBI / TemperedInterval.DenominatorBI);
         //text.characterSize = ((float)numerator / (float)denominator);
         text.characterSize = Mathf.Lerp(1.5f, 2, (float)lerp);
-        text.characterSize /= (float)Complexity * (ts.scaling / ts.MetaZoom) / 2;
+        text.characterSize /= (float)Complexity * (TuningSpace.Instance.scaling / TuningSpace.Instance.MetaZoom) / 2;
         text.characterSize = Mathf.Clamp(text.characterSize, .002f, .05f);
-        text.characterSize *= ts.Zoom/1.5f;
+        //text.characterSize *= TuningSpace.Instance.Zoom/1.5f;
+        text.characterSize *= Mathf.Log(((TuningSpace.Instance.Zoom*2 + .1f) * .5f + 1));
         text.characterSize /= 5;
     }
 
     void Awake()
     {
-        ts = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
-        ui = GameObject.Find("UI").GetComponent<UIHandler>();
+        //TuningSpace.Instance = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
+        //UIHandler.Instance = GameObject.Find("UI").GetComponent<UIHandler>();
         line = GetComponent<LineRenderer>();
-        line.startWidth = .003f * ts.Zoom;
+        line.startWidth = .003f * TuningSpace.Instance.Zoom;
         line.endWidth = line.startWidth;
         text = GetComponent<TextMesh>();
         mappings = new List<Val>();
@@ -190,7 +211,7 @@ public class Comma : MonoBehaviour, PTSObject
 
     void Start()
     {
-        ts.OnZoomChange += ZoomChangeHandler;
+        TuningSpace.Instance.OnZoomChange += ZoomChangeHandler;
     } 
 
     // Update is called once per frame
@@ -230,13 +251,13 @@ public class Comma : MonoBehaviour, PTSObject
         //}
 
         Val mapping1 = new Val(-monzos.Z, 0, monzos.X);
-        if (mapping1.X < 0)
+        if (mapping1.X < 0 || (mapping1.X == 0 && mapping1.Y < 0) || (mapping1.X == 0 && mapping1.Y == 0 && mapping1.Z < 0))
             mapping1 *= -1;
         Val mapping2 = new Val(-monzos.Y, monzos.X, 0);
-        if (mapping2.X < 0)
+        if (mapping2.X < 0 || (mapping2.X == 0 && mapping2.Y < 0) || (mapping2.X == 0 && mapping2.Y == 0 && mapping2.Z < 0))
             mapping2 *= -1;
         Val mapping3 = new Val(0, -monzos.Z, monzos.Y);
-        if (mapping3.X < 0)
+        if (mapping3.X < 0 || (mapping3.X == 0 && mapping3.Y < 0) || (mapping3.X == 0 && mapping3.Y == 0 && mapping3.Z < 0))
             mapping3 *= -1;
 
         //order to ensure most important mappings (usually) go in front
@@ -259,6 +280,18 @@ public class Comma : MonoBehaviour, PTSObject
             result.Add(mapping2);
         }
 
+        //Debug.Log($"{result[0]} {result[1]} {result[2]}");
+
+        List<Val> resultsToRemove = new List<Val>();
+        if (result[0].X < 0 || result[0].Y < 0 || result[0].Z < 0)
+            resultsToRemove.Add(result[0]);
+        if (result[1].X < 0 || result[1].Y < 0 || result[1].Z < 0)
+            resultsToRemove.Add(result[1]);
+        if (result[2].X < 0 || result[2].Y < 0 || result[2].Z < 0)
+            resultsToRemove.Add(result[2]);
+
+        result.RemoveAll(x => resultsToRemove.Contains(x));
+        
         return result;
     }
 
@@ -272,42 +305,42 @@ public class Comma : MonoBehaviour, PTSObject
     {
         Vector3 m1 = ProjectionTools.Project(GetWeightedVals(mappings[0], TemperedInterval.PrimeBasis));
         Vector3 m2 = ProjectionTools.Project(GetWeightedVals(mappings[1], TemperedInterval.PrimeBasis));
-        Vector3 m3 = ProjectionTools.Project(GetWeightedVals(mappings[2], TemperedInterval.PrimeBasis));
+        //Vector3 m3 = ProjectionTools.Project(GetWeightedVals(mappings[2], TemperedInterval.PrimeBasis));
 
         List<Vector3> positions = new List<Vector3>();
         if (!float.IsNaN(m1.x) && !float.IsNaN(m1.y) && !float.IsNaN(m1.z))
             positions.Add(m1);
         if (!float.IsNaN(m2.x) && !float.IsNaN(m2.y) && !float.IsNaN(m2.z))
             positions.Add(m2);
-        if (!float.IsNaN(m3.x) && !float.IsNaN(m3.y) && !float.IsNaN(m3.z))
-            positions.Add(m3);
+        //if (!float.IsNaN(m3.x) && !float.IsNaN(m3.y) && !float.IsNaN(m3.z))
+        //    positions.Add(m3);
 
         line.positionCount = positions.Count;
         line.SetPositions(positions.ToArray());
 
-        float d1 = Vector3.Distance(m2, m3);
-        float d2 = Vector3.Distance(m1, m3);
+        //float d1 = Vector3.Distance(m2, m3);
+        //float d2 = Vector3.Distance(m1, m3);
         float d3 = Vector3.Distance(m1, m2);
-        float maxd = Mathf.Max(Mathf.Max(d1, d2), d3);
+        //float maxd = Mathf.Max(Mathf.Max(d1, d2), d3);
 
-        if (maxd == d1)
-        {
-            transform.position = Vector3.Lerp(m2, m3, 0.5f);
-        }
-        else if (maxd == d2)
-        {
-            transform.position = Vector3.Lerp(m1, m3, 0.5f);
-        }
-        else if (maxd == d3)
-        {
+        //if (maxd == d1)
+        //{
+        //    transform.position = Vector3.Lerp(m2, m3, 0.5f);
+        //}
+        //else if (maxd == d2)
+        //{
+        //    transform.position = Vector3.Lerp(m1, m3, 0.5f);
+        //}
+        //else if (maxd == d3)
+        //{
             transform.position = Vector3.Lerp(m1, m2, 0.5f);
-        }
+        //}
 
         //Vector3 v = m1 - m2;
         //this.transform.rotation = Quaternion.identity;
         //this.transform.Rotate(new Vector3(0, 0, Mathf.Atan(v.y / v.x) * Mathf.Rad2Deg));
-        //if (ts.JIP() != null)
-        //    if (this.transform.position.y > ts.JIP().transform.position.y || (this.transform.position.y == ts.JIP().transform.position.y && this.transform.position.x > ts.JIP().transform.position.x))
+        //if (TuningSpace.Instance.JIP() != null)
+        //    if (this.transform.position.y > TuningSpace.Instance.JIP().transform.position.y || (this.transform.position.y == TuningSpace.Instance.JIP().transform.position.y && this.transform.position.x > TuningSpace.Instance.JIP().transform.position.x))
         //        this.transform.Rotate(new Vector3(0, 0, 180));
 
         SetRotation();
@@ -317,22 +350,22 @@ public class Comma : MonoBehaviour, PTSObject
     {
         Vector3 m1 = ProjectionTools.Project(GetWeightedVals(mappings[0], TemperedInterval.PrimeBasis));
         Vector3 m2 = ProjectionTools.Project(GetWeightedVals(mappings[1], TemperedInterval.PrimeBasis));
-        Vector3 m3 = ProjectionTools.Project(GetWeightedVals(mappings[2], TemperedInterval.PrimeBasis));
+        //Vector3 m3 = ProjectionTools.Project(GetWeightedVals(mappings[2], TemperedInterval.PrimeBasis));
 
         Vector3 v = m1 - m2;
         this.transform.rotation = Quaternion.identity;
         this.transform.Rotate(new Vector3(0, 0, Mathf.Atan(v.y / v.x) * Mathf.Rad2Deg));
-        if (ts.JIP() != null)
-            if (this.transform.position.y > ts.JIP().transform.position.y || (this.transform.position.y == ts.JIP().transform.position.y 
-                                                                         && ((this.transform.position.x > ts.JIP().transform.position.x && this.transform.rotation.eulerAngles.z < 0) 
-                                                                          || (this.transform.position.x < ts.JIP().transform.position.x && this.transform.rotation.eulerAngles.z > 0))))
+        if (TuningSpace.Instance.JIP() != null)
+            if (this.transform.position.y > TuningSpace.Instance.JIP().transform.position.y || (this.transform.position.y == TuningSpace.Instance.JIP().transform.position.y 
+                                                                         && ((this.transform.position.x > TuningSpace.Instance.JIP().transform.position.x && this.transform.rotation.eulerAngles.z < 0) 
+                                                                          || (this.transform.position.x < TuningSpace.Instance.JIP().transform.position.x && this.transform.rotation.eulerAngles.z > 0))))
                 this.transform.Rotate(new Vector3(0, 0, 180));
     }
 
     string SetTextFromStyle()
     {
         string txt;
-        switch (ts.commaTextStyle)
+        switch (TuningSpace.Instance.commaTextStyle)
         {
             case TuningSpace.CommaTextStyle.NAME:
                 txt = name;
@@ -342,6 +375,9 @@ public class Comma : MonoBehaviour, PTSObject
                 break;
             case TuningSpace.CommaTextStyle.FULL_MONZOS:
                 txt = TemperedInterval.Monzos.ToString();
+                break;
+            case TuningSpace.CommaTextStyle.BLANK:
+                txt = "";
                 break;
             default:
                 txt = name;
@@ -368,16 +404,22 @@ public class Comma : MonoBehaviour, PTSObject
             col = gameObject.AddComponent<BoxCollider>();
         Vector3 m1 = ProjectionTools.Project(GetWeightedVals(mappings[0], TemperedInterval.PrimeBasis));
         Vector3 m2 = ProjectionTools.Project(GetWeightedVals(mappings[1], TemperedInterval.PrimeBasis));
-        Vector3 m3 = ProjectionTools.Project(GetWeightedVals(mappings[2], TemperedInterval.PrimeBasis));
+        //Vector3 m3 = ProjectionTools.Project(GetWeightedVals(mappings[2], TemperedInterval.PrimeBasis));
 
-        float d1 = Vector3.Distance(m2, m3);
-        float d2 = Vector3.Distance(m1, m3);
+        //float d1 = Vector3.Distance(m2, m3);
+        //float d2 = Vector3.Distance(m1, m3);
         float d3 = Vector3.Distance(m1, m2);
-        float maxd = Mathf.Max(Mathf.Max(d1, d2), d3);
+        //float maxd = Mathf.Max(Mathf.Max(d1, d2), d3);
 
-        float lineLength = maxd; // length of line
-   
-        col.size = new Vector3(lineLength * 2, .002f * ts.Zoom, .002f * ts.Zoom); // size of collider is set where X is length of line, Y is width of line, Z will be set as per requirement
+        //float lineLength = maxd; // length of line
+        float lineLength = d3; // length of line
+
+        SetColliderSize(lineLength * 2);
+    }
+
+    private void SetColliderSize(float length)
+    {
+        col.size = new Vector3(length, .006f * TuningSpace.Instance.Zoom/1.5f, colliderThicknessLine); // size of collider is set where X is length of line, Y is width of line, Z will be set as per requirement
     }
 
     private void ZoomChangeHandler(float newVal)
@@ -386,17 +428,19 @@ public class Comma : MonoBehaviour, PTSObject
         line.startWidth = .003f * newVal/1.5f;
         line.endWidth = line.startWidth;
         SetCharacterSize();
+        if (col != null)
+            SetColliderSize(col.size.x);
     }
 
     private void OnDestroy()
     {
         // Unsubscribe from event(s)
-        ts.OnZoomChange -= ZoomChangeHandler;
+        TuningSpace.Instance.OnZoomChange -= ZoomChangeHandler;
 
         // And stop all coroutines
         StopAllCoroutines();
 
-        ts.Remove(this);
+        TuningSpace.Instance.Remove(this);
         if (topMapping != null && topMapping.gameObject != null)
             Destroy(topMapping.gameObject);
     }
@@ -409,7 +453,7 @@ public class Comma : MonoBehaviour, PTSObject
     
     public void OnSelect()
     {
-        ui.UpdatePTSObjectInfo(this);
+        UIHandler.Instance.UpdatePTSObjectInfo(this);
         text.color = Color.yellow;
         line.startColor = Color.yellow;
         line.endColor = line.startColor;
@@ -419,6 +463,13 @@ public class Comma : MonoBehaviour, PTSObject
     {
         text.color = Color.blue;
         line.startColor = Color.blue;
+        line.endColor = line.startColor;
+    }
+
+    public void OnJoinCancel()
+    {
+        text.color = Color.yellow;
+        line.startColor = Color.yellow;
         line.endColor = line.startColor;
     }
 
@@ -433,10 +484,10 @@ public class Comma : MonoBehaviour, PTSObject
     }
 
     public void OnMouseEnter()
-    {
-        if (!ui.mouseInUI)
+    { 
+        if (!UIHandler.Instance.mouseInUI)
         {
-            if (this != (object)ts.SelectedObject)
+            if (this != (object)TuningSpace.Instance.SelectedObject)
             {
                 text.color = Color.cyan;
                 line.startColor = Color.cyan;
@@ -447,9 +498,9 @@ public class Comma : MonoBehaviour, PTSObject
 
     public void OnMouseOver()
     {
-        if (ui.mouseInUI)
+        if (UIHandler.Instance.mouseInUI)
         {
-            if (this != (object)ts.SelectedObject)
+            if (this != (object)TuningSpace.Instance.SelectedObject)
             {
                 text.color = defaultTextColor ?? Color.black;
                 line.startColor = defaultLineColor ?? Color.magenta;
@@ -460,7 +511,7 @@ public class Comma : MonoBehaviour, PTSObject
 
     private void OnMouseExit()
     {
-        if (this != (object)ts.SelectedObject)
+        if (this != (object)TuningSpace.Instance.SelectedObject)
         {
             text.color = defaultTextColor ?? Color.black;
             line.startColor = defaultLineColor ?? Color.magenta;

@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\FPSFlyer.cs" />
     <Compile Include="Assets\Scripts\Interval.cs" />
     <Compile Include="Assets\Scripts\ScreenshotGrabber.cs" />
+    <Compile Include="Assets\Scripts\MOSLineSoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Mapping.cs" />
     <Compile Include="Assets\Scripts\PTSObject.cs" />
     <Compile Include="Assets\Scripts\XenMath.cs" />

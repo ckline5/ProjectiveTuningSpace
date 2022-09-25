@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c87c5bbfdd28414f8628ebc1072e1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primes: {x: 2, y: 3, z: 5}
   max_val: 100
   max_offset: 2
   scaling: 100
@@ -53,7 +52,7 @@ MonoBehaviour:
   topRotationValue: 6
   topRotationSpeed: 0
   mapping_prefab: {fileID: 5382878141393859973, guid: 3e01a28d89944f64e9781ef9c9d3ed32, type: 3}
-  comma_prefab: {fileID: -6048879074363184258, guid: adfcc2b17fe40e64cbc85936de5a09a8, type: 3}
+  Comma_prefab: {fileID: -6048879074363184258, guid: adfcc2b17fe40e64cbc85936de5a09a8, type: 3}
   hexagon_prefab: {fileID: 4707912064788292070, guid: fde546506fde9114bae9c477ffdfd39d, type: 3}
   mos_prefab: {fileID: 3523835854668931895, guid: 67eae11e1e4b09d43bc4ef6f1919ba22, type: 3}
   zoom: 1

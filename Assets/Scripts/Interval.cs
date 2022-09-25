@@ -52,7 +52,7 @@ public class Interval
             double n =  1 * (Monzos.X > 0 ? Math.Pow(_primeBasis.X, Monzos.X) : 1)
                           * (Monzos.Y > 0 ? Math.Pow(_primeBasis.Y, Monzos.Y) : 1)
                           * (Monzos.Z > 0 ? Math.Pow(_primeBasis.Z, Monzos.Z) : 1);
-            n = Math.Pow(n, 1 / _divisions);
+            //n = Math.Pow(n, 1 / _divisions);
             return n;
         }
     }
@@ -63,7 +63,7 @@ public class Interval
             double d = 1 * (Monzos.X < 0 ? Math.Pow(_primeBasis.X, -Monzos.X) : 1)
                          * (Monzos.Y < 0 ? Math.Pow(_primeBasis.Y, -Monzos.Y) : 1)
                          * (Monzos.Z < 0 ? Math.Pow(_primeBasis.Z, -Monzos.Z) : 1);
-            d = Math.Pow(d, 1 / _divisions);
+            //d = Math.Pow(d, 1 / _divisions);
             return d;
         }
     }

@@ -71,6 +71,12 @@ public class NamedTemperaments : MonoBehaviour
 
     public static Monzo WhatMonzos(PrimeBasis primes, string name)
     {
+        if (string.Equals(name, "wurschmidt", System.StringComparison.InvariantCultureIgnoreCase))
+        {
+            //handle umlaut in Würschmidt
+            name = "Würschmidt";
+        }
+
         Temperament t = temperaments.Where(x => string.Equals(x.name, name, System.StringComparison.InvariantCultureIgnoreCase) && x.primes == primes).FirstOrDefault();
         if (t == null)
             return null;

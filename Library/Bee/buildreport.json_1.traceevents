@@ -1,345 +1,355 @@
 { "pid": 0, "tid": -1, "ph": "M", "name": "process_name", "args": { "name": "BeeDriver" } },
 { "pid": 0, "tid": -1, "ph": "M", "name": "process_sort_index", "args": { "sort_index": "-2" } },
 { "pid": 0, "tid": 1, "ph": "M", "name": "thread_name", "args": { "name": "" } },
-{ "pid": 0, "tid": 1, "ts": 1659705124284978, "dur": 922337203685477580, "ph": "X", "name": "Build ScriptAssemblies", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705124286480, "dur": 22456, "ph": "X", "name": "WriteBuildProgramData", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705124309183, "dur": 146719, "ph": "X", "name": "Run Backend", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705124455922, "dur": 9892, "ph": "X", "name": "Finish", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705127979941, "dur": 922337203685477580, "ph": "X", "name": "Build Player", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705127980192, "dur": 1676, "ph": "X", "name": "WriteBuildProgramData", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705127981868, "dur": 615235, "ph": "X", "name": "Run Backend", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705128597105, "dur": 1788, "ph": "X", "name": "Finish", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705128599219, "dur": 18, "ph": "X", "name": "", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607293402758, "dur": 922337203685477580, "ph": "X", "name": "Build ScriptAssemblies", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607293404205, "dur": 72638, "ph": "X", "name": "WriteBuildProgramData", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607293477079, "dur": 172742, "ph": "X", "name": "Run Backend", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607293649846, "dur": 2092264, "ph": "X", "name": "BuildProgram", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607295742114, "dur": 2337533, "ph": "X", "name": "Run Backend", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607298079665, "dur": 9231, "ph": "X", "name": "Finish", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607312549298, "dur": 922337203685477580, "ph": "X", "name": "Build Player", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607312549588, "dur": 13853, "ph": "X", "name": "WriteBuildProgramData", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607312563453, "dur": 2153041, "ph": "X", "name": "Run Backend", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662607314716497, "dur": 1049, "ph": "X", "name": "Finish", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608356331454, "dur": 922337203685477580, "ph": "X", "name": "Build ScriptAssemblies", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608356331482, "dur": 21248, "ph": "X", "name": "WriteBuildProgramData", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608356352732, "dur": 104696, "ph": "X", "name": "Run Backend", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608356457430, "dur": 9306, "ph": "X", "name": "Finish", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608359766571, "dur": 922337203685477580, "ph": "X", "name": "Build Player", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608359766592, "dur": 1287, "ph": "X", "name": "WriteBuildProgramData", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608359767880, "dur": 241012, "ph": "X", "name": "Run Backend", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608360008893, "dur": 1004, "ph": "X", "name": "Finish", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608360010151, "dur": 30, "ph": "X", "name": "", "args": {} },
 { "cat":"", "pid":12345, "tid":0, "ts":0, "ph":"M", "name":"process_name", "args": { "name":"bee_backend" } }
-,{ "pid":12345, "tid":0, "ts":1659705127995004, "dur":1748, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705127996759, "dur":136, "ph":"X", "name": "Tundra",  "args": { "detail":"RemoveStaleOutputs" }}
-,{ "pid":12345, "tid":0, "ts":1659705127996913, "dur":17, "ph":"X", "name": "Tundra",  "args": { "detail":"PrepareNodes" }}
-,{ "pid":12345, "tid":0, "ts":1659705127996932, "dur":186, "ph":"X", "name": "Tundra",  "args": { "detail":"BuildQueueInit" }}
-,{ "pid":12345, "tid":0, "ts":1659705127997144, "dur":410, "ph":"X", "name": "EnqueueRequestedNodes",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705127997554, "dur":2, "ph":"X", "name": "SortWorkingStack",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562072, "dur":70, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562142, "dur":13, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562155, "dur":2, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562157, "dur":6, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562163, "dur":12, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562175, "dur":5, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562180, "dur":1, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562181, "dur":5, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562186, "dur":0, "ph":"X", "name": "SharedResourceDestroy",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562193, "dur":3, "ph":"X", "name": "BuildQueueDestroyTail",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128562249, "dur":14297, "ph":"X", "name": "Tundra",  "args": { "detail":"Write AllBuiltNodes" }}
-,{ "pid":12345, "tid":1, "ts":1659705127997031, "dur":531, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705127997563, "dur":4226, "ph":"X", "name": "CheckDagSignatures",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001797, "dur":1, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"WriteText Library/Bee/artifacts/WinPlayerBuildProgram/Data/app.info" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001798, "dur":26, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001827, "dur":1, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/app.info" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001828, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001847, "dur":22, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001869, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001886, "dur":22, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/settings.map" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001908, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001925, "dur":22, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001947, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001964, "dur":23, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/web.config" }}
-,{ "pid":12345, "tid":1, "ts":1659705128001987, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002004, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/machine.config" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002025, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002043, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002060, "dur":25, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002085, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/settings.map" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002103, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002118, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002135, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002151, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/browscap.ini" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002167, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002182, "dur":33, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002215, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002234, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityPlayer_Win64_player_mono_x64.pdb" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002255, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002271, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityCrashHandler64.pdb" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002292, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002308, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace.exe" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002324, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002339, "dur":56, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.XRModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002395, "dur":22, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002417, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VirtualTexturingModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002434, "dur":64, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002498, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VehiclesModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002517, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002532, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002549, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002566, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002584, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002601, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002622, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002638, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityConnectModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002656, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002672, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UNETModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002688, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002702, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UIModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002717, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002731, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UIElementsModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002747, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002764, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TLSModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002779, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002793, "dur":13, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TilemapModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002806, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002826, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002841, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002856, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002872, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002887, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SubsystemsModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002903, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002918, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.StreamingModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002932, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002948, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SpriteMaskModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002963, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002977, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ScreenCaptureModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128002993, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003008, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ProfilerModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003023, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003038, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.PhysicsModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003054, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003073, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ParticleSystemModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003091, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003106, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.LocalizationModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003122, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003137, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.InputModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003153, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003169, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.IMGUIModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003185, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003199, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.HotReloadModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003214, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003229, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.GIModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003244, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003259, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.DSPGraphModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003275, "dur":46, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003321, "dur":32, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.DirectorModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003353, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128003372, "dur":555905, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ClusterRendererModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1659705128559278, "dur":61, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1659705128559345, "dur":2772, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705127997051, "dur":514, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705127997565, "dur":5229, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002795, "dur":30, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TextRenderingModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002825, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002845, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002865, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002881, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TerrainModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002897, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002911, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SubstanceModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002927, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002943, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SpriteShapeModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002958, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002974, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SharedInternalsModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128002990, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003006, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003024, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003040, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.Physics2DModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003057, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003073, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.PerformanceReportingModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003088, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003104, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.NVIDIAModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003120, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003135, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.JSONSerializeModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003151, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003166, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.InputLegacyModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003182, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003196, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ImageConversionModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003211, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003226, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.GridModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003243, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003258, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.GameCenterModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003273, "dur":45, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003318, "dur":32, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003350, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128003366, "dur":558646, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.CoreModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1659705128562013, "dur":40, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1659705128562056, "dur":1, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"Player" }}
-,{ "pid":12345, "tid":2, "ts":1659705128562057, "dur":0, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705127997094, "dur":477, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705127997571, "dur":5779, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003351, "dur":28, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.CrashReportingModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003379, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003395, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ClusterInputModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003410, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003423, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ClothModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003437, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003450, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AudioModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003464, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003477, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AssetBundleModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003491, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003504, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ARModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003518, "dur":12, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003530, "dur":41, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AnimationModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003571, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003587, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AndroidJNIModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003601, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003614, "dur":13, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AIModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003627, "dur":33, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003660, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AccessibilityModule.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003675, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128003690, "dur":63006, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Timeline.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128066697, "dur":37, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128066736, "dur":158891, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.TextMeshPro.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128225628, "dur":39, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128225669, "dur":611, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Device.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128226280, "dur":28, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128226308, "dur":18795, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Configuration.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245104, "dur":35, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245142, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Xml.Linq.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245163, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245178, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Xml.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245194, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245209, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Transactions.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245223, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245238, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.ServiceModel.Internals.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245253, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245268, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Security.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245282, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245295, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Runtime.Serialization.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245309, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245323, "dur":58, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Numerics.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245381, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245398, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Net.Http.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245413, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245426, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.IO.Compression.FileSystem.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245441, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245455, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.IO.Compression.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245469, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245483, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.EnterpriseServices.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245497, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245511, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Drawing.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245525, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245539, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245553, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245567, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Data.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245587, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245601, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Data.DataSetExtensions.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245615, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245629, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Core.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245643, "dur":12, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245655, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Configuration.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245669, "dur":12, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245682, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.ComponentModel.Composition.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245696, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245710, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Newtonsoft.Json.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245725, "dur":12, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245737, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/netstandard.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245751, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245764, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/mscorlib.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245780, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245795, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Mono.Security.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245809, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128245823, "dur":91453, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Assembly-CSharp.dll" }}
-,{ "pid":12345, "tid":3, "ts":1659705128337276, "dur":37, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128337315, "dur":93, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/StreamingAssets/UnityServicesProjectConfiguration.json" }}
-,{ "pid":12345, "tid":3, "ts":1659705128337409, "dur":25, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128337435, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Resources/unity_builtin_extra" }}
-,{ "pid":12345, "tid":3, "ts":1659705128337467, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128342588, "dur":2925, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/Resources/unity_builtin_extra" }}
-,{ "pid":12345, "tid":3, "ts":1659705128345534, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/sharedassets0.assets.resS" }}
-,{ "pid":12345, "tid":3, "ts":1659705128345555, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128345558, "dur":1188, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/sharedassets0.assets.resS" }}
-,{ "pid":12345, "tid":3, "ts":1659705128346764, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/sharedassets0.assets" }}
-,{ "pid":12345, "tid":3, "ts":1659705128346784, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128346786, "dur":5612, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/sharedassets0.assets" }}
-,{ "pid":12345, "tid":3, "ts":1659705128352421, "dur":117, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/ScriptingAssemblies.json" }}
-,{ "pid":12345, "tid":3, "ts":1659705128352539, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128352558, "dur":2209, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/RuntimeInitializeOnLoads.json" }}
-,{ "pid":12345, "tid":3, "ts":1659705128354767, "dur":33, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128354802, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/level0.resS" }}
-,{ "pid":12345, "tid":3, "ts":1659705128354829, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128354833, "dur":1263, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/level0.resS" }}
-,{ "pid":12345, "tid":3, "ts":1659705128356115, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/level0" }}
-,{ "pid":12345, "tid":3, "ts":1659705128356134, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128356172, "dur":984, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/level0" }}
-,{ "pid":12345, "tid":3, "ts":1659705128357173, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/globalgamemanagers.assets" }}
-,{ "pid":12345, "tid":3, "ts":1659705128357193, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128357196, "dur":984, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/globalgamemanagers.assets" }}
-,{ "pid":12345, "tid":3, "ts":1659705128358196, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/globalgamemanagers" }}
-,{ "pid":12345, "tid":3, "ts":1659705128358218, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128358220, "dur":1049, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/globalgamemanagers" }}
-,{ "pid":12345, "tid":3, "ts":1659705128359285, "dur":66, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/boot.config" }}
-,{ "pid":12345, "tid":3, "ts":1659705128359352, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1659705128359371, "dur":202769, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705127997136, "dur":438, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705127997574, "dur":4222, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001797, "dur":42, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/mconfig/config.xml" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001839, "dur":22, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001862, "dur":23, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/web.config" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001886, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001904, "dur":22, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/machine.config" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001926, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001944, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001963, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001980, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/settings.map" }}
-,{ "pid":12345, "tid":4, "ts":1659705128001997, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002014, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002031, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002047, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/web.config" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002065, "dur":22, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002088, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/machine.config" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002108, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002124, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/config" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002144, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002160, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002179, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002195, "dur":23, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles WindowsPlayer_player_Master_mono_x64.pdb" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002218, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002236, "dur":23, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityPlayer.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002259, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002275, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityCrashHandler64.exe" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002293, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002310, "dur":41, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Resources/unity default resources" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002351, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002369, "dur":25, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.WindModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002394, "dur":22, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002416, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VRModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002433, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002449, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VideoModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002466, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002482, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VFXModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002496, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002512, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002529, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002546, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002565, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002582, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002600, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002618, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityCurlModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002635, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002651, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002667, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002683, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UmbraModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002698, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002713, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UIElementsNativeModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002729, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128002746, "dur":108742, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UI.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128111489, "dur":38, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128111529, "dur":578, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Threading.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128112107, "dur":26, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128112133, "dur":30841, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Telemetry.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128142975, "dur":40, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128143017, "dur":644, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Scheduler.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128143662, "dur":25, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128143688, "dur":23203, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Registration.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128166892, "dur":41, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128166935, "dur":647, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Networking.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128167582, "dur":27, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128167610, "dur":39660, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Internal.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128207270, "dur":38, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128207310, "dur":696, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Environments.Internal.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128208006, "dur":26, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128208034, "dur":405, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Environments.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128208440, "dur":23, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128208464, "dur":20673, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128229137, "dur":36, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128229175, "dur":509, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Analytics.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128229684, "dur":25, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128229710, "dur":137648, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Postprocessing.Runtime.dll" }}
-,{ "pid":12345, "tid":4, "ts":1659705128367359, "dur":38, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1659705128367400, "dur":194663, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1659705128585739, "dur":1151, "ph":"X", "name": "ProfilerWriteOutput" }
-,{ "pid": 0, "tid": 1, "ts": 1659705128599301, "dur": 338, "ph": "X", "name": "backend_profiler0.traceevents", "args": {} },
-{ "pid": 0, "tid": 1, "ts": 1659705128599209, "dur": 444, "ph": "X", "name": "Write chrome-trace events", "args": {} },
+,{ "pid":12345, "tid":0, "ts":1662608359796980, "dur":1057, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359798045, "dur":109, "ph":"X", "name": "Tundra",  "args": { "detail":"RemoveStaleOutputs" }}
+,{ "pid":12345, "tid":0, "ts":1662608359798170, "dur":17, "ph":"X", "name": "Tundra",  "args": { "detail":"PrepareNodes" }}
+,{ "pid":12345, "tid":0, "ts":1662608359798188, "dur":308, "ph":"X", "name": "Tundra",  "args": { "detail":"BuildQueueInit" }}
+,{ "pid":12345, "tid":0, "ts":1662608359798516, "dur":414, "ph":"X", "name": "EnqueueRequestedNodes",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359798930, "dur":1, "ph":"X", "name": "SortWorkingStack",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996498, "dur":35, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996533, "dur":8, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996541, "dur":27, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996569, "dur":5, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996574, "dur":1, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996575, "dur":4, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996579, "dur":1, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996580, "dur":4, "ph":"X", "name": "ThreadStateDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996584, "dur":1, "ph":"X", "name": "SharedResourceDestroy",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996591, "dur":3, "ph":"X", "name": "BuildQueueDestroyTail",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608359996595, "dur":10218, "ph":"X", "name": "Tundra",  "args": { "detail":"Write AllBuiltNodes" }}
+,{ "pid":12345, "tid":1, "ts":1662608359798355, "dur":583, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359798939, "dur":4222, "ph":"X", "name": "CheckDagSignatures",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803182, "dur":1, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"WriteText Library/Bee/artifacts/WinPlayerBuildProgram/Data/app.info" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803183, "dur":203, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803388, "dur":1, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/app.info" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803389, "dur":21, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803411, "dur":49, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803460, "dur":106, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803566, "dur":48, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803614, "dur":127, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803742, "dur":57, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803799, "dur":63, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803863, "dur":124, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityPlayer_Win64_player_mono_x64.pdb" }}
+,{ "pid":12345, "tid":1, "ts":1662608359803987, "dur":107, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804094, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.WindModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804114, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804132, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VideoModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804148, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804165, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804186, "dur":24, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804212, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804229, "dur":48, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804277, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UIModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804298, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804314, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TLSModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804330, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804345, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804362, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804377, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TerrainModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804392, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804407, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.StreamingModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804423, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804438, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SharedInternalsModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804454, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804469, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ProfilerModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804485, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804500, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.PerformanceReportingModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804515, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804530, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.LocalizationModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804546, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804560, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.InputLegacyModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804578, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804593, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.HotReloadModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804608, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804624, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.GameCenterModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804640, "dur":60, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804701, "dur":26, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.DirectorModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804727, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804743, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ClusterRendererModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804759, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804774, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AudioModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804790, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804806, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AnimationModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804821, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804837, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AccessibilityModule.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804855, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359804870, "dur":493, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Threading.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359805363, "dur":25, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359805389, "dur":24646, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Telemetry.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359830036, "dur":40, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359830078, "dur":2691, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Scheduler.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359832769, "dur":34, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359832805, "dur":22737, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Registration.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359855542, "dur":38, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359855582, "dur":492, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Environments.Internal.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359856075, "dur":23, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359856099, "dur":405, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Environments.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359856504, "dur":23, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359856528, "dur":15094, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359871623, "dur":46, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359871671, "dur":467, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Device.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359872138, "dur":24, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359872163, "dur":15193, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Configuration.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887356, "dur":25, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887382, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.IO.Compression.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887401, "dur":112, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887514, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Drawing.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887533, "dur":95, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887629, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Data.DataSetExtensions.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887648, "dur":94, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887743, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.ComponentModel.Composition.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887760, "dur":105, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887865, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/netstandard.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887884, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887899, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Mono.Security.dll" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887914, "dur":85, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359887999, "dur":62, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/StreamingAssets/UnityServicesProjectConfiguration.json" }}
+,{ "pid":12345, "tid":1, "ts":1662608359888061, "dur":104, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359888166, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Resources/unity_builtin_extra" }}
+,{ "pid":12345, "tid":1, "ts":1662608359888196, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359889145, "dur":2516, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/Resources/unity_builtin_extra" }}
+,{ "pid":12345, "tid":1, "ts":1662608359891683, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/sharedassets0.assets.resS" }}
+,{ "pid":12345, "tid":1, "ts":1662608359891704, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359891708, "dur":936, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/sharedassets0.assets.resS" }}
+,{ "pid":12345, "tid":1, "ts":1662608359892661, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/sharedassets0.assets" }}
+,{ "pid":12345, "tid":1, "ts":1662608359892680, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359892682, "dur":5430, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/sharedassets0.assets" }}
+,{ "pid":12345, "tid":1, "ts":1662608359898131, "dur":62, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/ScriptingAssemblies.json" }}
+,{ "pid":12345, "tid":1, "ts":1662608359898194, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359898212, "dur":450, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/RuntimeInitializeOnLoads.json" }}
+,{ "pid":12345, "tid":1, "ts":1662608359898663, "dur":26, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359898690, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/level0.resS" }}
+,{ "pid":12345, "tid":1, "ts":1662608359898711, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359898714, "dur":931, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/level0.resS" }}
+,{ "pid":12345, "tid":1, "ts":1662608359899661, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/level0" }}
+,{ "pid":12345, "tid":1, "ts":1662608359899678, "dur":1, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359899714, "dur":1143, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/level0" }}
+,{ "pid":12345, "tid":1, "ts":1662608359900874, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/globalgamemanagers.assets" }}
+,{ "pid":12345, "tid":1, "ts":1662608359900899, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359900902, "dur":1895, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/globalgamemanagers.assets" }}
+,{ "pid":12345, "tid":1, "ts":1662608359902817, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/globalgamemanagers" }}
+,{ "pid":12345, "tid":1, "ts":1662608359902837, "dur":0, "ph":"X", "name": "StoreTimestampsOfNonGeneratedInputFiles",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359902840, "dur":888, "ph":"X", "name": "CopyFiles",  "args": { "detail":"ProjectiveTuningSpace_Data/globalgamemanagers" }}
+,{ "pid":12345, "tid":1, "ts":1662608359903744, "dur":55, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/boot.config" }}
+,{ "pid":12345, "tid":1, "ts":1662608359903799, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1662608359903816, "dur":92675, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359798388, "dur":553, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359798941, "dur":4278, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803220, "dur":70, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/web.config" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803290, "dur":89, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803380, "dur":26, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/machine.config" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803406, "dur":71, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803478, "dur":23, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/web.config" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803501, "dur":62, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803564, "dur":55, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803619, "dur":72, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803692, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/machine.config" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803721, "dur":71, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803793, "dur":23, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803816, "dur":39, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803856, "dur":129, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles WindowsPlayer_player_Master_mono_x64.pdb" }}
+,{ "pid":12345, "tid":2, "ts":1662608359803985, "dur":92, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804078, "dur":44, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Resources/unity default resources" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804123, "dur":20, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804143, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VFXModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804163, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804179, "dur":26, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804205, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804224, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityConnectModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804240, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804259, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UmbraModule.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804277, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359804293, "dur":82397, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886691, "dur":39, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886732, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Xml.Linq.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886752, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886772, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Xml.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886787, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886800, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Transactions.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886814, "dur":135, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886950, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.ServiceModel.Internals.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359886969, "dur":94, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887064, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Security.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887083, "dur":87, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887171, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Runtime.Serialization.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887192, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887208, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Numerics.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887223, "dur":12, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887236, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Net.Http.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887252, "dur":93, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887345, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.IO.Compression.FileSystem.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887363, "dur":90, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887454, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.EnterpriseServices.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887473, "dur":88, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887561, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887579, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887593, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Data.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887608, "dur":89, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887698, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Core.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887715, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887730, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/System.Configuration.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887745, "dur":115, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887861, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Newtonsoft.Json.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887879, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887894, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/mscorlib.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887909, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359887923, "dur":104618, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":2, "ts":1662608359992542, "dur":40, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1662608359992584, "dur":3910, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359798475, "dur":469, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359798944, "dur":4236, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803182, "dur":71, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/mconfig/config.xml" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803253, "dur":91, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803348, "dur":58, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/settings.map" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803406, "dur":77, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803484, "dur":58, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/settings.map" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803543, "dur":63, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803606, "dur":65, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/settings.map" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803671, "dur":111, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803783, "dur":49, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/browscap.ini" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803832, "dur":136, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359803969, "dur":43, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityPlayer.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804012, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804028, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804047, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804062, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace.exe" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804078, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804093, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.XRModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804109, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804127, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VirtualTexturingModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804147, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804165, "dur":22, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804187, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804206, "dur":21, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804227, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804243, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804261, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804278, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UIElementsNativeModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804298, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804317, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TilemapModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804334, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804353, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804372, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804387, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SubstanceModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804404, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804420, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SpriteMaskModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804436, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804451, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804468, "dur":18, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804486, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.Physics2DModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804502, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804517, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.NVIDIAModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804532, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804547, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.InputModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804562, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804579, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ImageConversionModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804594, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804610, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.GIModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804625, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804640, "dur":49, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804689, "dur":35, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804724, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.CoreModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804740, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804758, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ClothModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804773, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804787, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AssetBundleModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804803, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804818, "dur":18, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AndroidJNIModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804836, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359804851, "dur":136317, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":3, "ts":1662608359941169, "dur":41, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1662608359941212, "dur":55278, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359798512, "dur":440, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359798953, "dur":4263, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803218, "dur":66, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803284, "dur":106, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803391, "dur":50, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803441, "dur":57, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803498, "dur":44, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/4.0/machine.config" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803542, "dur":59, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803602, "dur":22, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/2.0/web.config" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803624, "dur":145, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803769, "dur":56, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/etc/mono/config" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803825, "dur":20, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803845, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359803865, "dur":137, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804003, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles UnityCrashHandler64.pdb" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804023, "dur":82, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804105, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VRModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804124, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804143, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.VehiclesModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804160, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804177, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityWebRequestModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804193, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804213, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UnityCurlModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804230, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804248, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UNETModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804264, "dur":19, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804283, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.UIElementsModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804303, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804319, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TextRenderingModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804334, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804351, "dur":20, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804371, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804386, "dur":17, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SubsystemsModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804403, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804417, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.SpriteShapeModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804433, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804448, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ScreenCaptureModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804463, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804478, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.PhysicsModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804493, "dur":13, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804506, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ParticleSystemModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804521, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804535, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.JSONSerializeModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804550, "dur":16, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804566, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.IMGUIModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804582, "dur":14, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804597, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.GridModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804612, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804627, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.DSPGraphModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804642, "dur":79, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804721, "dur":19, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.CrashReportingModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804740, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804757, "dur":16, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ClusterInputModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804773, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804788, "dur":15, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.ARModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804803, "dur":15, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804819, "dur":14, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/UnityEngine.AIModule.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804833, "dur":17, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359804850, "dur":43267, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359848118, "dur":38, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359848159, "dur":575, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Networking.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359848735, "dur":23, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359848759, "dur":29966, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Internal.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359878726, "dur":41, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359878769, "dur":510, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Services.Core.Analytics.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359879279, "dur":26, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359879306, "dur":117137, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles ProjectiveTuningSpace_Data/Managed/Unity.Postprocessing.Runtime.dll" }}
+,{ "pid":12345, "tid":4, "ts":1662608359996443, "dur":37, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1662608359996483, "dur":0, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"Player" }}
+,{ "pid":12345, "tid":4, "ts":1662608359996483, "dur":0, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1662608360016446, "dur":1221, "ph":"X", "name": "ProfilerWriteOutput" }
+,{ "pid": 0, "tid": 1, "ts": 1662608360010220, "dur": 323, "ph": "X", "name": "backend_profiler0.traceevents", "args": {} },
+{ "pid": 0, "tid": 1, "ts": 1662608360010142, "dur": 415, "ph": "X", "name": "Write chrome-trace events", "args": {} },

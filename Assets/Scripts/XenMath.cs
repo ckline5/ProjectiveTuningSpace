@@ -145,6 +145,53 @@ public static class XenMath
         }
     }
 
+    public static float getCents(string interval)
+    {
+        if (interval.Contains("/"))
+        {
+            //ratio
+            string[] ratio = interval.Split("/");
+            float numerator, denominator;
+            if (float.TryParse(ratio[0], out numerator)
+                && float.TryParse(ratio[1], out denominator))
+            {
+                return getCents(numerator, denominator);
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid parameters: {interval}");
+            }
+        }
+        else if (interval.Contains("\\"))
+        {
+            //edostep
+            string[] edosteps = interval.Split("\\");
+            float steps, edo;
+            if (float.TryParse(edosteps[0], out steps)
+                && float.TryParse(edosteps[1], out edo))
+            {
+                return getCents(new Interval(new Monzo(1, 0, 0), TuningSpace.Instance.primes, edo)) * steps;
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid parameters: {interval}");
+            }
+        }
+        else
+        {
+            //assume cents
+            float cents;
+            if (float.TryParse(interval, out cents))
+            {
+                return cents;
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid parameters: {interval}");
+            }
+        }
+    }
+
     public static float getCents(Interval i)
     {
         return getCents((float)i.Numerator, (float)i.Denominator);
@@ -200,7 +247,7 @@ public static class XenMath
         return pitches;
     }
 
-    public static List<float> getScalePitches(Comma comma, PrimeBasis primes, int mosShell)
+    public static List<float> getScalePitches(Comma Comma, PrimeBasis primes, int mosShell)
     {
         List<float> pitches = new List<float>();
         throw new NotImplementedException();
@@ -242,7 +289,7 @@ public static class XenMath
     }
 
     /// <summary>
-    /// Gets Tenney-Optimal value in cents for prime p when comma n/d is tempered out
+    /// Gets Tenney-Optimal value in cents for prime p when Comma n/d is tempered out
     /// </summary>
     /// <param name="n"></param>
     /// <param name="d"></param>
@@ -251,7 +298,7 @@ public static class XenMath
     public static float getTenneyOptimalTuning(System.Numerics.BigInteger n, System.Numerics.BigInteger d, float pr)
     {
         System.Numerics.BigInteger p = (System.Numerics.BigInteger)pr;
-        if (n % p != 0 && d % p != 0) //prime does not occur in comma
+        if (n % p != 0 && d % p != 0) //prime does not occur in Comma
         {
             return 0;
         }
@@ -272,6 +319,7 @@ public static class XenMath
     //for Rank-1
     public static Val getTenneyOptimalTuning(Val mapping, PrimeBasis primes)
     {
+        //probably incorrect
         Tuple<float,float,float> weighted = GetWeightedVals(mapping, primes);
         float avg = (weighted.Item1 + weighted.Item2 + weighted.Item3) / 3;
         float offset = mapping.X / avg;
@@ -280,11 +328,11 @@ public static class XenMath
     }
 
     /// <summary>
-    /// Gets tenney optimal damage in cents when comma n/d is tempered out
+    /// Gets tenney optimal damage in cents when Comma n/d is tempered out
     /// </summary>
-    /// <param name="n">Numerator of tempered comma</param>
-    /// <param name="d">Denominator of tempered comma</param>
-    /// <returns>Tenney-Optimal damage in cents when comma n/d is tempered out</returns>
+    /// <param name="n">Numerator of tempered Comma</param>
+    /// <param name="d">Denominator of tempered Comma</param>
+    /// <returns>Tenney-Optimal damage in cents when Comma n/d is tempered out</returns>
     public static double getTenneyOptimalDamage(System.Numerics.BigInteger n, System.Numerics.BigInteger d)
     {
         double nDivD = Math.Exp(System.Numerics.BigInteger.Log(n) - System.Numerics.BigInteger.Log(d)); //same as n/d but works better
@@ -295,7 +343,7 @@ public static class XenMath
     /// Get number of et-steps to traverse Comma c in Mapping m
     /// </summary>
     /// <param name="m">The mapping</param>
-    /// <param name="c">The comma being measured</param>
+    /// <param name="c">The Comma being measured</param>
     /// <returns>Number of steps to traverse Comma c in Mapping m</returns>
     public static float getSteps(Val m, Interval c)
     {
@@ -329,10 +377,9 @@ public static class XenMath
             return new Tuple<int, int, int>(b, 0, 1);
         }
 
-        int g, x, y;
-
         // unpack Tuple returned by function into variables
         Tuple<int, int, int> t = extendedGcd(b % a, a);
+        int g, x, y;
         g = t.Item1;
         x = t.Item2;
         y = t.Item3;
@@ -385,6 +432,39 @@ public static class XenMath
         return Tuple.Create(result[0]/g, result[1]/g, result[2]/g);
     }
 
+    public static Tuple<Tuple<float, float, float>, Tuple<float, float, float>, Tuple<float, float, float>> NullSpaceBasis3(Tuple<float, float, float> v)
+    {
+        Tuple<Tuple<float, float, float>, Tuple<float, float, float>, Tuple<float, float, float>> result;
+
+        float biggest = Math.Max(Math.Max(Math.Abs(v.Item1), Math.Abs(v.Item2)), Math.Abs(v.Item3));
+
+        Val mapping1 = new Val(-v.Item3, 0, v.Item1);
+        if (mapping1.X < 0)
+            mapping1 *= -1;
+        Val mapping2 = new Val(-v.Item2, v.Item1, 0);
+        if (mapping2.X < 0)
+            mapping2 *= -1;
+        Val mapping3 = new Val(0, -v.Item3, v.Item2);
+        if (mapping3.X < 0)
+            mapping3 *= -1;
+
+        //order to ensure most important mappings (usually) go in front
+        if (Math.Abs(v.Item1) == biggest)
+        {
+            result = new Tuple<Tuple<float, float, float>, Tuple<float, float, float>, Tuple<float, float, float>>(mapping1.Vals, mapping2.Vals, mapping3.Vals);
+        }
+        else if (Math.Abs(v.Item2) == biggest)
+        {
+            result = new Tuple<Tuple<float, float, float>, Tuple<float, float, float>, Tuple<float, float, float>>(mapping2.Vals, mapping3.Vals, mapping1.Vals);
+        }
+        else //if (Math.Abs(v.Item3) == biggest)
+        {
+            result = new Tuple<Tuple<float, float, float>, Tuple<float, float, float>, Tuple<float, float, float>>(mapping1.Vals, mapping3.Vals, mapping2.Vals);
+        }
+
+        return result;
+    }
+
     public static int GetNumberOfPrime(int p)
     {
         return System.Array.IndexOf(prime_numbers, p);
@@ -402,4 +482,104 @@ public static class XenMath
         return System.Numerics.BigInteger.Log10(numerator * denominator);
     }
 
+    //linePnt - point the line passes through
+    //lineDir - unit vector in direction of line, either direction works
+    //pnt - the point to find nearest on line for
+    public static UnityEngine.Vector3 NearestPointOnLine(UnityEngine.Vector3 linePnt, UnityEngine.Vector3 lineDir, UnityEngine.Vector3 pnt)
+    {
+        UnityEngine.Debug.Log("nearest point on line");
+        lineDir.Normalize();//this needs to be a unit vector
+        var v = pnt - linePnt;
+        var d = UnityEngine.Vector3.Dot(v, lineDir);
+        return linePnt + lineDir * d;
+    }
+
+    ///<summary>
+    /// (((WARNING))) MATH IS KIND OF OFF HERE - WRONG NUMBERS EMERGE - DO NOT USE UNTIL FIXED
+    ///gets the cents for the generator of a rank2 temperament per distance in unity
+    ///</summary>
+    public static double GetGeneratorCentsPerDistance(Comma tempered, PrimeBasis primes)
+    {
+        //x: the intersection of the temperament line of the tempered comma and the temperament line where the genered is tempered out
+        Val x = new Val(AntiNullSpaceBasis(tempered.TemperedInterval.Monzos.Monzos, tempered.generator.Monzos.Monzos));
+        UnityEngine.Vector3 xLoc = ProjectionTools.Project(GetWeightedVals(x, primes));
+
+        //get a few mappings on the temperament line where the genered is tempered out
+       // var mappings1 = NullSpaceBasis3(tempered.TemperedInterval.Monzos.Monzos);
+       // UnityEngine.Vector3 mapLoc1 = ProjectionTools.Project(mappings1.Item1);
+        //get a few mappings on the temperament line where the genered is tempered out
+        var mappings2 = NullSpaceBasis3(tempered.generator.Monzos.Monzos);
+        UnityEngine.Vector3 mapLoc2 = ProjectionTools.Project(mappings2.Item1);
+
+
+        //get the JIP location
+        UnityEngine.Vector3 jipLoc = ProjectionTools.Project(new Tuple<float, float, float>(1,1,1));
+
+        //m1: slope of tempered temperament line
+        //m2: slope of temperament line where the generator is tempered out
+        //m3: slope of line between x and jip
+        //float m1 = (xLoc.y - mapLoc1.y) / (xLoc.x - mapLoc1.x);
+        float m2 = (xLoc.y - mapLoc2.y) / (xLoc.x - mapLoc2.x);
+        float m3 = (xLoc.y - jipLoc.y) / (xLoc.x - jipLoc.x);
+
+        //h1: the distance between x and the location we want the generator for
+        //or, the hypoteneuse of the triangle formed between x, our location, and distance from our location to the temepered generator's line where it intersects at a right angle
+        //h2: the distance between x and the jip
+        //float h1 = UnityEngine.Vector3.Distance(location, xLoc);
+        float h2 = UnityEngine.Vector3.Distance(xLoc, jipLoc);
+
+        //theta1: angle between 
+        //theta2: angle
+        //double theta1 = Math.Atan((m1 - m2) / (1 + m1 * m2));
+        double theta2 = Math.Atan((m3 - m2) / (1 + m3 * m2));
+
+        //d: distance from x to our location
+        //j: distance from x to jip
+        //double d = h1 * Math.Sin(theta1);
+        double j = h2 * Math.Sin(theta2);
+
+        float generatorCentsJI = getCents(new Interval(tempered.generator.Monzos, primes));
+        double centsPerDistance = generatorCentsJI / j;
+
+        return (centsPerDistance);
+    }
+
+    /// <summary>
+    /// (((WARNING))) MATH IS KIND OF OFF HERE - WRONG NUMBERS EMERGE - DO NOT USE UNTIL FIXED
+    ///gets the cents for the generator of a rank2 temperament at a given location along that temperament's line
+    /// </summary>
+    /// <param name="tempered"></param>
+    /// <param name="location"></param>
+    /// <param name="primes"></param>
+    /// <returns></returns>
+    public static float GetGeneratorCentsAtLocation(Comma tempered, UnityEngine.Vector3 location, PrimeBasis primes)
+    {
+        //x: the intersection of the temperament line of the tempered comma and the temperament line where the genered is tempered out
+        Val x = new Val(AntiNullSpaceBasis(tempered.TemperedInterval.Monzos.Monzos, tempered.generator.Monzos.Monzos));
+        UnityEngine.Vector3 xLoc = ProjectionTools.Project(GetWeightedVals(x, primes));
+
+        //get a few mappings on the temperament line where the genered is tempered out
+        var mappings1 = NullSpaceBasis3(tempered.TemperedInterval.Monzos.Monzos);
+        UnityEngine.Vector3 mapLoc1 = ProjectionTools.Project(mappings1.Item1);
+        var mappings2 = NullSpaceBasis3(tempered.generator.Monzos.Monzos);
+        UnityEngine.Vector3 mapLoc2 = ProjectionTools.Project(mappings2.Item1);
+
+        //m1: slope of tempered temperament line
+        //m2: slope of temperament line where the generator is tempered out
+        //m3: slope of line between x and jip
+        float m1 = (xLoc.y - mapLoc1.y) / (xLoc.x - mapLoc1.x);
+        float m2 = (xLoc.y - mapLoc2.y) / (xLoc.x - mapLoc2.x);
+
+        float h1 = UnityEngine.Vector3.Distance(location, xLoc);
+
+        //theta1: angle between 
+        double theta1 = Math.Atan((m1 - m2) / (1 + m1 * m2));
+
+        //d: distance from x to our location
+        double d = h1 * Math.Sin(theta1);
+
+        //UnityEngine.Debug.Log($"x:{x} mappings1:{mappings1.Item1} mappings2:{mappings2.Item1} m1:{m1} m2:{m2} h1:{h1} theta1:{theta1} d:{d}");
+
+        return (float)d * tempered.generatorCentsPerDistance;
+    }
 }

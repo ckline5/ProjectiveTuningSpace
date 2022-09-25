@@ -5,9 +5,9 @@ using UnityEngine.UIElements;
 
 public class MenuBackgroundPanel : MonoBehaviour
 {
-    UIHandler ui;
+    //UIHandler UIHandler.Instance;
 
-    // variable to hold the panel ui element
+    // variable to hold the panel UIHandler.Instance element
     private List<VisualElement> _menuBackgroundPanelUiElements;
 
 
@@ -20,7 +20,7 @@ public class MenuBackgroundPanel : MonoBehaviour
         {
             //Debug.Log("Mouse has entered the panel");
             //Debug.Log("Update some kind of global flag that says the mouse is now over the UI.");
-            ui.mouseInUI = true;
+            UIHandler.Instance.mouseInUI = true;
         }
     }
 
@@ -33,7 +33,7 @@ public class MenuBackgroundPanel : MonoBehaviour
         {
             //Debug.Log("mouse has left the panel");
             //Debug.Log("Update some kind of global flag that says the mouse has left the UI.");
-            ui.mouseInUI = false;
+            UIHandler.Instance.mouseInUI = false;
         }
     }
 
@@ -55,8 +55,8 @@ public class MenuBackgroundPanel : MonoBehaviour
 
     private void Start()
     {
-        // query and store the panel ui element
-        ui = GetComponent<UIHandler>();
+        // query and store the panel UIHandler.Instance element
+        //UIHandler.Instance = GetComponent<UIHandler>();
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
         _menuBackgroundPanelUiElements = new List<VisualElement>();
         _menuBackgroundPanelUiElements.Add(root.Q<VisualElement>("PrimeBasis"));
@@ -64,6 +64,8 @@ public class MenuBackgroundPanel : MonoBehaviour
         _menuBackgroundPanelUiElements.Add(root.Q<VisualElement>("PTSObjectCreator"));
         _menuBackgroundPanelUiElements.Add(root.Q<VisualElement>("PTSObjectInfo"));
         _menuBackgroundPanelUiElements.Add(root.Q<VisualElement>("ErrorsWindow"));
+        _menuBackgroundPanelUiElements.Add(root.Q<VisualElement>("InfoWindow"));
+        _menuBackgroundPanelUiElements.Add(root.Q<VisualElement>("MOSInfo"));
 
         // register callbacks for MouseEnter and MouseLeave events on the panel element
         RegisterMouseEnterCallback();

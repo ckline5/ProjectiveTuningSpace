@@ -6,14 +6,17 @@ using UnityEngine.UIElements;
 
 public class FPSFlyer : MonoBehaviour
 {
+    private static FPSFlyer _instance;
+    public static FPSFlyer Instance { get { return _instance; } }
+
     public float speed = 6.0f;
     private Vector3 moveDirection = Vector3.zero;
     private Vector3 dragOrigin;
     private Vector3? positionToMoveTo = null;
 
     CharacterController controller;
-    TuningSpace ts;
-    UIHandler ui;
+    //TuningSpace TuningSpace.Instance;
+    //UIHandler UIHandler.Instance;
     VisualElement root;
 
     void FixedUpdate()
@@ -25,7 +28,7 @@ public class FPSFlyer : MonoBehaviour
         //    moveDirection *= speed * -Mathf.Pow(transform.position.z + .01f, 1);
 
         //    this.transform.position += moveDirection * Time.deltaTime;
-        //    ts.Zoom = Mathf.Abs(this.transform.position.z - ts.transform.position.z);
+        //    TuningSpace.Instance.Zoom = Mathf.Abs(this.transform.position.z - TuningSpace.Instance.transform.position.z);
         //    //if (transform.position.z > -0.01f) transform.position.Set(transform.position.x, transform.position.y, -0.01f);
         //}
 
@@ -38,19 +41,19 @@ public class FPSFlyer : MonoBehaviour
         ScrollWheelZoom();
         if (Input.GetButtonDown("Menu"))
         {
-            ui.ShowHideMenu();
+            UIHandler.Instance.ShowHideMenu();
         }
     }
 
     private void ScrollWheelZoom()
     {
-        if (!ui.mouseInUI)
+        if (!UIHandler.Instance.mouseInUI)
         {
             float ScrollWheelChange = Input.GetAxis("Mouse ScrollWheel");           //This little peece of code is written by JelleWho https://github.com/jellewie
             if (ScrollWheelChange != 0)
             {                                            //If the scrollwheel has changed
                 positionToMoveTo = null;
-                float R = ScrollWheelChange * (ts.Zoom - .01f);                                   //The radius from current camera
+                float R = ScrollWheelChange * (TuningSpace.Instance.Zoom - .01f);                                   //The radius from current camera
                 float PosX = transform.eulerAngles.x + 90;              //Get up and down
                 float PosY = -1 * (transform.eulerAngles.y - 90);       //Get left to right
                 PosX = PosX / 180 * Mathf.PI;                                       //Convert from degrees to radians
@@ -61,17 +64,17 @@ public class FPSFlyer : MonoBehaviour
                 float CamX = transform.position.x;                      //Get current camera postition for the offset
                 float CamY = transform.position.y;                      //^
                 float CamZ = transform.position.z;                      //^
-                float newZoom = Mathf.Abs(CamZ + Z - ts.transform.position.z);
+                float newZoom = Mathf.Abs(CamZ + Z - TuningSpace.Instance.transform.position.z);
                 if (newZoom < 5000)
                     transform.position = new Vector3(CamX + X, CamY + Y, CamZ + Z);//Move the main camera
-                ts.Zoom = Mathf.Abs(this.transform.position.z - ts.transform.position.z);
+                TuningSpace.Instance.Zoom = Mathf.Abs(this.transform.position.z - TuningSpace.Instance.transform.position.z);
             }
         }
     }
 
     private void CameraDrag()
     {
-        if (!ui.mouseInUI)
+        if (!UIHandler.Instance.mouseInUI)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -85,7 +88,7 @@ public class FPSFlyer : MonoBehaviour
             Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
             Vector3 move = new Vector3(pos.x * speed, pos.y * speed, 0);
             //move *= -Mathf.Pow(transform.position.z + .01f, 1);
-            move *= (ts.Zoom - .01f);
+            move *= (TuningSpace.Instance.Zoom * 9/10);
 
             transform.Translate(-move, Space.World);
             dragOrigin = Input.mousePosition;
@@ -104,16 +107,25 @@ public class FPSFlyer : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, (Vector3)positionToMoveTo, Time.deltaTime);
             else
                 positionToMoveTo = null;
-            ts.Zoom = Mathf.Abs(this.transform.position.z - ts.transform.position.z);
+            TuningSpace.Instance.Zoom = Mathf.Abs(this.transform.position.z - TuningSpace.Instance.transform.position.z);
         }
     }
 
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
         controller = GetComponent<CharacterController>();
-        ts = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
-        ui = GameObject.Find("UI").GetComponent<UIHandler>();
-        root = ui.GetComponent<UIDocument>().rootVisualElement;
+        //TuningSpace.Instance = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
+        //UIHandler.Instance = GameObject.Find("UI").GetComponent<UIHandler>();
+        root = UIHandler.Instance.GetComponent<UIDocument>().rootVisualElement;
         ResetPosition();
     }
 
@@ -129,7 +141,7 @@ public class FPSFlyer : MonoBehaviour
 
     public void SetPosition(Vector3 position)
     {
-        //positionToMoveTo = position + new Vector3(0, 0, -Mathf.Pow(Vector3.Distance(position, ts.JIP().transform.position), 0.5f) - .1f);
+        //positionToMoveTo = position + new Vector3(0, 0, -Mathf.Pow(Vector3.Distance(position, TuningSpace.Instance.JIP().transform.position), 0.5f) - .1f);
         positionToMoveTo = position + new Vector3(0, 0, -1);
     }
 }

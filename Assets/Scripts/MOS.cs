@@ -13,24 +13,24 @@ public class MOS : MonoBehaviour
     public decimal generator = 833M;
     public decimal equivalenceInterval = 1200M;
     Dictionary<int, List<decimal>> pitches;
-    List<LineRenderer> lines;
-    List<LineRenderer> circleLines;
+    List<MOSLine> lines;
+    List<MOSLine> circleLines;
 
     public float periodAsFloat = 1200f;
     public float generatorAsFloat = 833f;
     public float EquivalenceIntervalAsFloat = 1200f;
 
-    public LineRenderer MOSLine_prefab;
+    public MOSLine MOSLine_prefab;
     private Transform MOSText;
     private TextMesh MOSTextMesh;
 
-    public const float LINE_WIDTH = .005f;
+    public float initialLineWidth = .005f;
 
     public void Awake()
     {
         pitches = new Dictionary<int, List<decimal>>();
-        lines = new List<LineRenderer>();
-        circleLines = new List<LineRenderer>();
+        lines = new List<MOSLine>();
+        circleLines = new List<MOSLine>();
         MOSText = transform.GetChild(0);
         MOSTextMesh = MOSText.GetComponent<TextMesh>();
     }
@@ -82,7 +82,7 @@ public class MOS : MonoBehaviour
 
     public void DeleteCircles()
     {
-        foreach (LineRenderer c in circleLines)
+        foreach (MOSLine c in circleLines)
         {
             Destroy(c.gameObject);
         }
@@ -91,7 +91,7 @@ public class MOS : MonoBehaviour
 
     public void DeleteLines()
     {
-        foreach(LineRenderer l in lines)
+        foreach(MOSLine l in lines)
         {
             Destroy(l.gameObject);
         }
@@ -120,13 +120,16 @@ public class MOS : MonoBehaviour
         DeleteCircles();
         for (int c = 0; c <= iterations; c++)
         {
-            var circle = Instantiate(MOSLine_prefab);
+            MOSLine circle = Instantiate(MOSLine_prefab);
+            circle.lineType = MOSLine.LineType.CIRCLE;
+            circle.SetWidth(initialLineWidth);
             circle.transform.position = transform.position;
             circle.transform.rotation = transform.rotation;
             circle.transform.parent = transform;
             circle.name = "Circle " + c;
-            circle.positionCount = segments + 1;
-            DrawCircle(circle.gameObject, transform.position, c / Mathf.Sqrt(scaling) );
+            circle.line.positionCount = segments + 1;
+            circle.AddCollider(); //actually removes it lol
+            DrawCircle(circle, transform.position, c / Mathf.Sqrt(scaling) );
         }
     }
 
@@ -149,10 +152,9 @@ public class MOS : MonoBehaviour
             //Debug.Log("NEW MOS LINE");
             for (int i = 0; i < equivalenceInterval / period; i++)
             {
-                var line = Instantiate(MOSLine_prefab);
-                line.useWorldSpace = false;
-                line.startWidth = LINE_WIDTH;
-                line.endWidth = line.startWidth;
+                MOSLine line = Instantiate(MOSLine_prefab);
+                line.lineType = MOSLine.LineType.LINE;
+                line.SetWidth(initialLineWidth);
                 line.transform.position = transform.position;
                 line.transform.rotation = transform.rotation;
                 line.transform.parent = transform;
@@ -160,14 +162,17 @@ public class MOS : MonoBehaviour
 
                 //calculate angle of new line
                 float angle = (((float)currentStep + i * (float)period) / (float)equivalenceInterval * 360) % 360 * Mathf.Deg2Rad;
+                line.cents = ((float)currentStep + i * (float)period);
 
                 //calculate points of new line and place line
                 float x0 = Mathf.Sin(angle) * currentIteration / Mathf.Sqrt(scaling);
                 float y0 = Mathf.Cos(angle) * currentIteration / Mathf.Sqrt(scaling);
                 float x1 = Mathf.Sin(angle) * iterations / Mathf.Sqrt(scaling);
                 float y1 = Mathf.Cos(angle) * iterations / Mathf.Sqrt(scaling);
-                line.SetPosition(0, new Vector3(x0, 0, y0));
-                line.SetPosition(1, new Vector3(x1, 0, y1));
+                line.line.SetPosition(0, new Vector3(x0, 0, y0));
+                line.line.SetPosition(1, new Vector3(x1, 0, y1));
+
+                line.AddCollider();
 
                 lines.Add(line);
             }
@@ -286,14 +291,14 @@ public class MOS : MonoBehaviour
         return myhill;
     }
 
-    private void DrawCircle(GameObject go, Vector3 center, float radius)
+    private void DrawCircle(MOSLine line, Vector3 center, float radius)
     {
         float x, y;
         float change = 2 * (float)Mathf.PI / segments;
         float angle = change;
-        LineRenderer l = go.GetComponent<LineRenderer>();
+        LineRenderer l = line.GetComponent<LineRenderer>();
         l.useWorldSpace = false;
-        l.startWidth = LINE_WIDTH;
+        l.startWidth = initialLineWidth;
         l.endWidth = l.startWidth;
 
         //x = Mathf.Sin(angle) * radius;
@@ -307,6 +312,6 @@ public class MOS : MonoBehaviour
 
             angle += change;
         }
-        circleLines.Add(l);
+        circleLines.Add(line);
     }
 }

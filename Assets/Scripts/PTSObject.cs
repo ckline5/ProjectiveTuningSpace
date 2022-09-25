@@ -6,6 +6,7 @@ public interface PTSObject
 {
     void OnSelect();
     void OnJoinInit();
+    void OnJoinCancel();
     void OnDeselect();
 
     string XenWikiURL { get; }

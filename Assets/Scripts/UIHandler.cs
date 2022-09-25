@@ -8,8 +8,11 @@ using static XenMath;
 
 public class UIHandler : MonoBehaviour
 {
-    TuningSpace ts;
-    FPSFlyer player;
+    private static UIHandler _instance;
+    public static UIHandler Instance { get { return _instance; } }
+
+    //TuningSpace TuningSpace.Instance;
+    //FPSFlyer FPSFlyer.Instance;
 
     public bool mouseInUI;
 
@@ -22,6 +25,11 @@ public class UIHandler : MonoBehaviour
     VisualElement m_MappingInfo;
     VisualElement m_CommaInfo;
     VisualElement m_ErrorsWindow;
+    VisualElement m_InfoWindow;
+    VisualElement m_MOSInfo;
+    VisualElement m_MiniMOSOptions;
+    VisualElement m_MOSOptions;
+
 
     enum CreateMappingType
     {
@@ -41,12 +49,22 @@ public class UIHandler : MonoBehaviour
 
     private void Awake()
     {
-        ts = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
-        player = GameObject.Find("Player").GetComponent<FPSFlyer>();
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+
+        //TuningSpace.Instance = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
+        //FPSFlyer.Instance = GameObject.Find("FPSFlyer.Instance").GetComponent<FPSFlyer>();
         root = GetComponent<UIDocument>().rootVisualElement;
         screenshotCamera.enabled = false;
 
         HidePTSObjectInfo();
+        
 
         m_PrimeBasis = root.Q<VisualElement>("PrimeBasis");
         m_PTSObjectCreator = root.Q<VisualElement>("PTSObjectCreator");
@@ -56,21 +74,34 @@ public class UIHandler : MonoBehaviour
         m_CommaInfo = m_PTSObjectInfo.Q<VisualElement>("CommaInfo");
         m_ErrorsWindow = root.Q<VisualElement>("ErrorsWindow");
         m_ErrorsWindow.style.display = DisplayStyle.None;
+        m_InfoWindow = root.Q<VisualElement>("InfoWindow");
+        m_InfoWindow.style.display = DisplayStyle.None;
         m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector").style.display = DisplayStyle.None;
+        m_MOSInfo = root.Q<VisualElement>("MOSInfo");
+        m_MOSInfo.style.display = DisplayStyle.None;
+        m_MiniMOSOptions = m_MOSInfo.Q<VisualElement>("MiniMOSOptions");
+        m_MOSOptions = m_MOSInfo.Q<VisualElement>("MOSOptions");
+
 
         m_PrimeBasis.Q<Button>("PrimeBasisInit").clicked += PrimeBasisInit_clicked;
         m_PrimeBasis.Q<Button>("PrimeBasisCreate").clicked += PrimeBasisCreate_clicked;
-        m_PrimeBasis.Q<Button>("PrimeBasisDestroy").clicked += PrimeBasisDestroy_clicked;
         m_PrimeBasis.Q<Button>("PrimeBasisDestroyAll").clicked += PrimeBasisDestroyAll_clicked;
+        m_PTSObjectCreator.Q<Button>("DestroyMappings").clicked += DestroyMappings_clicked;
+        m_PTSObjectCreator.Q<Button>("DestroyCommas").clicked += DestroyCommas_clicked;
+        m_PTSObjectCreator.Q<Button>("DestroyMappingsAndCommas").clicked += DestroyMappingsAndCommas_clicked;
         m_PTSObjectCreator.Q<Button>("CreateMappingButton").clicked += CreateMappingButton_clicked;
         m_PTSObjectCreator.Q<Button>("CreateCommaButton").clicked += CreateCommaButton_clicked;
         m_Options.Q<Button>("ScreenshotButton").clicked += ScreenshotButton_clicked;
         m_Options.Q<Button>("ResetPositionButton").clicked += ResetPositionButton_clicked;
         m_MappingInfo.Q<Button>("MappingJoin").clicked += MappingJoin_clicked;
+        m_MappingInfo.Q<Button>("MappingMergePlus").clicked += MappingMergePlus_clicked;
+        m_MappingInfo.Q<Button>("MappingMergeMinus").clicked += MappingMergeMinus_clicked;
         m_MappingInfo.Q<Button>("MappingSetPosition").clicked += MappingSetPosition_clicked;
         m_MappingInfo.Q<Button>("MappingViewHoragram").clicked += MappingViewHoragram_clicked;
         m_MappingInfo.Q<Button>("MappingDelete").clicked += MappingDelete_clicked;
         m_CommaInfo.Q<Button>("CommaJoin").clicked += CommaJoin_clicked;
+        m_CommaInfo.Q<Button>("CommaMergePlus").clicked += CommaMergePlus_clicked;
+        m_CommaInfo.Q<Button>("CommaMergeMinus").clicked += CommaMergeMinus_clicked;
         m_CommaInfo.Q<Button>("CommaSetPosition").clicked += CommaSetPosition_clicked;
         m_CommaInfo.Q<Button>("CommaViewHoragram").clicked += CommaViewHoragram_clicked;
         m_CommaInfo.Q<Button>("CommaDelete").clicked += CommaDelete_clicked;
@@ -83,6 +114,38 @@ public class UIHandler : MonoBehaviour
         m_CommaInfo.Q<Button>("LinkScaleWorkshop").clicked += LinkScaleWorkshop_clicked;
         m_CommaInfo.Q<Button>("LinkXenCalc").clicked += LinkXenCalc_clicked;
         m_ErrorsWindow.Q<Button>("ErrorsOK").clicked += ErrorsOK_clicked;
+        m_InfoWindow.Q<Button>("InfoOK").clicked += InfoOK_clicked;
+        m_MiniMOSOptions.Q<Button>("MiniMOSHide").clicked += MiniMOSHide_clicked;
+        m_MiniMOSOptions.Q<Button>("MiniMOSViewFullMOS").clicked += MiniMOSViewFullMOS_clicked;
+        m_MOSOptions.Q<Button>("MOSCreate").clicked += MOSCreate_clicked;
+        m_MOSOptions.Q<Button>("MOSBackToPTS").clicked += MOSBackToPTS_clicked;
+        m_MOSOptions.Q<Button>("MOSScreenshot").clicked += MOSScreenshot_clicked;
+
+        m_PrimeBasis.Q<TextField>("PrimeX").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
+        m_PrimeBasis.Q<TextField>("PrimeY").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
+        m_PrimeBasis.Q<TextField>("PrimeZ").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
+        m_PrimeBasis.Q<TextField>("MinET").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
+        m_PrimeBasis.Q<TextField>("MaxET").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
+        m_PrimeBasis.Q<TextField>("MaxOffset").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
+
+        m_PTSObjectCreator.Q<TextField>("CreateMappingX").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateMappingButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateMappingY").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateMappingButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateMappingZ").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateMappingButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateMappingED").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateMappingButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateMappingEDOf").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateMappingButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateMappingCents").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateMappingButton_clicked(); });
+
+        m_PTSObjectCreator.Q<TextField>("CreateCommaX").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateCommaButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateCommaY").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateCommaButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateCommaZ").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateCommaButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateCommaNumerator").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateCommaButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateCommaDenominator").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateCommaButton_clicked(); });
+        m_PTSObjectCreator.Q<TextField>("CreateCommaName").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) CreateCommaButton_clicked(); });
+
+        m_MOSInfo.Q<TextField>("MOSPeriod").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) MOSCreate_clicked(); });
+        m_MOSInfo.Q<TextField>("MOSGenerator").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) MOSCreate_clicked(); });
+        m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) MOSCreate_clicked(); });
+
 
         DropdownField m_CreateMappingTypeMenu = m_PTSObjectCreator.Q<DropdownField>("CreateMappingType");
         m_CreateMappingTypeMenu.choices.Clear();
@@ -99,71 +162,161 @@ public class UIHandler : MonoBehaviour
         m_MappingTextStyleMenu.choices.Clear();
         m_MappingTextStyleMenu.choices.AddRange(System.Enum.GetNames(typeof(TuningSpace.MappingTextStyle)));
         m_MappingTextStyleMenu.RegisterValueChangedCallback(v => MappingTextStyleMenu_selected(v.newValue));
-        m_MappingTextStyleMenu.value = ts.mappingTextStyle.ToString();
+        m_MappingTextStyleMenu.value = TuningSpace.Instance.mappingTextStyle.ToString();
         DropdownField m_CommaTextStyleMenu = m_Options.Q<DropdownField>("CommaTextStyle");
         m_CommaTextStyleMenu.choices.Clear();
         m_CommaTextStyleMenu.choices.AddRange(System.Enum.GetNames(typeof(TuningSpace.CommaTextStyle)));
         m_CommaTextStyleMenu.RegisterValueChangedCallback(v => CommaTextStyleMenu_selected(v.newValue));
-        m_CommaTextStyleMenu.value = ts.commaTextStyle.ToString();
+        m_CommaTextStyleMenu.value = TuningSpace.Instance.commaTextStyle.ToString();
         DropdownField m_MappingColorStyleMenu = m_Options.Q<DropdownField>("MappingColorStyle");
         m_MappingColorStyleMenu.choices.Clear();
         m_MappingColorStyleMenu.choices.AddRange(System.Enum.GetNames(typeof(TuningSpace.MappingColorStyle)));
         m_MappingColorStyleMenu.RegisterValueChangedCallback(v => MappingColorStyleMenu_selected(v.newValue));
-        m_MappingColorStyleMenu.value = ts.mappingColorStyle.ToString();
+        m_MappingColorStyleMenu.value = TuningSpace.Instance.mappingColorStyle.ToString();
         DropdownField m_RainbowIntervalSelectorMenu = m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector");
         m_RainbowIntervalSelectorMenu.choices.Clear();
-        m_RainbowIntervalSelectorMenu.choices.AddRange(ts.GetAllCommaNames());
+        m_RainbowIntervalSelectorMenu.choices.AddRange(TuningSpace.Instance.GetAllCommaNames());
         m_RainbowIntervalSelectorMenu.RegisterCallback<ClickEvent>(RainbowIntervalSelectorMenu_clicked);
         m_RainbowIntervalSelectorMenu.RegisterValueChangedCallback(v => RainbowIntervalSelectorMenu_selected(v.newValue));
         m_RainbowIntervalSelectorMenu.value = "";
 
         Slider m_MetaZoomSlider = m_Options.Q<Slider>("MetaZoomSlider");
         m_MetaZoomSlider.RegisterValueChangedCallback(v => MetaZoomSlider_changed(v.newValue));
+
+        Toggle m_CenterNewTemperament = m_PTSObjectCreator.Q<Toggle>("PTSObjectCreaterCenterNewObject");
+        m_CenterNewTemperament.RegisterValueChangedCallback(v => TuningSpace.Instance.CenterNewTemperament = v.newValue);
+
+        Toggle m_DisplayEncipheredVals = m_Options.Q<Toggle>("DisplayEncipheredVals");
+        m_DisplayEncipheredVals.RegisterValueChangedCallback(v => TuningSpace.Instance.displayEncipheredVals = v.newValue);
+    }
+
+    private void CommaMergeMinus_clicked()
+    {
+        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA_MERGE_MINUS;
+        TuningSpace.Instance.SelectedObject.OnJoinInit();
+    }
+
+    private void CommaMergePlus_clicked()
+    {
+        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA_MERGE_PLUS;
+        TuningSpace.Instance.SelectedObject.OnJoinInit();
+    }
+
+    private void MappingMergeMinus_clicked()
+    {
+        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING_MERGE_MINUS;
+        TuningSpace.Instance.SelectedObject.OnJoinInit();
+    }
+
+    private void MappingMergePlus_clicked()
+    {
+        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING_MERGE_PLUS;
+        TuningSpace.Instance.SelectedObject.OnJoinInit();
+    }
+
+    private void MOSScreenshot_clicked()
+    {
+        screenshotCamera.enabled = true;
+        string file = "Screenshot" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".png";
+        //ScreenCapture.CaptureScreenshot(file, 1);
+        SaveCameraView(screenshotCamera, file);
+        Debug.Log("Screenshot captured: " + file);
+        screenshotCamera.enabled = false;
+    }
+
+    private void MOSBackToPTS_clicked()
+    {
+        HideMOSMenu();
+        TuningSpace.Instance.gameObject.SetActive(true);
+        TuningSpace.Instance.miniMosMesh.gameObject.SetActive(false);
+        TuningSpace.Instance.mos.gameObject.SetActive(false);
+        ShowPTSMenu();
+    }
+
+    private void MOSCreate_clicked()
+    {
+        string generatorInput = m_MOSInfo.Q<TextField>("MOSGenerator").value;
+        string periodInput = m_MOSInfo.Q<TextField>("MOSPeriod").value;
+        string equivalenceIntervalInput = m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").value;
+
+        decimal generatorCents = (decimal)XenMath.getCents(generatorInput);
+        decimal periodCents = (decimal)XenMath.getCents(periodInput);
+        decimal equivalenceIntervalCents = (decimal)XenMath.getCents(equivalenceIntervalInput);
+        
+        TuningSpace.Instance.ViewMainMos(generatorCents, periodCents, equivalenceIntervalCents);
+    }
+
+    private void Start()
+    {
+        //init prime basis
+        float primeX, primeY, primeZ;
+        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeX").value, out primeX);
+        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeY").value, out primeY);
+        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeZ").value, out primeZ);
+        PrimeBasis primes = new PrimeBasis(primeX, primeY, primeZ);
+        TuningSpace.Instance.primes = primes;
+    }
+
+    private void MiniMOSHide_clicked()
+    {
+        HideMOSMenu();
+        TuningSpace.Instance.miniMosMesh.gameObject.SetActive(false);
+        ShowPTSMenu();
+    }
+
+    private void MiniMOSViewFullMOS_clicked()
+    {
+        TuningSpace.Instance.mos.gameObject.SetActive(true);
+        TuningSpace.Instance.ViewMainMos(TuningSpace.Instance.SelectedObject);
+        TuningSpace.Instance.miniMosMesh.gameObject.SetActive(false);
+        TuningSpace.Instance.gameObject.SetActive(false);
+        HidePTSMenu();
+        ShowMOSMenu();
     }
 
     private void LinkXenCalc_clicked()
     {
-        Application.OpenURL(ts.SelectedObject.XenCalcURL);
+        Application.OpenURL(TuningSpace.Instance.SelectedObject.XenCalcURL);
     }
 
     private void LinkScaleWorkshop_clicked()
     {
-        Application.OpenURL(ts.SelectedObject.ScaleWorkshopURL);
+        Application.OpenURL(TuningSpace.Instance.SelectedObject.ScaleWorkshopURL);
     }
 
     private void LinkX31EQ_clicked()
     {
-        Application.OpenURL(ts.SelectedObject.X31EQURL);
+        Application.OpenURL(TuningSpace.Instance.SelectedObject.X31EQURL);
     }
 
     private void LinkXenWiki_clicked()
     {
-        Application.OpenURL(ts.SelectedObject.XenWikiURL);
+        Application.OpenURL(TuningSpace.Instance.SelectedObject.XenWikiURL);
     }
 
     private void CommaViewHoragram_clicked()
     {
-        throw new NotImplementedException();
+        TuningSpace.Instance.ViewMiniMos(TuningSpace.Instance.SelectedObject);
     }
 
     private void MappingViewHoragram_clicked()
     {
-        throw new NotImplementedException();
+        TuningSpace.Instance.ViewMiniMos(TuningSpace.Instance.SelectedObject);
     }
 
     private void CommaSetPosition_clicked()
     {
-        player.SetPosition(((Comma)ts.SelectedObject).transform.position);
+        FPSFlyer.Instance.SetPosition(((Comma)TuningSpace.Instance.SelectedObject).transform.position);
     }
 
     private void MappingSetPosition_clicked()
     {
-        player.SetPosition(((Mapping)ts.SelectedObject).transform.position);
+        FPSFlyer.Instance.SetPosition(((Mapping)TuningSpace.Instance.SelectedObject).transform.position);
     }
 
     private void MetaZoomSlider_changed(float newValue)
     {
-        ts.MetaZoom = newValue;
+        TuningSpace.Instance.MetaZoom = newValue;
     }
 
     private void RainbowIntervalSelectorMenu_clicked(ClickEvent evt)
@@ -176,7 +329,7 @@ public class UIHandler : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(newValue))
         {
             string[] monzos = newValue.Replace("[", "").Replace(">", "").Trim().Split(" ");
-            ts.rainbowIntervalSelection = new Monzo(float.Parse(monzos[0]), float.Parse(monzos[1]), float.Parse(monzos[2]));
+            TuningSpace.Instance.rainbowIntervalSelection = new Monzo(float.Parse(monzos[0]), float.Parse(monzos[1]), float.Parse(monzos[2]));
         }
     }
 
@@ -184,7 +337,12 @@ public class UIHandler : MonoBehaviour
     {
         DropdownField m_RainbowIntervalSelectorMenu = m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector");
         m_RainbowIntervalSelectorMenu.choices.Clear();
-        m_RainbowIntervalSelectorMenu.choices.AddRange(ts.GetAllCommaNames());
+        m_RainbowIntervalSelectorMenu.choices.AddRange(TuningSpace.Instance.GetAllCommaNames());
+    }
+
+    private void InfoOK_clicked()
+    {
+        m_InfoWindow.style.display = DisplayStyle.None;
     }
 
     private void ErrorsOK_clicked()
@@ -194,8 +352,8 @@ public class UIHandler : MonoBehaviour
 
     private void MappingColorStyleMenu_selected(string newValue)
     {
-        System.Enum.TryParse(newValue, true, out ts.mappingColorStyle);
-        if (ts.mappingColorStyle == TuningSpace.MappingColorStyle.RAINBOW_INTERVAL)
+        System.Enum.TryParse(newValue, true, out TuningSpace.Instance.mappingColorStyle);
+        if (TuningSpace.Instance.mappingColorStyle == TuningSpace.MappingColorStyle.RAINBOW_INTERVAL)
             m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector").style.display = DisplayStyle.Flex;
         else
             m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector").style.display = DisplayStyle.None;
@@ -203,12 +361,12 @@ public class UIHandler : MonoBehaviour
 
     private void CommaTextStyleMenu_selected(string newValue)
     {
-        System.Enum.TryParse(newValue, true, out ts.commaTextStyle);
+        System.Enum.TryParse(newValue, true, out TuningSpace.Instance.commaTextStyle);
     }
 
     private void MappingTextStyleMenu_selected(string newValue)
     {
-        System.Enum.TryParse(newValue, true, out ts.mappingTextStyle);
+        System.Enum.TryParse(newValue, true, out TuningSpace.Instance.mappingTextStyle);
     }
 
     private void CreateMappingTypeMenu_selected(string value)
@@ -261,33 +419,33 @@ public class UIHandler : MonoBehaviour
 
     private void ResetPositionButton_clicked()
     {
-        player.ResetPosition();
+        FPSFlyer.Instance.ResetPosition();
     }
 
     private void CommaDelete_clicked()
     {
-        ts.Delete((Comma)ts.SelectedObject);
+        StartCoroutine(TuningSpace.Instance.Delete((Comma)TuningSpace.Instance.SelectedObject));
         root.Q<VisualElement>("CommaInfo").style.display = DisplayStyle.None;
     }
 
     private void CommaJoin_clicked()
     {
-        ts.joinMode = TuningSpace.JoinMode.COMMA;
-        ts.SelectedObject.OnJoinInit();
+        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA;
+        TuningSpace.Instance.SelectedObject.OnJoinInit();
     }
 
     private void MappingDelete_clicked()
     {
-        ts.Delete((Mapping)ts.SelectedObject);
+        StartCoroutine(TuningSpace.Instance.Delete((Mapping)TuningSpace.Instance.SelectedObject));
         root.Q<VisualElement>("MappingInfo").style.display = DisplayStyle.None;
     }
 
     private void MappingJoin_clicked()
     {
-        if (((Mapping)ts.SelectedObject).mappingType != Mapping.MappingType.JIP
-         && ((Mapping)ts.SelectedObject).mappingType != Mapping.MappingType.TOP)
-            ts.joinMode = TuningSpace.JoinMode.MAPPING;
-            ts.SelectedObject.OnJoinInit();
+        if (((Mapping)TuningSpace.Instance.SelectedObject).mappingType != Mapping.MappingType.JIP
+         && ((Mapping)TuningSpace.Instance.SelectedObject).mappingType != Mapping.MappingType.TOP)
+            TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING;
+            TuningSpace.Instance.SelectedObject.OnJoinInit();
     }
 
     public Camera screenshotCamera;
@@ -333,8 +491,9 @@ public class UIHandler : MonoBehaviour
         }
         if (c != null)
         {
-            ts.SelectedObject = c;
-            player.SetPosition(c.transform.position + new Vector3(0, 0, -1));
+            TuningSpace.Instance.SelectedObject = c;
+            if (TuningSpace.Instance.CenterNewTemperament)
+                FPSFlyer.Instance.SetPosition(c.transform.position + new Vector3(0, 0, -1));
             c.SetCharacterSize();
         }
     }
@@ -345,7 +504,7 @@ public class UIHandler : MonoBehaviour
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateCommaX").value, out monzoX);
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateCommaY").value, out monzoY);
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateCommaZ").value, out monzoZ);
-        Comma c = ts.MakeComma(monzoX, monzoY, monzoZ);
+        Comma c = TuningSpace.Instance.MakeComma(monzoX, monzoY, monzoZ);
         return c;
     }
 
@@ -355,22 +514,34 @@ public class UIHandler : MonoBehaviour
         float n, d;
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateCommaNumerator").value, out n);
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateCommaDenominator").value, out d);
-        Monzo monzos = GetMonzosFromRatio(n, d, ts.primes);
-        Comma c = ts.MakeComma(monzos.X, monzos.Y, monzos.Z);
+        Monzo monzos = GetMonzosFromRatio(n, d, TuningSpace.Instance.primes);
+        Comma c = TuningSpace.Instance.MakeComma(monzos.X, monzos.Y, monzos.Z);
         return c;
     }
 
     private Comma CreateCommaFromName()
     {
+        string commaName = m_PTSObjectCreator.Q<TextField>("CreateCommaName").value;
+
+        if (string.IsNullOrWhiteSpace(commaName))
+            throw new System.FormatException("Rank-2 temperament name cannot be empty!");
+        
+        if (TuningSpace.Instance.primes.ToString() == "2.3.5" && string.Equals(commaName.Replace(" ", ""), "middlepath", StringComparison.InvariantCultureIgnoreCase))
+        {
+            //Easter Egg! Display all the rank-2 temperaments from Paul Erlich's Middle Path paper!
+            TuningSpace.Instance.MakeDefaultCommas();
+            return null;
+        }
+        
         //need to check if name is real
-        Monzo monzos = NamedTemperaments.WhatMonzos(ts.primes, m_PTSObjectCreator.Q<TextField>("CreateCommaName").value);
+        Monzo monzos = NamedTemperaments.WhatMonzos(TuningSpace.Instance.primes, commaName);
         if (monzos != (object)null && monzos.Monzos != null)
         {
-            Comma c = ts.MakeComma(monzos.X, monzos.Y, monzos.Z);
+            Comma c = TuningSpace.Instance.MakeComma(monzos.X, monzos.Y, monzos.Z);
             return c;
         }
         else
-            throw new System.FormatException($"The temperament {m_PTSObjectCreator.Q<TextField>("CreateCommaName").value} is not within the prime basis {ts.primes}.");
+            throw new System.FormatException($"The temperament {m_PTSObjectCreator.Q<TextField>("CreateCommaName").value} is not within the prime basis {TuningSpace.Instance.primes}.");
     }
 
     private void CreateMappingButton_clicked()
@@ -392,8 +563,9 @@ public class UIHandler : MonoBehaviour
         }
         if (m != null)
         {
-            ts.SelectedObject = m;
-            player.SetPosition(m.transform.position);
+            TuningSpace.Instance.SelectedObject = m;
+            if (TuningSpace.Instance.CenterNewTemperament)
+                FPSFlyer.Instance.SetPosition(m.transform.position);
         }
     }
 
@@ -403,7 +575,7 @@ public class UIHandler : MonoBehaviour
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateMappingX").value, out valX);
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateMappingY").value, out valY);
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateMappingZ").value, out valZ);
-        Mapping m = ts.MakeMapping(valX, valY, valZ);
+        Mapping m = TuningSpace.Instance.MakeMapping(valX, valY, valZ);
         return m;
     }
 
@@ -412,8 +584,8 @@ public class UIHandler : MonoBehaviour
         float ed, of;
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateMappingED").value, out ed);
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateMappingEDOf").value, out of);
-        Val vals = GetPatentVal(ed, ts.primes);
-        Mapping m = ts.MakeMapping(vals.X, vals.Y, vals.Z);
+        Val vals = GetPatentVal(ed, TuningSpace.Instance.primes);
+        Mapping m = TuningSpace.Instance.MakeMapping(vals.X, vals.Y, vals.Z);
         return m;
     }
 
@@ -421,16 +593,17 @@ public class UIHandler : MonoBehaviour
     {
         float cents;
         float.TryParse(m_PTSObjectCreator.Q<TextField>("CreateMappingCents").value, out cents);
-        int ed = Mathf.RoundToInt(ts.primes.X / cents);
-        Val vals = GetPatentVal(ed, ts.primes);
-        Mapping m = ts.MakeMapping(vals.X, vals.Y, vals.Z);
+        int ed = Mathf.RoundToInt(TuningSpace.Instance.primes.X / cents);
+        Val vals = GetPatentVal(ed, TuningSpace.Instance.primes);
+        Mapping m = TuningSpace.Instance.MakeMapping(vals.X, vals.Y, vals.Z);
         return m;
     }
 
-    private void PrimeBasisDestroy_clicked()
+    private void DestroyMappingsAndCommas_clicked()
     {
-        ts.DeleteAllMappings();
-        ts.DeleteAllCommas();
+        //ShowInfo(TuningSpace.Instance.MappingsCount + " Rank-1s to be deleted.");
+        TuningSpace.Instance.DeleteAllMappings();
+        TuningSpace.Instance.DeleteAllCommas();
         HidePTSObjectInfo();
 
         DropdownField m_RainbowIntervalSelectorMenu = m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector");
@@ -439,14 +612,33 @@ public class UIHandler : MonoBehaviour
 
     private void PrimeBasisDestroyAll_clicked()
     {
-        ts.DeleteAll();
+        TuningSpace.Instance.DeleteAll();
         HidePTSObjectInfo();
+    }
+
+    private void DestroyCommas_clicked()
+    {
+        TuningSpace.Instance.DeleteAllCommas();
+        if (TuningSpace.Instance.SelectedObject == null || TuningSpace.Instance.SelectedObject is Comma)
+            HidePTSObjectInfo();
+
+        DropdownField m_RainbowIntervalSelectorMenu = m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector");
+        m_RainbowIntervalSelectorMenu.choices.Clear();
+    }
+
+    private void DestroyMappings_clicked()
+    {
+        //ShowInfo(TuningSpace.Instance.MappingsCount + " Rank-1s to be deleted.");
+        TuningSpace.Instance.DeleteAllMappings();
+        if (TuningSpace.Instance.SelectedObject == null || TuningSpace.Instance.SelectedObject is Mapping)
+            HidePTSObjectInfo();
     }
 
     private void PrimeBasisInit_clicked()
     {
-        ts.MakeJIP();
-        ts.MakeDamageHexagons(10);
+        TuningSpace.Instance.MakeJIP();
+        TuningSpace.Instance.MakeDamageHexagons(10);
+        TuningSpace.Instance.MakeBoundaryMappingsAndCommas();
     }
 
     private void PrimeBasisCreate_clicked()
@@ -456,17 +648,20 @@ public class UIHandler : MonoBehaviour
         float.TryParse(m_PrimeBasis.Q<TextField>("PrimeY").value, out primeY);
         float.TryParse(m_PrimeBasis.Q<TextField>("PrimeZ").value, out primeZ);
         PrimeBasis primes = new PrimeBasis(primeX, primeY, primeZ);
-        ts.primes = primes;
-
+        TuningSpace.Instance.primes = primes;
+        
+        float minET;
+        float.TryParse(m_PrimeBasis.Q<TextField>("MinET").value, out minET);
+        TuningSpace.Instance.min_val = minET;
         float maxET;
         float.TryParse(m_PrimeBasis.Q<TextField>("MaxET").value, out maxET);
-        ts.max_val = maxET;
+        TuningSpace.Instance.max_val = maxET;
 
         int maxOffset;
         int.TryParse(m_PrimeBasis.Q<TextField>("MaxOffset").value, out maxOffset);
-        ts.max_offset = maxOffset;
+        TuningSpace.Instance.max_offset = maxOffset;
 
-        ts.MakeMappings();
+        TuningSpace.Instance.MakeMappings();
     }
 
     public void HidePTSObjectInfo()
@@ -487,8 +682,8 @@ public class UIHandler : MonoBehaviour
         m_MappingInfo.Q<TextField>("MappingWeightedX").value = m.w_vals.Item1.ToString();
         m_MappingInfo.Q<TextField>("MappingWeightedY").value = m.w_vals.Item2.ToString();
         m_MappingInfo.Q<TextField>("MappingWeightedZ").value = m.w_vals.Item3.ToString();
-        if (((Mapping)ts.SelectedObject).mappingType == Mapping.MappingType.JIP
-         || ((Mapping)ts.SelectedObject).mappingType == Mapping.MappingType.TOP)
+        if (((Mapping)TuningSpace.Instance.SelectedObject).mappingType == Mapping.MappingType.JIP
+         || ((Mapping)TuningSpace.Instance.SelectedObject).mappingType == Mapping.MappingType.TOP)
             m_MappingInfo.Q<Button>("MappingJoin").style.display = DisplayStyle.None;
         else
             m_MappingInfo.Q<Button>("MappingJoin").style.display = DisplayStyle.Flex;
@@ -506,7 +701,7 @@ public class UIHandler : MonoBehaviour
         m_CommaInfo.Q<TextField>("CommaPeriod").value = c.period.Divisions == 1 ? "1" : ("1\\" + c.period.Divisions);
         m_CommaInfo.Q<TextField>("CommaGenerator").value = c.generator.Numerator + "/" + c.generator.Denominator;
         m_CommaInfo.Q<TextField>("CommaComplexity").value = c.Complexity.ToString();
-        m_CommaInfo.Q<TextField>("CommaTOPDamage").value = c.top_damage.ToString();
+        m_CommaInfo.Q<TextField>("CommaTOPDamage").value = c.top_damage.HasValue ? c.top_damage.ToString() : "Could not calculate";
     }
 
     char prevMappingOrCommaInfo;
@@ -524,7 +719,7 @@ public class UIHandler : MonoBehaviour
                     root.Q<VisualElement>("CommaInfo").style.display = DisplayStyle.None;
                     break;
                 case 'c':
-                    //comma
+                    //Comma
                     root.Q<VisualElement>("MappingInfo").style.display = DisplayStyle.None;
                     root.Q<VisualElement>("CommaInfo").style.display = DisplayStyle.Flex;
                     break;
@@ -543,6 +738,62 @@ public class UIHandler : MonoBehaviour
             root.Q<VisualElement>("MappingInfo").style.display = DisplayStyle.None;
             root.Q<VisualElement>("CommaInfo").style.display = DisplayStyle.None;
         }
+    }
+
+    public void ShowPTSMenu()
+    {
+        m_PrimeBasis.style.display = DisplayStyle.Flex;
+        m_PTSObjectCreator.style.display = DisplayStyle.Flex;
+        m_Options.style.display = DisplayStyle.Flex;
+        m_PTSObjectInfo.style.display = DisplayStyle.Flex;
+    }
+    public void HidePTSMenu()
+    {
+        m_PrimeBasis.style.display = DisplayStyle.None;
+        m_PTSObjectCreator.style.display = DisplayStyle.None;
+        m_Options.style.display = DisplayStyle.None;
+        m_PTSObjectInfo.style.display = DisplayStyle.None;
+    }
+
+    public void ShowMOSMenu()
+    {
+        m_MOSInfo.style.display = DisplayStyle.Flex;
+    }
+
+    public void HideMOSMenu()
+    {
+        m_MOSInfo.style.display = DisplayStyle.None;
+    }
+
+    public void ShowMiniMOSOptions()
+    {
+        m_MiniMOSOptions.style.display = DisplayStyle.Flex;
+        m_MOSOptions.style.display = DisplayStyle.None;
+        m_MOSInfo.Q<TextField>("MOSPeriod").isReadOnly = true;
+        m_MOSInfo.Q<TextField>("MOSGenerator").isReadOnly = true;
+        m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").isReadOnly = true;
+    }
+
+    public void ShowMOSOptions()
+    {
+        m_MiniMOSOptions.style.display = DisplayStyle.None;
+        m_MOSOptions.style.display = DisplayStyle.Flex;
+        m_MOSInfo.Q<TextField>("MOSPeriod").isReadOnly = false;
+        m_MOSInfo.Q<TextField>("MOSGenerator").isReadOnly = false;
+        m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").isReadOnly = false;
+    }
+
+    public void UpdateMOSInfo(string period, string generator, string equivalenceInterval)
+    {
+        m_MOSInfo.Q<TextField>("MOSPeriod").value = period;
+        m_MOSInfo.Q<TextField>("MOSGenerator").value = generator;
+        m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").value = equivalenceInterval;
+    }
+
+    public void ShowInfo(string info)
+    {
+        m_InfoWindow.Q<Label>("InfoText").text = info;
+        m_InfoWindow.style.display = DisplayStyle.Flex;
     }
 
     public void ShowError(string logString, string stackTrace, LogType type)
