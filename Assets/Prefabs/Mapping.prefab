@@ -49,6 +49,7 @@ MonoBehaviour:
   warts: 
   topOffset: 0
   stepSize: 0
+  colliderThickness: 0.01
   text: {fileID: 0}
   mappingType: 0
 --- !u!23 &4473770923008605911

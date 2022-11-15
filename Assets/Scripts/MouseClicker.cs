@@ -14,6 +14,7 @@ public class MouseClicker : MonoBehaviour
     }
 
     object lastClicked;
+    object lastClickedLine;
     Vector3 lastClickedPos;
 
     // Update is called once per frame
@@ -21,36 +22,39 @@ public class MouseClicker : MonoBehaviour
     {
         if (TuningSpace.Instance.SelectedObject != null)
         {
-            if (TuningSpace.Instance.SelectedObject is Mapping)
+            if (TuningSpace.Instance.joinMode == TuningSpace.JoinMode.NONE)
             {
-                if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.LeftAlt))
+                if (TuningSpace.Instance.SelectedObject is Mapping)
                 {
-                    if (Input.GetKeyDown(KeyCode.LeftShift))
-                        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING;
-                    if (Input.GetKeyDown(KeyCode.LeftControl))
-                        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING_MERGE_PLUS;
-                    if (Input.GetKeyDown(KeyCode.LeftAlt))
-                        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING_MERGE_MINUS;
-                    TuningSpace.Instance.SelectedObject.OnJoinInit();
+                    if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftAlt))
+                    {
+                        if (Input.GetKey(KeyCode.LeftShift))
+                            TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING;
+                        if (Input.GetKey(KeyCode.LeftControl))
+                            TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING_MERGE_PLUS;
+                        if (Input.GetKey(KeyCode.LeftAlt))
+                            TuningSpace.Instance.joinMode = TuningSpace.JoinMode.MAPPING_MERGE_MINUS;
+                        TuningSpace.Instance.SelectedObject.OnJoinInit();
+                    }
                 }
-            }
-            else if (TuningSpace.Instance.SelectedObject is Comma)
-            {
-                if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.LeftAlt))
+                else if (TuningSpace.Instance.SelectedObject is Comma)
                 {
-                    if (Input.GetKeyDown(KeyCode.LeftShift))
-                        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA;
-                    if (Input.GetKeyDown(KeyCode.LeftControl))
-                        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA_MERGE_PLUS;
-                    if (Input.GetKeyDown(KeyCode.LeftAlt))
-                        TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA_MERGE_MINUS;
-                    TuningSpace.Instance.SelectedObject.OnJoinInit();
+                    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftAlt))
+                    {
+                        if (Input.GetKey(KeyCode.LeftShift))
+                            TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA;
+                        if (Input.GetKey(KeyCode.LeftControl))
+                            TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA_MERGE_PLUS;
+                        if (Input.GetKey(KeyCode.LeftAlt))
+                            TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA_MERGE_MINUS;
+                        TuningSpace.Instance.SelectedObject.OnJoinInit();
+                    }
                 }
-            }
-            else
-            {
-                TuningSpace.Instance.joinMode = TuningSpace.JoinMode.NONE;
-                TuningSpace.Instance.SelectedObject.OnJoinCancel();
+                else
+                {
+                    TuningSpace.Instance.joinMode = TuningSpace.JoinMode.NONE;
+                    TuningSpace.Instance.SelectedObject.OnJoinCancel();
+                }
             }
 
             if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftAlt))
@@ -72,30 +76,43 @@ public class MouseClicker : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log(hit.collider.gameObject.name);
+                    //Debug.Log(hit.collider.gameObject.name);
 
                     lastClickedPos = Input.mousePosition;
                     PTSObject obj;
-                    MOSLineSoundPlayer line;
+                    //MOSLineSoundPlayer line;
                     if (hit.transform.gameObject.TryGetComponent<PTSObject>(out obj))
                     {
                         //the gameobject is a PTSObject
                         lastClicked = obj;
                     }
-                    else if (hit.transform.gameObject.TryGetComponent<MOSLineSoundPlayer>(out line))
-                    {
-                        //the gameobject is a MOSLine
-                        lastClicked = line;
-                    }
+                    //else if (hit.transform.gameObject.TryGetComponent<MOSLineSoundPlayer>(out line))
+                    //{
+                    //    //the gameobject is a MOSLine
+                    //    lastClicked = line;
+                    //}
                     else
                     {
                         lastClicked = null;
                     }
                 }
+                if (Input.GetMouseButton(0))
+                {
+                    MOSLineSoundPlayer line;
+                    if (hit.transform.gameObject.TryGetComponent<MOSLineSoundPlayer>(out line))
+                    {
+                        if (line != (object)lastClickedLine)
+                        {
+                            //the gameobject is a MOSLine
+                            line.PlaySound();
+                            lastClickedLine = line;
+                        }
+                    }
+                }
                 if (Input.GetMouseButtonUp(0))
                 {
                     PTSObject obj;
-                    MOSLineSoundPlayer line;
+                    //MOSLineSoundPlayer line;
                     if (hit.transform.gameObject.TryGetComponent<PTSObject>(out obj)
                         && obj == lastClicked)
                     {
@@ -105,12 +122,12 @@ public class MouseClicker : MonoBehaviour
                         //if (obj is Comma)
                         //    Debug.Log($"{hit.point} --> {XenMath.GetGeneratorCentsAtLocation((Comma)obj, hit.point, TuningSpace.Instance.primes)} ({((Comma)obj).generatorCentsPerDistance})");
                     }
-                    else if (hit.transform.gameObject.TryGetComponent<MOSLineSoundPlayer>(out line)
-                        && line == (object)lastClicked)
-                    {
-                        //the gameobject is a MOSLine
-                        line.PlaySound();
-                    }
+                    //else if (hit.transform.gameObject.TryGetComponent<MOSLineSoundPlayer>(out line)
+                    //    && line == (object)lastClicked)
+                    //{
+                    //    //the gameobject is a MOSLine
+                    //    line.PlaySound();
+                    //}
                     else
                     {
                         lastClicked = null;
@@ -119,6 +136,8 @@ public class MouseClicker : MonoBehaviour
             }
             else
             {
+                if (lastClickedLine != null)
+                    lastClickedLine = null;
                 if (Input.GetMouseButtonDown(0))
                 {
                     lastClickedPos = Input.mousePosition;

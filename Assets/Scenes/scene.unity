@@ -706,12 +706,59 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 358338232}
     - target: {fileID: -8705076277407061755, guid: 122527af5cd793f45ad4e3fb8b0fd552, type: 3}
+      propertyPath: creditsMessage
+      value: 'This application created by Chris Kline
+
+
+        Projective Tuning
+        Space concept created by Paul Erlich
+
+
+        Special Thanks
+
+        Paul
+        Erlich
+
+        Graham Breed
+
+        Douglas Blumeyer
+
+        Mike Battaglia
+
+        Tony
+        Durham
+
+        Jason Yerger
+
+        Stephen Weigel
+
+        Joseph Monzo
+
+        Kite
+        Giedraitis
+
+        Herman Miller
+
+        Steve Martin
+
+        Sean Archibald
+
+        Matthew
+        Yacavone
+
+        All xen wiki contributors'
+      objectReference: {fileID: 0}
+    - target: {fileID: -8705076277407061755, guid: 122527af5cd793f45ad4e3fb8b0fd552, type: 3}
       propertyPath: introductionMessage
-      value: 'Welcome to Projective Tuning Space!
-
-
-        Press ''/'' to hide/show
-        the menu.'
+      value: "Welcome to Projective Tuning Space!\n\nPress '/' to hide/show the menu.\n\n--
+        BETA VERSION --\n\nThis is currently optimized for PC. \nSome features may
+        not work properly on mobile devices.\n\nKnown issues:\n- Sometimes the browser's
+        cache needs to be cleared\nafter this is updated\n- Zoom is weird on mobile\n-
+        Text input does not work on mobile\n- Some text does not display properly
+        in Chrome\n- Screenshot button does not work yet\n- Scale Workshop link does
+        not work yet for rank2 temperaments\n- Exceedingly large numerators/denominators
+        in a \ntempered comma may freeze the application\n- Rank2 clickability as
+        well as TOP locations may be \ninaccurate in a contorted prime basis."
       objectReference: {fileID: 0}
     - target: {fileID: 2747143584843728985, guid: 122527af5cd793f45ad4e3fb8b0fd552, type: 3}
       propertyPath: m_Name

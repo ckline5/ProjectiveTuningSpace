@@ -127,7 +127,7 @@ public static class XenMath
     /// <returns>Cent value for n/d</returns>
     public static float getCents(float n, float d = 1)
     {
-        if (n == d)
+        if (n == 0 || n == d)
         { 
             return 0;
         }
@@ -142,6 +142,53 @@ public static class XenMath
         else
         {
             throw new DivideByZeroException($"Invalid ratio {n}/{d}");
+        }
+    }
+
+    public static float getRatioAsDecimal(string interval)
+    {
+        if (interval.Contains("/"))
+        {
+            //ratio
+            string[] ratio = interval.Split("/");
+            float numerator, denominator;
+            if (float.TryParse(ratio[0], out numerator)
+                && float.TryParse(ratio[1], out denominator))
+            {
+                return numerator / denominator;
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid parameters: {interval}");
+            }
+        }
+        else if (interval.Contains("\\"))
+        {
+            //edostep
+            string[] edosteps = interval.Split("\\");
+            float steps, edo;
+            if (float.TryParse(edosteps[0], out steps)
+                && float.TryParse(edosteps[1], out edo))
+            {
+                return MathF.Pow(TuningSpace.Instance.primes.X, steps / edo);
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid parameters: {interval}");
+            }
+        }
+        else
+        {
+            //assume ratio
+            float ratio;
+            if (float.TryParse(interval, out ratio))
+            {
+                return ratio;
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid parameters: {interval}");
+            }
         }
     }
 
@@ -194,7 +241,7 @@ public static class XenMath
 
     public static float getCents(Interval i)
     {
-        return getCents((float)i.Numerator, (float)i.Denominator);
+        return getCents((float)i.Numerator, (float)i.Denominator) / i.Divisions;
     }
 
     public static float getCents(Interval i, Val v)
@@ -247,9 +294,11 @@ public static class XenMath
         return pitches;
     }
 
-    public static List<float> getScalePitches(Comma Comma, PrimeBasis primes, int mosShell)
+    public static List<float> getScalePitches(Comma comma, PrimeBasis primes, int mosShell)
     {
         List<float> pitches = new List<float>();
+        Val top = comma.topMapping.vals;
+        
         throw new NotImplementedException();
     }
 
@@ -321,10 +370,25 @@ public static class XenMath
     {
         //probably incorrect
         Tuple<float,float,float> weighted = GetWeightedVals(mapping, primes);
-        float avg = (weighted.Item1 + weighted.Item2 + weighted.Item3) / 3;
-        float offset = mapping.X / avg;
-        Val result = new Val(mapping.X * offset, mapping.Y * offset, mapping.Z * offset);
-        return result;
+
+        //this is all wrong lmao
+        //float avg = (weighted.Item1 + weighted.Item2 + weighted.Item3) / 3;
+        //float offset = mapping.X / avg;
+        //Val result = new Val(mapping.X * offset, mapping.Y * offset, mapping.Z * offset);
+        //return result;
+
+        float et = weighted.Item1; //or, mapping.X
+        float min = Math.Min(Math.Min(weighted.Item1, weighted.Item2), weighted.Item3);
+        float max = Math.Max(Math.Max(weighted.Item1, weighted.Item2), weighted.Item3);
+        float multiplier = (2*et - (max - ((max - min) / 2)))/ et; //add this to each weighted val to reach TOP
+        //float multiplier = (et + offset) / et;
+
+        if (mapping.ToString() == "< 12 19 28 ]")
+        {
+            //UnityEngine.Debug.Log($"et = {et}; min = {min}; max = {max}; offset = {offset}; multiplier = {multiplier}");
+        }
+
+        return mapping * multiplier;
     }
 
     /// <summary>
@@ -473,6 +537,7 @@ public static class XenMath
     public static float GetComplexity(Monzo monzos, PrimeBasis primes)
     {
         //is this the correct method?
+        //No, it's not.
         return (float) Math.Log10(Math.Pow(primes.X, Math.Abs(monzos.X)) * Math.Pow(primes.Y, Math.Abs(monzos.Y)) * Math.Pow(primes.Z, Math.Abs(monzos.Z)));
     }
 

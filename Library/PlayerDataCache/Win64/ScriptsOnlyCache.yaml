@@ -6,6 +6,8 @@ ScriptsOnlyBuild:
     - ExceptionManager
     - FPSFlyer
     - MOS
+    - MOSLine
+    - MOSLineSoundPlayer
     - Mapping
     - MenuBackgroundPanel
     - MouseClicker
@@ -15,8 +17,6 @@ ScriptsOnlyBuild:
     - UIHandler
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    Unity.Timeline.Editor.dll:
-    - TimelineProjectSettings
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -66,6 +66,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 89
@@ -93,23 +95,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2410}
     - Class: 114
-      Script: {instanceID: 3308}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 3408}
+      Script: {instanceID: 3310}
     - Class: 114
-      Script: {instanceID: 3988}
+      Script: {instanceID: 3410}
     - Class: 114
-      Script: {instanceID: 4044}
+      Script: {instanceID: 3990}
     - Class: 114
-      Script: {instanceID: 4198}
+      Script: {instanceID: 4046}
     - Class: 114
-      Script: {instanceID: 4296}
+      Script: {instanceID: 4200}
     - Class: 114
-      Script: {instanceID: 4666}
+      Script: {instanceID: 4298}
     - Class: 114
-      Script: {instanceID: 4778}
+      Script: {instanceID: 4556}
     - Class: 114
-      Script: {instanceID: 5052}
+      Script: {instanceID: 4668}
+    - Class: 114
+      Script: {instanceID: 4780}
+    - Class: 114
+      Script: {instanceID: 5054}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -337,6 +343,12 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MOSLineSoundPlayer
+  - hash:
+      serializedVersion: 2
       Hash: f40fedccd4adbc76605bea6d67537e4b
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -409,7 +421,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 3f23309971de8eec625004e480cea268
+      Hash: 7f3044554d8009179ad770fa0aa33f35
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Mapping
@@ -613,7 +625,7 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: c454625c7b7792627ad8e1b0739608b2
+      Hash: f577c51ee7a443833a4cd2b0f443543a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MOS
@@ -643,7 +655,7 @@ ScriptsOnlyBuild:
     className: ColorGrading
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: d33970a2297d751bc5b7f9056371afca
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MOSLine
@@ -673,7 +685,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: 8d68942b3b9346fbddc01e079e32735f
+      Hash: f34c9e6ab44442dcd7b48a67d6bcfc2a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Comma
@@ -721,7 +733,7 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
-      Hash: 6d09f0058370f9db5773d1ecb2b88251
+      Hash: ec91252ddf08490d1ea0ad4dfe15eb42
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TuningSpace
@@ -740,4 +752,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/scene.unity
-  playerPath: C:/Users/Chris/ProjectiveTuningSpace2/ProjectiveTuningSpace.exe
+  playerPath: C:/PTS/ProjectiveTuningSpace.exe

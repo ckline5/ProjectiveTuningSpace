@@ -312,6 +312,7 @@
 "Assets/Scripts/MenuBackgroundPanel.cs"
 "Assets/Scripts/MOS.cs"
 "Assets/Scripts/MOSLine.cs"
+"Assets/Scripts/MOSLineSoundPlayer.cs"
 "Assets/Scripts/MouseClicker.cs"
 "Assets/Scripts/NamedTemperaments.cs"
 "Assets/Scripts/ProjectionTools.cs"

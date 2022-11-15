@@ -6,11 +6,12 @@ ScriptsOnlyBuild:
     - ExceptionManager
     - FPSFlyer
     - MOS
+    - MOSLine
+    - MOSLineSoundPlayer
     - Mapping
     - MenuBackgroundPanel
     - MouseClicker
     - NamedTemperaments
-    - ProjectionTools
     - ScreenRecorder
     - TuningSpace
     - UIHandler
@@ -21,12 +22,24 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
   serializedClasses:
+    UnityEngine.TextCoreFontEngineModule:
+    - UnityEngine.TextCore.FaceInfo
+    - UnityEngine.TextCore.Glyph
+    - UnityEngine.TextCore.GlyphMetrics
+    - UnityEngine.TextCore.GlyphRect
+    UnityEngine.TextCoreTextEngineModule:
+    - UnityEngine.TextCore.Text.Character
+    - UnityEngine.TextCore.Text.FontAssetCreationEditorSettings
+    - UnityEngine.TextCore.Text.FontFeatureTable
+    - UnityEngine.TextCore.Text.FontWeightPair
+    - UnityEngine.TextCore.Text.UnicodeLineBreakingRules
     UnityEngine.UIElementsModule:
     - UnityEngine.UIElements.Button/UxmlFactory
     - UnityEngine.UIElements.DropdownField/UxmlFactory
     - UnityEngine.UIElements.DynamicAtlasSettings
     - UnityEngine.UIElements.Label/UxmlFactory
     - UnityEngine.UIElements.ScrollView/UxmlFactory
+    - UnityEngine.UIElements.Slider/UxmlFactory
     - UnityEngine.UIElements.StyleComplexSelector
     - UnityEngine.UIElements.StyleProperty
     - UnityEngine.UIElements.StyleRule
@@ -37,6 +50,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UIElements.StyleSheets.ScalableImage
     - UnityEngine.UIElements.StyleValueHandle
     - UnityEngine.UIElements.TextField/UxmlFactory
+    - UnityEngine.UIElements.Toggle/UxmlFactory
     - UnityEngine.UIElements.UxmlRootElementFactory
     - UnityEngine.UIElements.VisualElement/UxmlFactory
     - UnityEngine.UIElements.VisualElementAsset
@@ -55,11 +69,21 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 28
       Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
@@ -70,41 +94,47 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 662}
-    - Class: 114
       Script: {instanceID: 664}
     - Class: 114
       Script: {instanceID: 666}
     - Class: 114
-      Script: {instanceID: 688}
+      Script: {instanceID: 668}
+    - Class: 114
+      Script: {instanceID: 680}
     - Class: 114
       Script: {instanceID: 690}
     - Class: 114
-      Script: {instanceID: 1758}
+      Script: {instanceID: 692}
     - Class: 114
-      Script: {instanceID: 2076}
+      Script: {instanceID: 694}
     - Class: 114
-      Script: {instanceID: 2408}
+      Script: {instanceID: 1760}
     - Class: 114
-      Script: {instanceID: 3304}
+      Script: {instanceID: 2078}
     - Class: 114
-      Script: {instanceID: 3402}
+      Script: {instanceID: 2410}
     - Class: 114
-      Script: {instanceID: 3978}
+      Script: {instanceID: 2918}
     - Class: 114
-      Script: {instanceID: 4034}
+      Script: {instanceID: 3310}
     - Class: 114
-      Script: {instanceID: 4086}
+      Script: {instanceID: 3410}
     - Class: 114
-      Script: {instanceID: 4188}
+      Script: {instanceID: 3990}
     - Class: 114
-      Script: {instanceID: 4286}
+      Script: {instanceID: 4046}
     - Class: 114
-      Script: {instanceID: 4656}
+      Script: {instanceID: 4200}
     - Class: 114
-      Script: {instanceID: 4768}
+      Script: {instanceID: 4298}
     - Class: 114
-      Script: {instanceID: 5042}
+      Script: {instanceID: 4556}
+    - Class: 114
+      Script: {instanceID: 4668}
+    - Class: 114
+      Script: {instanceID: 4780}
+    - Class: 114
+      Script: {instanceID: 5054}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 120
@@ -332,6 +362,12 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MOSLineSoundPlayer
+  - hash:
+      serializedVersion: 2
       Hash: f40fedccd4adbc76605bea6d67537e4b
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -404,7 +440,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: b8803c340438c45813caf88930ea4869
+      Hash: 7f3044554d8009179ad770fa0aa33f35
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Mapping
@@ -554,12 +590,6 @@ ScriptsOnlyBuild:
     className: PostProcessEffectSettings
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ProjectionTools
-  - hash:
-      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -614,7 +644,7 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 13541f798aa4d17e8bf3497aef9b6724
+      Hash: f577c51ee7a443833a4cd2b0f443543a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MOS
@@ -644,7 +674,7 @@ ScriptsOnlyBuild:
     className: ColorGrading
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: d33970a2297d751bc5b7f9056371afca
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MOSLine
@@ -674,7 +704,7 @@ ScriptsOnlyBuild:
     className: TMP_ScrollbarEventHandler
   - hash:
       serializedVersion: 2
-      Hash: b8bd5f043924199b7587c16e320e343b
+      Hash: f34c9e6ab44442dcd7b48a67d6bcfc2a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Comma
@@ -722,7 +752,7 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
-      Hash: 0c25f3d22547c0bbc6c14eb664839856
+      Hash: ed2c7ccee9ece5635c38eb14975b4f96
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TuningSpace
@@ -741,4 +771,4 @@ ScriptsOnlyBuild:
   platform: 20
   scenePathNames:
   - Assets/Scenes/scene.unity
-  playerPath: C:/Users/Chris/ProjectiveTuningSpace2/New folder
+  playerPath: C:/Users/Chris/ProjectiveTuningSpace2/Release

@@ -287,10 +287,12 @@
 "Assets/Scripts/DamageHexagon.cs"
 "Assets/Scripts/ExceptionManager.cs"
 "Assets/Scripts/FPSFlyer.cs"
+"Assets/Scripts/Interval.cs"
 "Assets/Scripts/Mapping.cs"
 "Assets/Scripts/MenuBackgroundPanel.cs"
 "Assets/Scripts/MOS.cs"
 "Assets/Scripts/MOSLine.cs"
+"Assets/Scripts/MOSLineSoundPlayer.cs"
 "Assets/Scripts/MouseClicker.cs"
 "Assets/Scripts/NamedTemperaments.cs"
 "Assets/Scripts/ProjectionTools.cs"
@@ -299,6 +301,9 @@
 "Assets/Scripts/ScreenshotGrabber.cs"
 "Assets/Scripts/TuningSpace.cs"
 "Assets/Scripts/UIHandler.cs"
+"Assets/Scripts/XenConstants.cs"
+"Assets/Scripts/XenMath.cs"
+"Assets/Scripts/XenObjects.cs"
 -langversion:9.0
 
 /deterministic

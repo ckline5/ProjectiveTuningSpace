@@ -1,23 +1,56 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/PTS.uss?fileID=7433441132597879392&amp;guid=943fc368bab2cad41bbfc79852b416b5&amp;type=3#PTS" />
-    <ui:VisualElement name="MainScreen" style="flex-direction: row; width: 100%; height: 100%; justify-content: space-between;">
+    <ui:VisualElement name="MainScreen" style="flex-direction: row; width: 100%; height: 100%; justify-content: space-between; -unity-font: url(&apos;project://database/Assets/Fonts/ARIAL.TTF?fileID=12800000&amp;guid=6b8361e1afb023b498c4b5ee62201289&amp;type=3#ARIAL&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/ARIAL%20SDF.asset?fileID=11400000&amp;guid=a3068a94ba42494458dfdb9e98ff3445&amp;type=2#ARIAL SDF&apos;);">
         <ui:VisualElement name="Left" style="width: 100%; height: 100%; justify-content: space-between; align-items: flex-start;">
             <ui:VisualElement name="Top" style="width: 100%; height: 100%; justify-content: space-between; align-items: flex-start;">
                 <ui:VisualElement name="PrimeBasis" class="PTS">
                     <ui:VisualElement style="flex-direction: row;">
                         <ui:Label text="Prime&#10;Basis" display-tooltip-when-elided="true" style="font-size: 28px; height: 77px; width: 97px; -unity-text-align: middle-center;" />
-                        <ui:TextField picking-mode="Ignore" value="2" text="2" name="PrimeX" tabindex="1" style="width: auto; flex-direction: column; align-items: stretch; justify-content: space-between; font-size: 28px; height: auto; -unity-text-align: upper-left; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px;" />
-                        <ui:TextField picking-mode="Ignore" value="3" text="3" name="PrimeY" tabindex="2" style="width: auto; flex-direction: column; align-items: stretch; justify-content: space-between; font-size: 28px; height: auto; -unity-text-align: upper-left; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px;" />
-                        <ui:TextField picking-mode="Ignore" value="5" text="5" name="PrimeZ" tabindex="3" style="width: auto; flex-direction: column; align-items: stretch; justify-content: space-between; font-size: 28px; height: auto; -unity-text-align: upper-left; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px;" />
+                        <ui:TextField picking-mode="Ignore" value="2" text="2" name="PrimeX" tabindex="1" style="width: auto; flex-direction: column; align-items: stretch; justify-content: space-between; font-size: 28px; height: auto; -unity-text-align: upper-left; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px; overflow: visible;" />
+                        <ui:TextField picking-mode="Ignore" value="3" text="3" name="PrimeY" tabindex="2" style="width: auto; flex-direction: column; align-items: stretch; justify-content: space-between; font-size: 28px; height: auto; -unity-text-align: upper-left; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px; overflow: visible;" />
+                        <ui:TextField picking-mode="Ignore" value="5" text="5" name="PrimeZ" tabindex="3" style="width: auto; flex-direction: column; align-items: stretch; justify-content: space-between; font-size: 28px; height: auto; -unity-text-align: upper-left; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px; overflow: visible;" />
                     </ui:VisualElement>
-                    <ui:TextField picking-mode="Ignore" label="Min ET" value="0" text="0" name="MinET" style="font-size: 26px;" />
-                    <ui:TextField picking-mode="Ignore" label="Max ET" value="100" text="100" name="MaxET" style="font-size: 26px;" />
-                    <ui:TextField picking-mode="Ignore" label="Max Offset" value="2" text="2" name="MaxOffset" style="font-size: 26px;" />
+                    <ui:TextField picking-mode="Ignore" label="Min ET" value="0" text="0" name="MinET" style="font-size: 26px; overflow: visible;" />
+                    <ui:TextField picking-mode="Ignore" label="Max ET" value="100" text="100" name="MaxET" style="font-size: 26px; overflow: visible;" />
+                    <ui:TextField picking-mode="Ignore" label="Max Offset" value="2" text="2" name="MaxOffset" style="font-size: 26px; overflow: visible;" />
                     <ui:VisualElement style="flex-direction: column; width: auto; justify-content: space-between;">
                         <ui:VisualElement style="flex-direction: row; justify-content: center;">
-                            <ui:Button text="Init" display-tooltip-when-elided="true" name="PrimeBasisInit" style="width: auto; height: auto; font-size: 20px; align-items: stretch;" />
-                            <ui:Button text="Create" display-tooltip-when-elided="true" name="PrimeBasisCreate" style="width: auto; height: auto; font-size: 20px; align-items: stretch;" />
-                            <ui:Button text="Reset" display-tooltip-when-elided="true" name="PrimeBasisDestroyAll" style="font-size: 20px;" />
+                            <ui:Button text="Init" display-tooltip-when-elided="true" name="PrimeBasisInit" style="width: auto; height: auto; font-size: 20px; align-items: stretch; overflow: visible;" />
+                            <ui:Button text="Create" display-tooltip-when-elided="true" name="PrimeBasisCreate" style="width: auto; height: auto; font-size: 20px; align-items: stretch; overflow: visible;" />
+                            <ui:Button text="Reset" display-tooltip-when-elided="true" name="PrimeBasisDestroyAll" style="font-size: 20px; align-items: stretch; width: auto; height: auto; overflow: visible;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="MOSInfo" class="PTS">
+                    <ui:Label text="MOS" display-tooltip-when-elided="true" style="font-size: 20px;" />
+                    <ui:VisualElement style="flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Period" value="1200" text="1200" name="MOSPeriod" readonly="true" style="overflow: visible;" />
+                        <ui:Button text="+" display-tooltip-when-elided="true" name="MOSPeriodPlus" style="overflow: visible;" />
+                        <ui:Button text="-" display-tooltip-when-elided="true" name="MOSPeriodMinus" style="overflow: visible;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Generator" value="833" text="833" name="MOSGenerator" readonly="true" style="overflow: visible;" />
+                        <ui:Button text="+" display-tooltip-when-elided="true" name="MOSGeneratorPlus" style="overflow: visible;" />
+                        <ui:Button text="-" display-tooltip-when-elided="true" name="MOSGeneratorMinus" style="overflow: visible;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Equivalence Interval" value="1200" text="1200" name="MOSEquivalenceInterval" readonly="true" style="overflow: visible;" />
+                        <ui:Button text="+" display-tooltip-when-elided="true" name="MOSEquivalenceIntervalPlus" style="overflow: visible;" />
+                        <ui:Button text="-" display-tooltip-when-elided="true" name="MOSEquivalenceIntervalMinus" style="overflow: visible;" />
+                    </ui:VisualElement>
+                    <ui:TextField picking-mode="Ignore" label="Increment By" value="0.1" text="0.1" name="MOSIncrementBy" />
+                    <ui:VisualElement name="MiniMOSOptions" style="flex-direction: row;">
+                        <ui:Button text="Hide MOS" display-tooltip-when-elided="true" name="MiniMOSHide" style="overflow: visible;" />
+                        <ui:Button text="View in MOS Tool" display-tooltip-when-elided="true" name="MiniMOSViewFullMOS" style="overflow: visible;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="MOSOptions" style="flex-direction: column;">
+                        <ui:VisualElement style="flex-direction: row; min-width: auto; min-height: auto;">
+                            <ui:Button text="Create MOS" display-tooltip-when-elided="true" name="MOSCreate" style="min-width: auto; min-height: auto; overflow: visible;" />
+                            <ui:Button text="Back to PTS" display-tooltip-when-elided="true" name="MOSBackToPTS" enable-rich-text="true" style="overflow: visible;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement>
+                            <ui:Button text="Take Screenshot" display-tooltip-when-elided="true" name="MOSScreenshot" style="overflow: visible;" />
+                            <ui:Button text="Reset Position" display-tooltip-when-elided="true" name="MOSResetPosition" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -29,45 +62,29 @@
                     <ui:DropdownField label="Rank-2 Text Style" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="CommaTextStyle" />
                     <ui:DropdownField label="Rank-1 Color Style" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="MappingColorStyle" />
                     <ui:DropdownField label="Rainbow Interval" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="MappingColorStyleRainbowIntervalSelector" />
-                    <ui:Slider picking-mode="Ignore" label="Character Size" value="1" high-value="1" name="MetaZoomSlider" low-value="0.01" style="flex-direction: column; display: none; visibility: hidden;" />
+                    <ui:Slider picking-mode="Ignore" label="Character Size" value="1" high-value="1" name="MetaZoomSlider" low-value="0.01" style="flex-direction: column;" />
                     <ui:Toggle label="Display Contorted Rank-1s" name="DisplayEncipheredVals" value="false" />
                     <ui:Button text="Take Screenshot" display-tooltip-when-elided="true" name="ScreenshotButton" style="width: 100%; font-size: 14px;" />
                     <ui:Button text="Reset Position" display-tooltip-when-elided="true" name="ResetPositionButton" style="width: 100%; font-size: 14px;" />
+                    <ui:Button text="Credits" display-tooltip-when-elided="true" name="CreditsButton" style="width: 100%; font-size: 14px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Middle" style="width: 100%; height: 100%; justify-content: space-between; align-items: center;">
-            <ui:VisualElement name="Top" style="width: 100%; height: 100%; justify-content: space-between; align-items: center;" />
             <ui:VisualElement name="Middle" style="width: 100%; height: 100%; justify-content: space-around; align-items: center;">
-                <ui:VisualElement name="ErrorsWindow" class="PTS" style="border-left-color: rgb(190, 0, 0); border-right-color: rgb(190, 0, 0); border-top-color: rgb(190, 0, 0); border-bottom-color: rgb(190, 0, 0);">
+                <ui:VisualElement name="ErrorsWindow" class="PTS" style="border-left-color: rgb(190, 0, 0); border-right-color: rgb(190, 0, 0); border-top-color: rgb(190, 0, 0); border-bottom-color: rgb(190, 0, 0); flex-wrap: wrap;">
                     <ui:Label text="ERROR" display-tooltip-when-elided="true" style="font-size: 36px;" />
                     <ui:Label text="Exception" display-tooltip-when-elided="true" name="ErrorText" style="font-size: 24px; flex-wrap: wrap;" />
-                    <ui:Button text="OK" display-tooltip-when-elided="true" name="ErrorsOK" style="font-size: 14px;" />
+                    <ui:Button text="OK" display-tooltip-when-elided="true" name="ErrorsOK" style="font-size: 14px; overflow: visible;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="InfoWindow" class="PTS" style="border-left-color: rgb(190, 0, 0); border-right-color: rgb(190, 0, 0); border-top-color: rgb(190, 0, 0); border-bottom-color: rgb(190, 0, 0);">
-                    <ui:Label text="Information" display-tooltip-when-elided="true" name="InfoText" style="font-size: 24px; flex-wrap: wrap;" />
-                    <ui:Button text="OK" display-tooltip-when-elided="true" name="InfoOK" style="font-size: 14px;" />
+                    <ui:Label text="Information" display-tooltip-when-elided="true" name="InfoText" style="font-size: 24px; flex-wrap: wrap; width: 100%;" />
+                    <ui:Button text="OK" display-tooltip-when-elided="true" name="InfoOK" style="font-size: 14px; overflow: visible;" />
                 </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="Bottom" style="width: 100%; height: 100%; justify-content: space-between; align-items: center; flex-direction: column-reverse;">
-                <ui:VisualElement name="MOSInfo" class="PTS">
-                    <ui:Label text="MOS" display-tooltip-when-elided="true" style="font-size: 20px;" />
-                    <ui:TextField picking-mode="Ignore" label="Period" value="1200" text="1200" name="MOSPeriod" readonly="true" />
-                    <ui:TextField picking-mode="Ignore" label="Generator" value="833" text="833" name="MOSGenerator" readonly="true" />
-                    <ui:TextField picking-mode="Ignore" label="Equivalence Interval" value="1200" text="1200" name="MOSEquivalenceInterval" readonly="true" />
-                    <ui:VisualElement name="MiniMOSOptions" style="flex-direction: row;">
-                        <ui:Button text="Hide MOS" display-tooltip-when-elided="true" name="MiniMOSHide" />
-                        <ui:Button text="View in MOS Tool" display-tooltip-when-elided="true" name="MiniMOSViewFullMOS" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="MOSOptions" style="flex-direction: column;">
-                        <ui:VisualElement style="flex-direction: row; min-width: auto; min-height: auto;">
-                            <ui:Button text="Create MOS" display-tooltip-when-elided="true" name="MOSCreate" style="min-width: auto; min-height: auto;" />
-                            <ui:Button text="Back to PTS" display-tooltip-when-elided="true" name="MOSBackToPTS" enable-rich-text="true" />
-                        </ui:VisualElement>
-                        <ui:VisualElement>
-                            <ui:Button text="Take Screenshot" display-tooltip-when-elided="true" name="MOSScreenshot" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
+                <ui:VisualElement name="QuestionWindow" class="PTS" style="border-left-color: rgb(190, 0, 0); border-right-color: rgb(190, 0, 0); border-top-color: rgb(190, 0, 0); border-bottom-color: rgb(190, 0, 0);">
+                    <ui:Label text="Question" display-tooltip-when-elided="true" name="QuestionText" style="font-size: 24px; flex-wrap: wrap;" />
+                    <ui:VisualElement name="QuestionResponses" style="flex-direction: row;" />
+                    <ui:Button text="Cancel" display-tooltip-when-elided="true" name="QuestionCancel" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -80,116 +97,117 @@
                                 <ui:Label text="Create&#10;Rank-1" display-tooltip-when-elided="true" enable-rich-text="false" style="font-size: 24px; justify-content: center; align-items: center;" />
                                 <ui:VisualElement style="flex-direction: column; justify-content: center; align-items: stretch;">
                                     <ui:VisualElement name="CreateMappingFromVals" style="flex-direction: row; justify-content: center;">
-                                        <ui:TextField picking-mode="Ignore" value="12" text="12" name="CreateMappingX" style="font-size: 20px;" />
-                                        <ui:TextField picking-mode="Ignore" value="19" text="19" name="CreateMappingY" style="font-size: 20px;" />
-                                        <ui:TextField picking-mode="Ignore" value="28" text="28" name="CreateMappingZ" style="font-size: 20px;" />
+                                        <ui:TextField picking-mode="Ignore" value="12" text="12" name="CreateMappingX" style="font-size: 20px; overflow: visible;" />
+                                        <ui:TextField picking-mode="Ignore" value="19" text="19" name="CreateMappingY" style="font-size: 20px; overflow: visible;" />
+                                        <ui:TextField picking-mode="Ignore" value="28" text="28" name="CreateMappingZ" style="font-size: 20px; overflow: visible;" />
                                     </ui:VisualElement>
                                     <ui:VisualElement name="CreateMappingFromED" style="font-size: 20px; flex-direction: row; justify-content: center;">
-                                        <ui:TextField picking-mode="Ignore" value="12" text="12" name="CreateMappingED" />
+                                        <ui:TextField picking-mode="Ignore" value="12" text="12" name="CreateMappingED" style="overflow: visible;" />
                                         <ui:Label text="ED" display-tooltip-when-elided="true" />
-                                        <ui:TextField picking-mode="Ignore" value="2" text="2" name="CreateMappingEDOf" />
+                                        <ui:TextField picking-mode="Ignore" value="2" text="2" name="CreateMappingEDOf" style="overflow: visible;" />
                                     </ui:VisualElement>
                                     <ui:VisualElement name="CreateMappingFromCents" style="justify-content: center; align-items: stretch; flex-direction: row;">
-                                        <ui:TextField picking-mode="Ignore" value="100" text="100" name="CreateMappingCents" style="font-size: 20px; flex-direction: row-reverse; -unity-text-align: middle-left; justify-content: space-around; align-items: center; right: auto; left: auto;" />
+                                        <ui:TextField picking-mode="Ignore" value="100" text="100" name="CreateMappingCents" style="font-size: 20px; flex-direction: row-reverse; -unity-text-align: middle-left; justify-content: space-around; align-items: center; right: auto; left: auto; overflow: visible;" />
                                         <ui:Label text="cents" display-tooltip-when-elided="true" style="font-size: 20px;" />
                                     </ui:VisualElement>
-                                    <ui:Button text="Create" display-tooltip-when-elided="true" name="CreateMappingButton" style="font-size: 14px;" />
+                                    <ui:Button text="Create" display-tooltip-when-elided="true" name="CreateMappingButton" style="font-size: 14px; overflow: visible;" />
                                 </ui:VisualElement>
                             </ui:VisualElement>
                             <ui:VisualElement name="CreateComma" style="flex-direction: row; align-items: center; justify-content: center;">
                                 <ui:Label text="Create&#10;Rank-2" display-tooltip-when-elided="true" enable-rich-text="false" style="font-size: 24px; justify-content: center; align-items: center;" />
                                 <ui:VisualElement style="flex-direction: column; justify-content: center; align-items: stretch;">
                                     <ui:VisualElement name="CreateCommaFromMonzos" style="flex-direction: row;">
-                                        <ui:TextField picking-mode="Ignore" value="-4" text="-4" name="CreateCommaX" style="font-size: 20px;" />
-                                        <ui:TextField picking-mode="Ignore" value="4" text="4" name="CreateCommaY" style="font-size: 20px;" />
-                                        <ui:TextField picking-mode="Ignore" value="-1" text="-1" name="CreateCommaZ" style="font-size: 20px;" />
+                                        <ui:TextField picking-mode="Ignore" value="-4" text="-4" name="CreateCommaX" style="font-size: 20px; overflow: visible;" />
+                                        <ui:TextField picking-mode="Ignore" value="4" text="4" name="CreateCommaY" style="font-size: 20px; overflow: visible;" />
+                                        <ui:TextField picking-mode="Ignore" value="-1" text="-1" name="CreateCommaZ" style="font-size: 20px; overflow: visible;" />
                                     </ui:VisualElement>
                                     <ui:VisualElement name="CreateCommaFromRatio" style="flex-direction: row; justify-content: center;">
-                                        <ui:TextField picking-mode="Ignore" value="81" text="81" name="CreateCommaNumerator" style="font-size: 20px;" />
+                                        <ui:TextField picking-mode="Ignore" value="81" text="81" name="CreateCommaNumerator" style="font-size: 20px; overflow: visible;" />
                                         <ui:Label text="/" display-tooltip-when-elided="true" style="font-size: 20px;" />
-                                        <ui:TextField picking-mode="Ignore" value="80" text="80" name="CreateCommaDenominator" style="font-size: 20px;" />
+                                        <ui:TextField picking-mode="Ignore" value="80" text="80" name="CreateCommaDenominator" style="font-size: 20px; overflow: visible;" />
                                     </ui:VisualElement>
                                     <ui:VisualElement name="CreateCommaFromName">
-                                        <ui:TextField picking-mode="Ignore" value="Meantone" text="Meantone" name="CreateCommaName" style="font-size: 14px;" />
+                                        <ui:TextField picking-mode="Ignore" value="Meantone" text="Meantone" name="CreateCommaName" style="font-size: 14px; overflow: visible;" />
                                     </ui:VisualElement>
-                                    <ui:Button text="Create" display-tooltip-when-elided="true" name="CreateCommaButton" style="font-size: 14px;" />
+                                    <ui:Button text="Create" display-tooltip-when-elided="true" name="CreateCommaButton" style="font-size: 14px; overflow: visible;" />
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement style="justify-content: space-around; height: 100%;">
-                            <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" name="CreateMappingType" style="max-width: none;" />
-                            <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" name="CreateCommaType" />
+                            <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" name="CreateMappingType" style="max-width: none; overflow: visible;" />
+                            <ui:DropdownField index="-1" choices="System.Collections.Generic.List`1[System.String]" name="CreateCommaType" style="overflow: visible;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:Toggle label="Center new temperament" name="PTSObjectCreaterCenterNewObject" value="true" />
+                    <ui:Toggle label="Center new temperament" name="PTSObjectCreaterCenterNewObject" value="false" style="overflow: visible;" />
                     <ui:VisualElement style="flex-direction: row; justify-content: center;">
-                        <ui:Button text="Destroy All Rank-1" display-tooltip-when-elided="true" name="DestroyMappings" style="font-size: 14px;" />
-                        <ui:Button text="Destroy All Rank-2" display-tooltip-when-elided="true" name="DestroyCommas" style="font-size: 14px;" />
+                        <ui:Button text="Destroy All Rank-1" display-tooltip-when-elided="true" name="DestroyMappings" style="font-size: 14px; overflow: visible;" />
+                        <ui:Button text="Destroy All Rank-2" display-tooltip-when-elided="true" name="DestroyCommas" style="font-size: 14px; overflow: visible;" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-direction: row; justify-content: center;">
-                        <ui:Button text="Destroy All Rank-1 and Rank-2" display-tooltip-when-elided="true" name="DestroyMappingsAndCommas" style="font-size: 14px;" />
+                        <ui:Button text="Destroy All Rank-1 and Rank-2" display-tooltip-when-elided="true" name="DestroyMappingsAndCommas" style="font-size: 14px; overflow: visible;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="SoundOptions" class="PTS" />
             </ui:VisualElement>
             <ui:VisualElement name="Bottom" style="width: 100%; height: 100%; flex-direction: column-reverse; justify-content: space-between; align-items: flex-end;">
                 <ui:VisualElement name="PTSObjectInfo" class="PTS" style="height: auto; flex-direction: column; align-items: center;">
-                    <ui:ScrollView name="MappingInfo" style="width: 100%; height: auto; min-width: 0; min-height: 0; opacity: 1;">
+                    <ui:ScrollView name="MappingInfo" style="width: 100%; height: auto; min-width: 0; min-height: 0; opacity: 1; flex-wrap: wrap;">
                         <ui:Label text="&lt; 12 19 28 ]" display-tooltip-when-elided="true" name="MappingVals" style="align-items: stretch; width: 100%; -unity-text-align: upper-center; font-size: 28px;" />
-                        <ui:Label text="12p" display-tooltip-when-elided="true" name="MappingWart" style="font-size: 16px; -unity-text-align: upper-center;" />
-                        <ui:TextField picking-mode="Ignore" label="Step Size" value="100" text="100" readonly="true" name="MappingStepSize" focusable="false" />
-                        <ui:TextField picking-mode="Ignore" label="TOP Octave Stretch" value="0" text="0" name="MappingTOPOffset" readonly="true" focusable="false" />
+                        <ui:Label text="12p" display-tooltip-when-elided="true" name="MappingWart" style="font-size: 16px; -unity-text-align: upper-center; flex-wrap: wrap;" />
+                        <ui:TextField picking-mode="Ignore" label="Step Size" value="100" text="100" readonly="true" name="MappingStepSize" focusable="false" style="overflow: visible;" />
+                        <ui:TextField picking-mode="Ignore" label="TOP Octave Stretch" value="0" text="0" name="MappingTOPOffset" readonly="true" focusable="false" style="overflow: visible;" />
                         <ui:VisualElement style="flex-direction: row; justify-content: flex-end;">
                             <ui:Label text="Weighted Vals" display-tooltip-when-elided="true" style="width: 25%;" />
-                            <ui:TextField picking-mode="Ignore" value="1" text="1" name="MappingWeightedX" readonly="true" focusable="false" style="width: 25%;" />
-                            <ui:TextField picking-mode="Ignore" value="1" text="1" name="MappingWeightedY" readonly="true" focusable="false" style="width: 25%;" />
-                            <ui:TextField picking-mode="Ignore" value="1" text="1" name="MappingWeightedZ" focusable="false" readonly="true" style="width: 25%;" />
+                            <ui:TextField picking-mode="Ignore" value="1" text="1" name="MappingWeightedX" readonly="true" focusable="false" style="width: 25%; overflow: visible;" />
+                            <ui:TextField picking-mode="Ignore" value="1" text="1" name="MappingWeightedY" readonly="true" focusable="false" style="width: 25%; overflow: visible;" />
+                            <ui:TextField picking-mode="Ignore" value="1" text="1" name="MappingWeightedZ" focusable="false" readonly="true" style="width: 25%; overflow: visible;" />
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-direction: row;">
-                            <ui:Button text="Join" display-tooltip-when-elided="true" name="MappingJoin" style="font-size: 14px; width: 33%;" />
-                            <ui:Button text="Merge +" display-tooltip-when-elided="true" name="MappingMergePlus" style="width: 33%;" />
-                            <ui:Button text="Merge -" display-tooltip-when-elided="true" name="MappingMergeMinus" style="width: 33%;" />
+                            <ui:Button text="Join" display-tooltip-when-elided="true" name="MappingJoin" style="font-size: 14px; width: 33%; overflow: visible;" />
+                            <ui:Button text="Merge +" display-tooltip-when-elided="true" name="MappingMergePlus" style="width: 33%; overflow: visible;" />
+                            <ui:Button text="Merge -" display-tooltip-when-elided="true" name="MappingMergeMinus" style="width: 33%; overflow: visible;" />
                         </ui:VisualElement>
                         <ui:Button text="Center" display-tooltip-when-elided="true" name="MappingSetPosition" />
-                        <ui:Button text="View Horagram" display-tooltip-when-elided="true" name="MappingViewHoragram" />
+                        <ui:Button text="View Horagram" display-tooltip-when-elided="true" name="MappingViewHoragram" style="overflow: visible;" />
                         <ui:VisualElement name="Links" style="width: auto;">
                             <ui:VisualElement style="flex-direction: row; width: auto;">
-                                <ui:Button text="Xen Wiki" display-tooltip-when-elided="true" name="LinkXenWiki" style="width: 50%;" />
-                                <ui:Button text="x31eq" display-tooltip-when-elided="true" name="LinkX31EQ" style="width: 50%;" />
+                                <ui:Button text="Xen Wiki" display-tooltip-when-elided="true" name="LinkXenWiki" style="width: 50%; overflow: visible;" />
+                                <ui:Button text="x31eq" display-tooltip-when-elided="true" name="LinkX31EQ" style="width: 50%; overflow: visible;" />
                             </ui:VisualElement>
                             <ui:VisualElement style="flex-direction: row; width: auto;">
-                                <ui:Button text="Scale Workshop" display-tooltip-when-elided="true" name="LinkScaleWorkshop" style="width: 50%;" />
-                                <ui:Button text="Xen Calc" display-tooltip-when-elided="true" name="LinkXenCalc" style="width: 50%;" />
+                                <ui:Button text="Scale Workshop" display-tooltip-when-elided="true" name="LinkScaleWorkshop" style="width: 50%; overflow: visible;" />
+                                <ui:Button text="Xen Calc" display-tooltip-when-elided="true" name="LinkXenCalc" style="width: 50%; overflow: visible;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:Button text="Delete" display-tooltip-when-elided="true" name="MappingDelete" style="width: 100%; font-size: 14px;" />
                     </ui:ScrollView>
-                    <ui:ScrollView name="CommaInfo" style="width: 100%; height: auto; max-width: none; max-height: none; min-width: 0; min-height: 0; justify-content: flex-start; display: flex; position: relative;">
+                    <ui:ScrollView name="CommaInfo" style="width: 100%; height: auto; max-width: none; max-height: none; min-width: 0; min-height: 0; justify-content: flex-start; display: flex; position: relative; flex-wrap: wrap;">
                         <ui:Label text="[ -4 4 -1 &gt;" display-tooltip-when-elided="true" name="CommaMonzos" style="font-size: 28px; width: 100%;" />
                         <ui:Label text="Meantone" display-tooltip-when-elided="true" name="CommaName" style="font-size: 16px; width: 100%;" />
                         <ui:Label text="81/80" display-tooltip-when-elided="true" name="CommaRatio" style="font-size: 14px; width: auto; flex-wrap: wrap; margin-left: 2px; margin-right: 2px; padding-left: 2px; max-width: 100%; white-space: normal;" />
-                        <ui:TextField picking-mode="Ignore" label="Tempered Interval Size" value="21.5" text="21.5" name="CommaTemperedIntervalSize" />
-                        <ui:TextField picking-mode="Ignore" label="Period" value="2/1" text="2/1" name="CommaPeriod" readonly="true" focusable="true" />
-                        <ui:TextField picking-mode="Ignore" label="Generator" value="4/3" text="4/3" name="CommaGenerator" readonly="true" focusable="true" />
-                        <ui:TextField picking-mode="Ignore" label="Complexity" value="1" text="1" name="CommaComplexity" readonly="true" focusable="false" />
-                        <ui:TextField picking-mode="Ignore" label="TOP Damage" value="1.7" text="1.7" name="CommaTOPDamage" readonly="true" focusable="false" />
+                        <ui:TextField picking-mode="Ignore" label="Tempered Interval Size" value="21.5" text="21.5" name="CommaTemperedIntervalSize" style="overflow: visible;" />
+                        <ui:TextField picking-mode="Ignore" label="Period" value="2/1" text="2/1" name="CommaPeriod" readonly="true" focusable="true" style="overflow: visible;" />
+                        <ui:TextField picking-mode="Ignore" label="Generator" value="4/3" text="4/3" name="CommaGenerator" readonly="true" focusable="true" style="overflow: visible;" />
+                        <ui:TextField picking-mode="Ignore" label="Complexity" value="1" text="1" name="CommaComplexity" readonly="true" focusable="false" style="overflow: visible; visibility: visible;" />
+                        <ui:TextField picking-mode="Ignore" label="TOP Damage" value="1.7" text="1.7" name="CommaTOPDamage" readonly="true" focusable="false" style="overflow: visible;" />
                         <ui:VisualElement style="flex-direction: row;">
-                            <ui:Button text="Join" display-tooltip-when-elided="true" name="CommaJoin" style="font-size: 14px; width: 33%;" />
-                            <ui:Button text="Merge +" display-tooltip-when-elided="true" name="CommaMergePlus" style="width: 33%;" />
-                            <ui:Button text="Merge -" display-tooltip-when-elided="true" name="CommaMergeMinus" style="width: 33%;" />
+                            <ui:Button text="Join" display-tooltip-when-elided="true" name="CommaJoin" style="font-size: 14px; width: 33%; overflow: visible;" />
+                            <ui:Button text="Merge +" display-tooltip-when-elided="true" name="CommaMergePlus" style="width: 33%; overflow: visible;" />
+                            <ui:Button text="Merge -" display-tooltip-when-elided="true" name="CommaMergeMinus" style="width: 33%; overflow: visible;" />
                         </ui:VisualElement>
-                        <ui:Button text="Center" display-tooltip-when-elided="true" name="CommaSetPosition" />
-                        <ui:Button text="View Horagram" display-tooltip-when-elided="true" name="CommaViewHoragram" />
+                        <ui:Button text="Center" display-tooltip-when-elided="true" name="CommaSetPosition" style="overflow: visible;" />
+                        <ui:Button text="View Horagram" display-tooltip-when-elided="true" name="CommaViewHoragram" style="overflow: visible;" />
                         <ui:VisualElement name="Links" style="width: auto;">
                             <ui:VisualElement style="flex-direction: row; width: auto;">
-                                <ui:Button text="Xen Wiki" display-tooltip-when-elided="true" name="LinkXenWiki" style="width: 50%;" />
-                                <ui:Button text="x31eq" display-tooltip-when-elided="true" name="LinkX31EQ" style="width: 50%;" />
+                                <ui:Button text="Xen Wiki" display-tooltip-when-elided="true" name="LinkXenWiki" style="width: 50%; overflow: visible;" />
+                                <ui:Button text="x31eq" display-tooltip-when-elided="true" name="LinkX31EQ" style="width: 50%; overflow: visible;" />
                             </ui:VisualElement>
                             <ui:VisualElement style="flex-direction: row; width: auto;">
-                                <ui:Button text="Scale Workshop" display-tooltip-when-elided="true" name="LinkScaleWorkshop" style="width: 50%;" />
-                                <ui:Button text="Xen Calc" display-tooltip-when-elided="true" name="LinkXenCalc" style="width: 50%;" />
+                                <ui:Button text="Scale Workshop" display-tooltip-when-elided="true" name="LinkScaleWorkshop" style="width: 50%; overflow: visible;" />
+                                <ui:Button text="Xen Calc" display-tooltip-when-elided="true" name="LinkXenCalc" style="width: 50%; overflow: visible;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
-                        <ui:Button text="Delete" display-tooltip-when-elided="true" name="CommaDelete" style="font-size: 14px;" />
+                        <ui:Button text="Delete" display-tooltip-when-elided="true" name="CommaDelete" style="font-size: 14px; overflow: visible;" />
                     </ui:ScrollView>
                 </ui:VisualElement>
             </ui:VisualElement>

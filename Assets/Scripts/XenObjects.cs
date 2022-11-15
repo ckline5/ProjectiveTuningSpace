@@ -154,5 +154,10 @@ public abstract class XenObjects
         {
             return $"[ {X} {Y} {Z} >";
         }
+
+        public static float operator *(Monzo m, Val v)
+        {
+            return XenMath.getSteps(v, m);
+        }
     }
 }

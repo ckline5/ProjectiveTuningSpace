@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +73,7 @@ public class MOS : MonoBehaviour
         transform.position = pos;
         DrawCircles();
         DrawMOS();
+        //DrawPitchCounts();
     }
 
     public void DeleteAll()
@@ -128,7 +130,7 @@ public class MOS : MonoBehaviour
             circle.transform.parent = transform;
             circle.name = "Circle " + c;
             circle.line.positionCount = segments + 1;
-            circle.AddCollider(); //actually removes it lol
+            circle.RemoveCollider(); 
             DrawCircle(circle, transform.position, c / Mathf.Sqrt(scaling) );
         }
     }
@@ -172,7 +174,18 @@ public class MOS : MonoBehaviour
                 line.line.SetPosition(0, new Vector3(x0, 0, y0));
                 line.line.SetPosition(1, new Vector3(x1, 0, y1));
 
-                line.AddCollider();
+                if (!lines.Exists(x => x.cents == line.cents))
+                {
+                    //only add a collider if it's a new cents value
+                    line.AddCollider();
+                }
+                else
+                {
+                    line.RemoveCollider();
+                }
+
+                //line.SetText(line.cents.ToString());
+                //line.SetTextPosition();
 
                 lines.Add(line);
             }
@@ -313,5 +326,17 @@ public class MOS : MonoBehaviour
             angle += change;
         }
         circleLines.Add(line);
+    }
+
+    private void DrawPitchCounts()
+    {
+        foreach (KeyValuePair<int, List<decimal>> kvp in pitches)
+        {
+            int ringNo = kvp.Key;
+            int pitchCount = kvp.Value.Count;
+            MOSLine circle = circleLines[ringNo];
+            //circle.SetText(pitchCount.ToString());
+            //circle.SetTextPosition();
+        }
     }
 }

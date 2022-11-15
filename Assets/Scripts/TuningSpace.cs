@@ -11,8 +11,10 @@ public class TuningSpace : MonoBehaviour
     private static TuningSpace _instance;
     public static TuningSpace Instance { get { return _instance; } }
 
-    [TextArea(3,10)]
+    [TextArea(3, 10)]
     public string introductionMessage;
+    [TextArea(3, 10)]
+    public string creditsMessage;
 
     //private UIHandler UIHandler.Instance;
     //FPSFlyer FPSFlyer.Instance;
@@ -87,6 +89,13 @@ public class TuningSpace : MonoBehaviour
     List<DamageHexagon> hexagons = new List<DamageHexagon>();
 
     public int MappingsCount { get { return mappings.Count; } }
+
+    public enum GameMode
+    {
+        PTS,
+        MOS
+    };
+    public GameMode gameMode;
 
     public enum JoinMode
     {
@@ -235,7 +244,7 @@ public class TuningSpace : MonoBehaviour
             //DontDestroyOnLoad(gameObject);
         }
 
-        CenterNewTemperament = true;
+        //CenterNewTemperament = true;
     }
 
     // Start is called before the first frame update
@@ -244,8 +253,11 @@ public class TuningSpace : MonoBehaviour
         UIHandler.Instance.ShowInfo(introductionMessage);
         miniMosMesh.gameObject.SetActive(false);
 
+        gameMode = GameMode.PTS;
+
         //OnSelectedObjectChange += OnSelectedObjectChangeHandler;
         //StartCoroutine(ProceduralPTS(5, 7, .01f));
+
     }
 
     IEnumerator ProceduralPTS(float from, float to, float by)
@@ -406,13 +418,19 @@ public class TuningSpace : MonoBehaviour
         }
         foreach (Mapping m in mappings)
         {
-            StartCoroutine(Delete(m));
+            if (m.mappingType == Mapping.MappingType.ET || m.mappingType == Mapping.MappingType.ET_ENCIPHERED)
+                StartCoroutine(Delete(m));
         }
         mappings.RemoveAll(m => m);
     }
 
     public void DeleteAllCommas()
     {
+        foreach (Mapping m in mappings)
+        {
+            if (m.mappingType == Mapping.MappingType.TOP)
+                StartCoroutine(Delete(m));
+        }
         foreach (Comma c in Commas)
         {
             StartCoroutine(Delete(c));
@@ -507,23 +525,43 @@ public class TuningSpace : MonoBehaviour
         {
             //first get the patent val
             Val patentVal = GetPatentVal(i, primes);
-            populateMappings2 = StartCoroutine(PopulateMappings2(patentVal, i));
+            //and the weighted vals
+            Val weighted = new Val(GetWeightedVals(patentVal, primes));
+            populateMappings2 = StartCoroutine(PopulateMappings2(patentVal, weighted, i, max_offset / 2));
             yield return null;
         }
     }
 
-    IEnumerator PopulateMappings2(Val patentVal, float i)
+    IEnumerator PopulateMappings2(Val patentVal, Val weighted, float i, int offset)
     {
-        for (int j = (int)(patentVal.Y - max_offset >= 0 ? patentVal.Y - max_offset : 0); j <= patentVal.Y + max_offset; j++)
+        int lowOffset = offset;
+        int highOffset = offset;
+        if (max_offset % 2 != 0)
         {
-            populateMappings3 = StartCoroutine(PopulateMappings3(patentVal, i, j));
+            if (weighted.Y > weighted.X)
+                lowOffset += 1;
+            else if (weighted.Y < weighted.X)
+                highOffset += 1;
+        }
+        for (int j = (int)(patentVal.Y - lowOffset >= 0 ? patentVal.Y - lowOffset : 0); j <= patentVal.Y + highOffset; j++)
+        {
+            populateMappings3 = StartCoroutine(PopulateMappings3(patentVal, weighted, i, j, offset));
             yield return null;
         }
     }
 
-    IEnumerator PopulateMappings3(Val patentVal, float i, float j)
+    IEnumerator PopulateMappings3(Val patentVal, Val weighted, float i, float j, int offset)
     {
-        for (int k = (int)(patentVal.Z - max_offset >= 0 ? patentVal.Z - max_offset : 0); k <= patentVal.Z + max_offset; k++)
+        int lowOffset = offset;
+        int highOffset = offset;
+        if (max_offset % 2 != 0)
+        {
+            if (weighted.Z > weighted.X)
+                lowOffset += 1;
+            else if (weighted.Z < weighted.X)
+                highOffset += 1;
+        }
+        for (int k = (int)(patentVal.Z - lowOffset >= 0 ? patentVal.Z - lowOffset : 0); k <= patentVal.Z + highOffset; k++)
         {
             populateMappings4 = StartCoroutine(PopulateMappings4(patentVal, i, j, k));
             yield return null;
@@ -709,8 +747,12 @@ public class TuningSpace : MonoBehaviour
         }
         else if (x is Comma)
         {
-            mos.Initialize(mos.transform.position, ((Comma)x).generator.Cents, ((Comma)x).period.Cents, XenMath.getCents(primes.X));
-            UIHandler.Instance.UpdateMOSInfo((x as Comma).period.Cents.ToString(), (x as Comma).generator.Cents.ToString(), XenMath.getCents(primes.X).ToString());
+            Val top = ((Comma)x).topMapping.vals;
+            float generator = ((Comma)x).generator.Monzos * top;
+            float period = ((Comma)x).period.Monzos * top / ((Comma)x).period.Divisions;
+            float eq = ((Comma)x).period.Monzos * top;
+            mos.Initialize(mos.transform.position, generator, period, eq);
+            UIHandler.Instance.UpdateMOSInfo(period.ToString(), generator.ToString(), eq.ToString());
         }
         UIHandler.Instance.ShowMOSMenu();
         UIHandler.Instance.ShowMOSOptions();
@@ -727,10 +769,14 @@ public class TuningSpace : MonoBehaviour
         }
         else if (x is Comma)
         {
-            miniMos.Initialize(miniMos.transform.parent.position, ((Comma)x).generator.Cents, ((Comma)x).period.Cents, XenMath.getCents(primes.X));
+            Val top = ((Comma)x).topMapping.vals;
+            float generator = ((Comma)x).generator.Monzos * top;
+            float period = ((Comma)x).period.Monzos * top / ((Comma)x).period.Divisions;
+            float eq = ((Comma)x).period.Monzos * top;
+            miniMos.Initialize(mos.transform.position, generator, period, eq);
+            UIHandler.Instance.UpdateMOSInfo(period.ToString(), generator.ToString(), eq.ToString());
             Debug.Log(((Comma)x).generator.Numerator + "/" + ((Comma)x).generator.Denominator + " \\ " + ((Comma)x).generator.Divisions + ": " + ((Comma)x).generator.Cents + "; " + ((Comma)x).period.Numerator + "/" + ((Comma)x).period.Denominator + " \\ " + ((Comma)x).period.Divisions + ": " + ((Comma)x).period.Cents);
             miniMos.transform.localPosition -= new Vector3(0, 2, 0);
-            UIHandler.Instance.UpdateMOSInfo((x as Comma).period.Cents.ToString(), (x as Comma).generator.Cents.ToString(), XenMath.getCents(primes.X).ToString());
         }
         UIHandler.Instance.ShowMOSMenu();
         UIHandler.Instance.ShowMiniMOSOptions();

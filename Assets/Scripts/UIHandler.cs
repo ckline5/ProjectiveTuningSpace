@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static XenObjects;
 using static XenMath;
+using System.Linq;
 
 public class UIHandler : MonoBehaviour
 {
@@ -26,9 +27,12 @@ public class UIHandler : MonoBehaviour
     VisualElement m_CommaInfo;
     VisualElement m_ErrorsWindow;
     VisualElement m_InfoWindow;
+    VisualElement m_QuestionWindow;
+    VisualElement m_QuestionResponses;
     VisualElement m_MOSInfo;
     VisualElement m_MiniMOSOptions;
     VisualElement m_MOSOptions;
+    VisualElement m_SoundOptions;
 
 
     enum CreateMappingType
@@ -47,6 +51,41 @@ public class UIHandler : MonoBehaviour
     }
     CreateCommaType createCommaType = CreateCommaType.MONZOS;
 
+    public enum QuestionType
+    {
+        NONE,
+        YESNO,
+        OPTIMIZATION,
+        MOSSIZE
+    }
+    QuestionType questionType = QuestionType.NONE;
+    private string _questionResponse;
+    public string QuestionResponse {
+        get { return _questionResponse; }
+        set
+        {
+            if (value == _questionResponse) return;
+            _questionResponse = value;
+            if (!string.IsNullOrWhiteSpace(_questionResponse))
+            {
+                switch (questionType)
+                {
+                    case QuestionType.NONE:
+                        _questionResponse = "";
+                        break;
+                    case QuestionType.YESNO:
+                        break;
+                    case QuestionType.OPTIMIZATION:
+                        break;
+                    case QuestionType.MOSSIZE:
+                        break;
+                }
+            }
+        }
+    }
+
+
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -57,15 +96,17 @@ public class UIHandler : MonoBehaviour
         {
             _instance = this;
         }
-
         //TuningSpace.Instance = GameObject.Find("TuningSpace").GetComponent<TuningSpace>();
         //FPSFlyer.Instance = GameObject.Find("FPSFlyer.Instance").GetComponent<FPSFlyer>();
+    }
+
+    private void SetupUIElements()
+    {
+        //setup root
         root = GetComponent<UIDocument>().rootVisualElement;
         screenshotCamera.enabled = false;
 
-        HidePTSObjectInfo();
-        
-
+        //setup visualelements
         m_PrimeBasis = root.Q<VisualElement>("PrimeBasis");
         m_PTSObjectCreator = root.Q<VisualElement>("PTSObjectCreator");
         m_Options = root.Q<VisualElement>("Options");
@@ -76,13 +117,18 @@ public class UIHandler : MonoBehaviour
         m_ErrorsWindow.style.display = DisplayStyle.None;
         m_InfoWindow = root.Q<VisualElement>("InfoWindow");
         m_InfoWindow.style.display = DisplayStyle.None;
+        m_QuestionWindow = root.Q<VisualElement>("QuestionWindow");
+        m_QuestionWindow.style.display = DisplayStyle.None;
+        m_QuestionResponses = m_QuestionWindow.Q<VisualElement>("QuestionResponses");
         m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector").style.display = DisplayStyle.None;
         m_MOSInfo = root.Q<VisualElement>("MOSInfo");
         m_MOSInfo.style.display = DisplayStyle.None;
         m_MiniMOSOptions = m_MOSInfo.Q<VisualElement>("MiniMOSOptions");
         m_MOSOptions = m_MOSInfo.Q<VisualElement>("MOSOptions");
+        m_SoundOptions = root.Q<VisualElement>("SoundOptions");
+        m_SoundOptions.style.display = DisplayStyle.None;
 
-
+        //setup buttons
         m_PrimeBasis.Q<Button>("PrimeBasisInit").clicked += PrimeBasisInit_clicked;
         m_PrimeBasis.Q<Button>("PrimeBasisCreate").clicked += PrimeBasisCreate_clicked;
         m_PrimeBasis.Q<Button>("PrimeBasisDestroyAll").clicked += PrimeBasisDestroyAll_clicked;
@@ -93,6 +139,7 @@ public class UIHandler : MonoBehaviour
         m_PTSObjectCreator.Q<Button>("CreateCommaButton").clicked += CreateCommaButton_clicked;
         m_Options.Q<Button>("ScreenshotButton").clicked += ScreenshotButton_clicked;
         m_Options.Q<Button>("ResetPositionButton").clicked += ResetPositionButton_clicked;
+        m_Options.Q<Button>("CreditsButton").clicked += CreditsButton_clicked;
         m_MappingInfo.Q<Button>("MappingJoin").clicked += MappingJoin_clicked;
         m_MappingInfo.Q<Button>("MappingMergePlus").clicked += MappingMergePlus_clicked;
         m_MappingInfo.Q<Button>("MappingMergeMinus").clicked += MappingMergeMinus_clicked;
@@ -107,20 +154,32 @@ public class UIHandler : MonoBehaviour
         m_CommaInfo.Q<Button>("CommaDelete").clicked += CommaDelete_clicked;
         m_MappingInfo.Q<Button>("LinkXenWiki").clicked += LinkXenWiki_clicked;
         m_MappingInfo.Q<Button>("LinkX31EQ").clicked += LinkX31EQ_clicked;
-        m_MappingInfo.Q<Button>("LinkScaleWorkshop").clicked += LinkScaleWorkshop_clicked;
+        m_MappingInfo.Q<Button>("LinkScaleWorkshop").clicked += LinkScaleWorkshopMapping_clicked;
         m_MappingInfo.Q<Button>("LinkXenCalc").clicked += LinkXenCalc_clicked;
         m_CommaInfo.Q<Button>("LinkXenWiki").clicked += LinkXenWiki_clicked;
         m_CommaInfo.Q<Button>("LinkX31EQ").clicked += LinkX31EQ_clicked;
-        m_CommaInfo.Q<Button>("LinkScaleWorkshop").clicked += LinkScaleWorkshop_clicked;
+        m_CommaInfo.Q<Button>("LinkScaleWorkshop").clicked += LinkScaleWorkshopComma_clicked;
         m_CommaInfo.Q<Button>("LinkXenCalc").clicked += LinkXenCalc_clicked;
         m_ErrorsWindow.Q<Button>("ErrorsOK").clicked += ErrorsOK_clicked;
         m_InfoWindow.Q<Button>("InfoOK").clicked += InfoOK_clicked;
+        m_QuestionWindow.Q<Button>("QuestionCancel").clicked += QuestionCancel_clicked;
         m_MiniMOSOptions.Q<Button>("MiniMOSHide").clicked += MiniMOSHide_clicked;
         m_MiniMOSOptions.Q<Button>("MiniMOSViewFullMOS").clicked += MiniMOSViewFullMOS_clicked;
         m_MOSOptions.Q<Button>("MOSCreate").clicked += MOSCreate_clicked;
         m_MOSOptions.Q<Button>("MOSBackToPTS").clicked += MOSBackToPTS_clicked;
         m_MOSOptions.Q<Button>("MOSScreenshot").clicked += MOSScreenshot_clicked;
+        m_MOSOptions.Q<Button>("MOSResetPosition").clicked += ResetPositionButton_clicked;
+        m_MOSInfo.Q<Button>("MOSPeriodPlus").clicked += MOSPeriodPlus_clicked;
+        m_MOSInfo.Q<Button>("MOSPeriodMinus").clicked += MOSPeriodMinus_clicked;
+        m_MOSInfo.Q<Button>("MOSGeneratorPlus").clicked += MOSGeneratorPlus_clicked;
+        m_MOSInfo.Q<Button>("MOSGeneratorMinus").clicked += MOSGeneratorMinus_clicked;
+        m_MOSInfo.Q<Button>("MOSEquivalenceIntervalPlus").clicked += MOSEquivalenceIntervalPlus_clicked;
+        m_MOSInfo.Q<Button>("MOSEquivalenceIntervalMinus").clicked += MOSEquivalenceIntervalMinus_clicked;
+    }
 
+    private void SetupUIElementsReferencingTuningSpace()
+    { 
+        //setup textfields
         m_PrimeBasis.Q<TextField>("PrimeX").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
         m_PrimeBasis.Q<TextField>("PrimeY").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
         m_PrimeBasis.Q<TextField>("PrimeZ").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) PrimeBasisCreate_clicked(); });
@@ -146,7 +205,7 @@ public class UIHandler : MonoBehaviour
         m_MOSInfo.Q<TextField>("MOSGenerator").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) MOSCreate_clicked(); });
         m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").RegisterCallback<KeyDownEvent>(e => { if (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter) MOSCreate_clicked(); });
 
-
+        //setup dropdowns
         DropdownField m_CreateMappingTypeMenu = m_PTSObjectCreator.Q<DropdownField>("CreateMappingType");
         m_CreateMappingTypeMenu.choices.Clear();
         m_CreateMappingTypeMenu.choices.AddRange(System.Enum.GetNames(typeof(CreateMappingType)));
@@ -180,16 +239,154 @@ public class UIHandler : MonoBehaviour
         m_RainbowIntervalSelectorMenu.RegisterValueChangedCallback(v => RainbowIntervalSelectorMenu_selected(v.newValue));
         m_RainbowIntervalSelectorMenu.value = "";
 
+        //setup sliders
         Slider m_MetaZoomSlider = m_Options.Q<Slider>("MetaZoomSlider");
         m_MetaZoomSlider.RegisterValueChangedCallback(v => MetaZoomSlider_changed(v.newValue));
 
+        //setup toggles
         Toggle m_CenterNewTemperament = m_PTSObjectCreator.Q<Toggle>("PTSObjectCreaterCenterNewObject");
         m_CenterNewTemperament.RegisterValueChangedCallback(v => TuningSpace.Instance.CenterNewTemperament = v.newValue);
 
         Toggle m_DisplayEncipheredVals = m_Options.Q<Toggle>("DisplayEncipheredVals");
         m_DisplayEncipheredVals.RegisterValueChangedCallback(v => TuningSpace.Instance.displayEncipheredVals = v.newValue);
+
     }
 
+    private void CreditsButton_clicked()
+    {
+        ShowInfo(TuningSpace.Instance.creditsMessage);
+    }
+
+    private float GetMOSIncrementBy()
+    {
+        string inc = m_MOSInfo.Q<TextField>("MOSIncrementBy").value;
+        if (inc == "N/A") inc = "0";
+        float value = getCents(inc);
+        //if (float.TryParse(inc, out value))
+        //{
+        //    return value;
+        //}
+        //else
+        //{
+        //    throw new ArgumentException("Invalid IncrementBy: " + gen);
+        //}
+        return value;
+    }
+
+    private void MOSEquivalenceIntervalMinus_clicked()
+    {
+        string gen = m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").value;
+        if (gen == "N/A") gen = "0";
+        float value;
+        if (float.TryParse(gen, out value))
+        {
+            value -= GetMOSIncrementBy();
+            m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").value = value.ToString();
+            MOSCreate_clicked();
+        }
+        else
+        {
+            throw new ArgumentException("Invalid EquivalenceInterval: " + gen);
+        }
+    }
+
+    private void MOSEquivalenceIntervalPlus_clicked()
+    {
+        string gen = m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").value;
+        if (gen == "N/A") gen = "0";
+        float value;
+        if (float.TryParse(gen, out value))
+        {
+            value += GetMOSIncrementBy();
+            m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").value = value.ToString();
+            MOSCreate_clicked();
+        }
+        else
+        {
+            throw new ArgumentException("Invalid EquivalenceInterval: " + gen);
+        }
+    }
+
+    private void MOSPeriodMinus_clicked()
+    {
+        string gen = m_MOSInfo.Q<TextField>("MOSPeriod").value;
+        if (gen == "N/A") gen = "0";
+        float value;
+        if (float.TryParse(gen, out value))
+        {
+            value -= GetMOSIncrementBy();
+            m_MOSInfo.Q<TextField>("MOSPeriod").value = value.ToString();
+            MOSCreate_clicked();
+        }
+        else
+        {
+            throw new ArgumentException("Invalid Period: " + gen);
+        }
+    }
+
+    private void MOSPeriodPlus_clicked()
+    {
+        string gen = m_MOSInfo.Q<TextField>("MOSPeriod").value;
+        if (gen == "N/A") gen = "0";
+        float value;
+        if (float.TryParse(gen, out value))
+        {
+            value += GetMOSIncrementBy();
+            m_MOSInfo.Q<TextField>("MOSPeriod").value = value.ToString();
+            MOSCreate_clicked();
+        }
+        else
+        {
+            throw new ArgumentException("Invalid Period: " + gen);
+        }
+    }
+
+    private void MOSGeneratorPlus_clicked()
+    {
+        string gen = m_MOSInfo.Q<TextField>("MOSGenerator").value;
+        if (gen == "N/A") gen = "0";
+        float value;
+        if (float.TryParse(gen, out value))
+        {
+            value += GetMOSIncrementBy();
+            m_MOSInfo.Q<TextField>("MOSGenerator").value = value.ToString();
+            MOSCreate_clicked();
+        }
+        else
+        {
+            throw new ArgumentException("Invalid generator: " + gen);
+        }
+    }
+
+    private void MOSGeneratorMinus_clicked()
+    {
+        string gen = m_MOSInfo.Q<TextField>("MOSGenerator").value;
+        if (gen == "N/A") gen = "0";
+        float value;
+        if (float.TryParse(gen, out value))
+        {
+            value -= GetMOSIncrementBy();
+            m_MOSInfo.Q<TextField>("MOSGenerator").value = value.ToString();
+            MOSCreate_clicked();
+        }
+        else
+        {
+            throw new ArgumentException("Invalid generator: " + gen);
+        }
+    }
+    
+    private void OnEnable()
+    {
+        SetupUIElements();
+        HidePTSObjectInfo();
+    }
+
+    private void Start()
+    {
+        SetupUIElementsReferencingTuningSpace();
+        InitializePrimeBasis();
+    }
+    
     private void CommaMergeMinus_clicked()
     {
         TuningSpace.Instance.joinMode = TuningSpace.JoinMode.COMMA_MERGE_MINUS;
@@ -230,6 +427,7 @@ public class UIHandler : MonoBehaviour
         TuningSpace.Instance.gameObject.SetActive(true);
         TuningSpace.Instance.miniMosMesh.gameObject.SetActive(false);
         TuningSpace.Instance.mos.gameObject.SetActive(false);
+        TuningSpace.Instance.gameMode = TuningSpace.GameMode.PTS;
         ShowPTSMenu();
     }
 
@@ -242,17 +440,31 @@ public class UIHandler : MonoBehaviour
         decimal generatorCents = (decimal)XenMath.getCents(generatorInput);
         decimal periodCents = (decimal)XenMath.getCents(periodInput);
         decimal equivalenceIntervalCents = (decimal)XenMath.getCents(equivalenceIntervalInput);
-        
+
+        if (generatorCents < 0)
+            throw new ArgumentException("Generator cents cannot be below 0");
+        if (periodCents < 0)
+            throw new ArgumentException("Period cents cannot be below 0");
+        if (equivalenceIntervalCents < 0)
+            throw new ArgumentException("Equivalence Interval cents cannot be below 0");
+
         TuningSpace.Instance.ViewMainMos(generatorCents, periodCents, equivalenceIntervalCents);
+        TuningSpace.Instance.gameMode = TuningSpace.GameMode.MOS;
     }
 
-    private void Start()
+    private void InitializePrimeBasis()
     {
         //init prime basis
         float primeX, primeY, primeZ;
-        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeX").value, out primeX);
-        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeY").value, out primeY);
-        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeZ").value, out primeZ);
+        string x = m_PrimeBasis.Q<TextField>("PrimeX").value;
+        string y = m_PrimeBasis.Q<TextField>("PrimeY").value;
+        string z = m_PrimeBasis.Q<TextField>("PrimeZ").value;
+        //float.TryParse(x, out primeX);
+        //float.TryParse(y, out primeY);
+        //float.TryParse(z, out primeZ);
+        primeX = getRatioAsDecimal(x);
+        primeY = getRatioAsDecimal(y);
+        primeZ = getRatioAsDecimal(z);
         PrimeBasis primes = new PrimeBasis(primeX, primeY, primeZ);
         TuningSpace.Instance.primes = primes;
     }
@@ -270,8 +482,10 @@ public class UIHandler : MonoBehaviour
         TuningSpace.Instance.ViewMainMos(TuningSpace.Instance.SelectedObject);
         TuningSpace.Instance.miniMosMesh.gameObject.SetActive(false);
         TuningSpace.Instance.gameObject.SetActive(false);
+        TuningSpace.Instance.gameMode = TuningSpace.GameMode.MOS;
         HidePTSMenu();
         ShowMOSMenu();
+        FPSFlyer.Instance.ResetPosition();
     }
 
     private void LinkXenCalc_clicked()
@@ -279,8 +493,13 @@ public class UIHandler : MonoBehaviour
         Application.OpenURL(TuningSpace.Instance.SelectedObject.XenCalcURL);
     }
 
-    private void LinkScaleWorkshop_clicked()
+    private void LinkScaleWorkshopMapping_clicked()
     {
+        Application.OpenURL(TuningSpace.Instance.SelectedObject.ScaleWorkshopURL);
+    }
+
+    private void LinkScaleWorkshopComma_clicked()
+    { 
         Application.OpenURL(TuningSpace.Instance.SelectedObject.ScaleWorkshopURL);
     }
 
@@ -296,12 +515,14 @@ public class UIHandler : MonoBehaviour
 
     private void CommaViewHoragram_clicked()
     {
-        TuningSpace.Instance.ViewMiniMos(TuningSpace.Instance.SelectedObject);
+        //TuningSpace.Instance.ViewMiniMos(TuningSpace.Instance.SelectedObject);
+        MiniMOSViewFullMOS_clicked();
     }
 
     private void MappingViewHoragram_clicked()
     {
-        TuningSpace.Instance.ViewMiniMos(TuningSpace.Instance.SelectedObject);
+        //TuningSpace.Instance.ViewMiniMos(TuningSpace.Instance.SelectedObject);
+        MiniMOSViewFullMOS_clicked();
     }
 
     private void CommaSetPosition_clicked()
@@ -338,6 +559,28 @@ public class UIHandler : MonoBehaviour
         DropdownField m_RainbowIntervalSelectorMenu = m_Options.Q<DropdownField>("MappingColorStyleRainbowIntervalSelector");
         m_RainbowIntervalSelectorMenu.choices.Clear();
         m_RainbowIntervalSelectorMenu.choices.AddRange(TuningSpace.Instance.GetAllCommaNames());
+    }
+
+    private void QuestionCancel_clicked()
+    {
+        m_QuestionWindow.style.display = DisplayStyle.None;
+        ResetQuestionResponses();
+    }
+
+    private void ResetQuestionResponses()
+    {
+        foreach (Button child in m_QuestionResponses.Children().Where(x => x.GetType() == typeof(Button)))
+        {
+            child.clickable.clickedWithEventInfo -= evt => QuestionResponse_clicked(child.text);
+            m_QuestionResponses.Remove(child);
+        }
+        questionType = QuestionType.NONE;
+    }
+
+    private void QuestionResponse_clicked(string response)
+    {
+        QuestionResponse = response;
+        ResetQuestionResponses();
     }
 
     private void InfoOK_clicked()
@@ -451,6 +694,11 @@ public class UIHandler : MonoBehaviour
     public Camera screenshotCamera;
     private void ScreenshotButton_clicked()
     {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            throw new NotImplementedException();
+        }
+
         screenshotCamera.enabled = true;
         string file = "Screenshot" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + ".png";
         //ScreenCapture.CaptureScreenshot(file, 1);
@@ -644,9 +892,16 @@ public class UIHandler : MonoBehaviour
     private void PrimeBasisCreate_clicked()
     {
         float primeX, primeY, primeZ;
-        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeX").value, out primeX);
-        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeY").value, out primeY);
-        float.TryParse(m_PrimeBasis.Q<TextField>("PrimeZ").value, out primeZ);
+        string x = m_PrimeBasis.Q<TextField>("PrimeX").value;
+        string y = m_PrimeBasis.Q<TextField>("PrimeY").value;
+        string z = m_PrimeBasis.Q<TextField>("PrimeZ").value;
+        //float.TryParse(x, out primeX);
+        //float.TryParse(y, out primeY);
+        //float.TryParse(z, out primeZ);
+        primeX = getRatioAsDecimal(x);
+        primeY = getRatioAsDecimal(y);
+        primeZ = getRatioAsDecimal(z);
+        //Debug.Log($"X: {primeX}; Y: {primeY}; Z: {primeZ}");
         PrimeBasis primes = new PrimeBasis(primeX, primeY, primeZ);
         TuningSpace.Instance.primes = primes;
         
@@ -758,11 +1013,13 @@ public class UIHandler : MonoBehaviour
     public void ShowMOSMenu()
     {
         m_MOSInfo.style.display = DisplayStyle.Flex;
+        m_SoundOptions.style.display = DisplayStyle.Flex;
     }
 
     public void HideMOSMenu()
     {
         m_MOSInfo.style.display = DisplayStyle.None;
+        m_SoundOptions.style.display = DisplayStyle.None;
     }
 
     public void ShowMiniMOSOptions()
@@ -772,6 +1029,8 @@ public class UIHandler : MonoBehaviour
         m_MOSInfo.Q<TextField>("MOSPeriod").isReadOnly = true;
         m_MOSInfo.Q<TextField>("MOSGenerator").isReadOnly = true;
         m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").isReadOnly = true;
+        m_MOSInfo.Q<Button>("MOSGeneratorPlus").style.display = DisplayStyle.None;
+        m_MOSInfo.Q<Button>("MOSGeneratorMinus").style.display = DisplayStyle.None;
     }
 
     public void ShowMOSOptions()
@@ -781,6 +1040,8 @@ public class UIHandler : MonoBehaviour
         m_MOSInfo.Q<TextField>("MOSPeriod").isReadOnly = false;
         m_MOSInfo.Q<TextField>("MOSGenerator").isReadOnly = false;
         m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").isReadOnly = false;
+        m_MOSInfo.Q<Button>("MOSGeneratorPlus").style.display = DisplayStyle.Flex;
+        m_MOSInfo.Q<Button>("MOSGeneratorMinus").style.display = DisplayStyle.Flex;
     }
 
     public void UpdateMOSInfo(string period, string generator, string equivalenceInterval)
@@ -788,6 +1049,19 @@ public class UIHandler : MonoBehaviour
         m_MOSInfo.Q<TextField>("MOSPeriod").value = period;
         m_MOSInfo.Q<TextField>("MOSGenerator").value = generator;
         m_MOSInfo.Q<TextField>("MOSEquivalenceInterval").value = equivalenceInterval;
+    }
+
+    public void ShowQuestion(string question, string[] responses, QuestionType qType)
+    {
+        m_QuestionWindow.Q<Label>("QuestionText").text = question;
+        foreach (string response in responses)
+        {
+            Button button = new Button();
+            button.name = response;
+            button.text = response;
+            button.clickable.clickedWithEventInfo += evt => QuestionResponse_clicked(response);
+            m_QuestionResponses.Add(button);
+        }
     }
 
     public void ShowInfo(string info)
@@ -798,13 +1072,21 @@ public class UIHandler : MonoBehaviour
 
     public void ShowError(string logString, string stackTrace, LogType type)
     {
-        m_ErrorsWindow.Q<Label>("ErrorText").text = logString.Split("Exception: ")[1];
+        string message;
+        if (logString.StartsWith("Exception: "))
+        {
+            message = logString.Split("Exception: ")[1];
+        }
+        else
+        {
+            message = logString;
+        }
+        m_ErrorsWindow.Q<Label>("ErrorText").text = message;
         m_ErrorsWindow.style.display = DisplayStyle.Flex;
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 }

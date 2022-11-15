@@ -3,13 +3,13 @@
     "UxmlPath": "Assets/UI/PrimeBasis.uxml",
     "CanvasX": 1,
     "CanvasY": 0,
-    "CanvasWidth": 963,
-    "CanvasHeight": 682,
+    "CanvasWidth": 1920,
+    "CanvasHeight": 1080,
     "MatchGameView": true,
-    "ZoomScale": 1.0,
+    "ZoomScale": 0.25,
     "PanOffset": {
-        "x": 20.1165771484375,
-        "y": 135.4857177734375
+        "x": 218.02914428710938,
+        "y": 241.62142944335938
     },
     "ColorModeBackgroundOpacity": 0.0,
     "ImageModeCanvasBackgroundOpacity": 1.0,

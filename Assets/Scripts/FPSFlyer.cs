@@ -34,14 +34,55 @@ public class FPSFlyer : MonoBehaviour
 
     }
 
+    int highestRecentTouchCount = 0;
     private void Update()
     {
-        CameraDrag();
+        if (Input.touchCount > highestRecentTouchCount)
+            highestRecentTouchCount = Input.touchCount;
+        else if (highestRecentTouchCount > 0 && Input.touchCount == 0)
+            highestRecentTouchCount = 0;
+
+        if (TuningSpace.Instance.gameMode != TuningSpace.GameMode.MOS)
+        {
+            CameraDrag();
+            ScrollWheelZoom();
+            PinchZoom();
+        }
         MoveToPosition();
-        ScrollWheelZoom();
         if (Input.GetButtonDown("Menu"))
         {
             UIHandler.Instance.ShowHideMenu();
+        }
+    }
+
+    private float touchDist;
+    private float lastDist;
+    private void PinchZoom()
+    {
+        if (!UIHandler.Instance.mouseInUI)
+        {
+            if (Input.touchCount == 2)
+            {
+                Touch touch1 = Input.GetTouch(0);
+                Touch touch2 = Input.GetTouch(1);
+
+                if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
+                {
+                    lastDist = Vector2.Distance(touch1.position, touch2.position);
+                }
+
+                if (touch1.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
+                {
+                    float newDist = Vector2.Distance(touch1.position, touch2.position);
+                    touchDist = lastDist - newDist;
+                    lastDist = newDist;
+
+                    // Your Code Here
+                    //Camera.main.fieldOfView += touchDist * 0.1f;
+                    float amount = touchDist * 0.001f;
+                    ZoomByAmount(-amount);
+                }
+            }
         }
     }
 
@@ -50,48 +91,58 @@ public class FPSFlyer : MonoBehaviour
         if (!UIHandler.Instance.mouseInUI)
         {
             float ScrollWheelChange = Input.GetAxis("Mouse ScrollWheel");           //This little peece of code is written by JelleWho https://github.com/jellewie
+
             if (ScrollWheelChange != 0)
             {                                            //If the scrollwheel has changed
-                positionToMoveTo = null;
-                float R = ScrollWheelChange * (TuningSpace.Instance.Zoom - .01f);                                   //The radius from current camera
-                float PosX = transform.eulerAngles.x + 90;              //Get up and down
-                float PosY = -1 * (transform.eulerAngles.y - 90);       //Get left to right
-                PosX = PosX / 180 * Mathf.PI;                                       //Convert from degrees to radians
-                PosY = PosY / 180 * Mathf.PI;                                       //^
-                float X = R * Mathf.Sin(PosX) * Mathf.Cos(PosY);                    //Calculate new coords
-                float Z = R * Mathf.Sin(PosX) * Mathf.Sin(PosY);                    //^
-                float Y = R * Mathf.Cos(PosX);                                      //^
-                float CamX = transform.position.x;                      //Get current camera postition for the offset
-                float CamY = transform.position.y;                      //^
-                float CamZ = transform.position.z;                      //^
-                float newZoom = Mathf.Abs(CamZ + Z - TuningSpace.Instance.transform.position.z);
-                if (newZoom < 5000)
-                    transform.position = new Vector3(CamX + X, CamY + Y, CamZ + Z);//Move the main camera
-                TuningSpace.Instance.Zoom = Mathf.Abs(this.transform.position.z - TuningSpace.Instance.transform.position.z);
+                ZoomByAmount(ScrollWheelChange);
             }
         }
+    }
+
+    private void ZoomByAmount(float amount)
+    {
+        positionToMoveTo = null;
+        float R = amount * (TuningSpace.Instance.Zoom - .01f);                                   //The radius from current camera
+        float PosX = transform.eulerAngles.x + 90;              //Get up and down
+        float PosY = -1 * (transform.eulerAngles.y - 90);       //Get left to right
+        PosX = PosX / 180 * Mathf.PI;                                       //Convert from degrees to radians
+        PosY = PosY / 180 * Mathf.PI;                                       //^
+        float X = R * Mathf.Sin(PosX) * Mathf.Cos(PosY);                    //Calculate new coords
+        float Z = R * Mathf.Sin(PosX) * Mathf.Sin(PosY);                    //^
+        float Y = R * Mathf.Cos(PosX);                                      //^
+        float CamX = transform.position.x;                      //Get current camera postition for the offset
+        float CamY = transform.position.y;                      //^
+        float CamZ = transform.position.z;                      //^
+        float newZoom = Mathf.Abs(CamZ + Z - TuningSpace.Instance.transform.position.z);
+        if (newZoom < 5000)
+            transform.position = new Vector3(CamX + X, CamY + Y, CamZ + Z);//Move the main camera
+        TuningSpace.Instance.Zoom = Mathf.Abs(this.transform.position.z - TuningSpace.Instance.transform.position.z);
     }
 
     private void CameraDrag()
     {
         if (!UIHandler.Instance.mouseInUI)
         {
+            if (highestRecentTouchCount > 1) return;
+
+            var mousePosition = Input.mousePosition;
+
             if (Input.GetMouseButtonDown(0))
             {
-                dragOrigin = Input.mousePosition;
+                dragOrigin = mousePosition;
                 positionToMoveTo = null;
                 return;
             }
 
             if (!Input.GetMouseButton(0)) return;
 
-            Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+            Vector3 pos = Camera.main.ScreenToViewportPoint(mousePosition - dragOrigin);
             Vector3 move = new Vector3(pos.x * speed, pos.y * speed, 0);
             //move *= -Mathf.Pow(transform.position.z + .01f, 1);
             move *= (TuningSpace.Instance.Zoom * 9/10);
 
             transform.Translate(-move, Space.World);
-            dragOrigin = Input.mousePosition;
+            dragOrigin = mousePosition;
         }
         else
         {

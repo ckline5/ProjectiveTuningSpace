@@ -16,7 +16,7 @@ public class Comma : MonoBehaviour, PTSObject
 
     List<Val> mappings = new List<Val>(3);
 
-    Mapping topMapping;
+    public Mapping topMapping;
 
     public float colliderThicknessLine = .002f;
     public float colliderThicknessWords = .0005f;
@@ -57,7 +57,7 @@ public class Comma : MonoBehaviour, PTSObject
         get
         {
             string url = XenConstants.X31EQ_URL_BASE;
-            float limit = Mathf.Max(TuningSpace.Instance.primes.AsArray);
+            string limit = TuningSpace.Instance.primes.ToString();
             if (TemperedInterval.Numerator.ToString().Contains("E") || TemperedInterval.Denominator.ToString().Contains("E"))
                 url += $"uv.cgi?uvs={TemperedInterval.NumeratorBI}%3A{TemperedInterval.DenominatorBI}&limit={limit}";
             else
@@ -106,6 +106,14 @@ public class Comma : MonoBehaviour, PTSObject
 
     public void Initialize(float x, float y, float z, string name, PrimeBasis primes)
     {
+        if (x == (int)x && y == (int)y && z == (int)z)
+        {
+            //check for gcd
+            int gcd = XenMath.gcd(XenMath.gcd((int)x, (int)y), (int)z);
+            x /= gcd;
+            y /= gcd;
+            z /= gcd;
+        }
         title = name;
         this.gameObject.name = name;
         TemperedInterval = new Interval(new Monzo(x, y, z), primes);

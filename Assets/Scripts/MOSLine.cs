@@ -16,6 +16,11 @@ public class MOSLine : MonoBehaviour
 
     public float cents;
 
+    Transform collider;
+    Transform textObj;
+    BoxCollider col;
+    TextMesh text;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +38,12 @@ public class MOSLine : MonoBehaviour
     {
         line = GetComponent<LineRenderer>();
         line.useWorldSpace = false;
+
+
+        collider = transform.GetChild(0);
+        col = collider.gameObject.GetComponent<BoxCollider>();
+        textObj = transform.GetChild(1);
+        text = textObj.gameObject.GetComponent<TextMesh>();
     }
 
     public void SetWidth(float width)
@@ -41,18 +52,14 @@ public class MOSLine : MonoBehaviour
         line.endWidth = line.startWidth;
     }
 
-    public void AddCollider()
+    public void RemoveCollider()
     {
-        Transform collider = transform.GetChild(0);
+        Destroy(collider.gameObject);
+        return;
+    }
 
-        if (lineType == LineType.CIRCLE)
-        {
-            Destroy(collider.gameObject);
-            return;
-        }
-
-        BoxCollider col = collider.gameObject.GetComponent<BoxCollider>();
-
+    public void AddCollider()
+    {   
         Vector3 m1 = line.GetPosition(0);
         Vector3 m2 = line.GetPosition(1);
 
@@ -66,5 +73,37 @@ public class MOSLine : MonoBehaviour
         float atan = v.x == 0 ? (v.z < 0 ? (-Mathf.PI / 2) : (v.z > 0 ? Mathf.PI / 2 : 0)) : Mathf.Atan(v.z / v.x);
         //Debug.Log(v + " " + atan);
         collider.transform.Rotate(new Vector3(0, 0, atan * Mathf.Rad2Deg));
+    }
+
+    public void SetText(string textString)
+    {
+        if (lineType == LineType.LINE)
+            text.anchor = TextAnchor.MiddleLeft;
+        else if (lineType == LineType.CIRCLE)
+            text.anchor = TextAnchor.UpperLeft;
+
+        text.text = textString;
+    }
+
+    public void SetTextPosition()
+    {
+        //for a circle, the position is at the first/last point on the line
+        //for a line, the position is at the last point on the line
+        //so, we can do last point for both
+        //text should be rotated to be in line with line, for a line
+
+        Vector3 m1 = line.GetPosition(0);
+        Vector3 m2 = line.GetPosition(1);
+        Vector3 v = m1 - m2;
+
+        textObj.transform.localPosition = m2;
+
+        textObj.transform.rotation = Quaternion.identity;
+        if (lineType == LineType.LINE)
+        {
+            float atan = v.x == 0 ? (v.z < 0 ? (-Mathf.PI / 2) : (v.z > 0 ? Mathf.PI / 2 : 0)) : Mathf.Atan(v.z / v.x);
+            //Debug.Log(v + " " + atan);
+            textObj.transform.Rotate(new Vector3(0, 0, atan * Mathf.Rad2Deg));
+        }
     }
 }

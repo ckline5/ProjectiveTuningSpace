@@ -325,13 +325,13 @@ public class Mapping : MonoBehaviour, PTSObject
                 //size /= Mathf.Log(TuningSpace.Instance.scaling / TuningSpace.Instance.MetaZoom * .5f);
                 size /= 3.69897f;
                 //size *= (TuningSpace.Instance.Zoom + 1) / 2f;
-                size *= Mathf.Log(((TuningSpace.Instance.Zoom + .1f) *.5f + 1));
+                size *= Mathf.Log(((TuningSpace.Instance.Zoom + .1f) *.5f + 1)) * TuningSpace.Instance.MetaZoom;
                 break;
             case MappingType.JIP:
                 size = (1 / TuningSpace.Instance.scaling) * TuningSpace.Instance.Zoom/1.5f;
                 break;
             case MappingType.TOP:
-                size = (.8f / TuningSpace.Instance.scaling) * TuningSpace.Instance.Zoom/1.5f;
+                size = (.6f / TuningSpace.Instance.scaling) * TuningSpace.Instance.Zoom/1.5f;
                 break;
             default:
                 break;
